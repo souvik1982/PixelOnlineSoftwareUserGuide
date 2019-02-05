@@ -1,0 +1,308 @@
+\relax 
+\citation{poswiki}
+\citation{ROC}
+\citation{TBM}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{7}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Pixel DAQ System}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Overview of DAQ components}{7}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The main components in the CMS pixel DAQ system. }}{8}}
+\newlabel{fig:daqcomponents}{{1}{8}}
+\citation{ROC}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.1}The Read Out Chip}{9}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces The Read Out Chip of the CMS Pixel Detector.}}{9}}
+\newlabel{fig:ROC}{{2}{9}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.2}The Token Bit Manager}{10}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces A schematic of how the Token Bit Manager reads out data from the ROCs.}}{10}}
+\newlabel{fig:TBM}{{3}{10}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.3}The Pixel FED}{11}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces A schematic of the pixel FED.}}{11}}
+\newlabel{fig:pFED}{{4}{11}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.4}The Pixel FEC}{12}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces A schematic of the pixel FEC.}}{12}}
+\newlabel{fig:pFEC}{{5}{12}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Pixel online PCs at P5}}{13}}
+\newlabel{tab:P5PCs}{{1}{13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Installation at P5}{13}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Online Software Overview}{13}}
+\newlabel{sect:overview}{{3}{13}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces FED connections for FPIX}}{14}}
+\newlabel{tab:FpixFED}{{2}{14}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces FEC connections for FPIX}}{14}}
+\newlabel{tab:FpixFEC}{{3}{14}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces CCU connections for FPIX}}{14}}
+\newlabel{tab:FpixCCU}{{4}{14}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces The different applications that compose the Pixel Online Software.}}{15}}
+\newlabel{fig:components}{{6}{15}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Package structure}{15}}
+\newlabel{sect:swcomponets}{{4}{15}}
+\citation{statemachine}
+\citation{statemachine}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Pixel Function Manager}{16}}
+\newlabel{sec:l1fm}{{4.1}{16}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}FSM Implementation Status}{16}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces The dependencies among the packages are indicated here. At top are the supervisor applications. }}{17}}
+\newlabel{fig:dependencies}{{7}{17}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces The CMS finite state machine definition. Figure taken from Ref.\nobreakspace  {}\cite  {statemachine}.}}{18}}
+\newlabel{fig:l1fm}{{8}{18}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}Control of the L1FM}{18}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Outline of L1FM implementation}{18}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}PixelSupervisor}{19}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Functions}{19}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Interface}{19}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}PixelFECSupervisor}{20}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}PixelFEDSupervisor}{20}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Coding practices}{20}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Makefile}{20}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Include files}{20}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}CVS tags}{20}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Building RPMs}{20}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Configuration Data Management}{22}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Configuration Database Interface}{22}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}C++ Configuration Data Access API}{22}}
+\newlabel{sect:cppinterface}{{7.1}{22}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.1.1}Retrieving data from the database}{22}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.1.2}Storing data in the database}{24}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.1.3}Configuration keys}{24}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.1.4}Alias manipulation}{25}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.1.5}Support of polymorphism}{26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Command line interface to configuration data}{26}}
+\newlabel{sect:cmdline}{{7.2}{26}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.2.1}Inserting new data}{26}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.2.2}Retrieving data}{27}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.2.3}Creating new configurations}{27}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.2.4}Alias manipulation}{28}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {7.2.5}Use cases}{28}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Managing Configurations}{29}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}Configuration DB Implementation}{30}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Configuration Objects}{30}}
+\newlabel{sect:configobjects}{{8}{30}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Introduction}{30}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Trim and mask bits}{33}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}ROC DACs}{37}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}PixelDetectorConfig}{38}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.5}PixelROCStatus}{39}}
+\newlabel{sec:rocstatus}{{8.5}{39}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.6}PixelNameTranslation}{40}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.7}PixelFECConfig}{41}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.8}PixelTKFECConfig}{41}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.9}PixelFEDConfig}{41}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.10}PixelCalibConfiguration}{42}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.11}PixelFedCard}{45}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.12}PixelTBMSettings}{45}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.13}PixelPortcardMap}{46}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.14}PixelPortCardConfig}{46}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.15}PixelDelay25Calibration}{47}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.16}PixelGlobalDelay25}{48}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Usage of configuration data in xdaq applications}{48}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Global delay 25 usage}{50}}
+\@writefile{toc}{\contentsline {section}{\numberline {10}Configuration}{52}}
+\newlabel{sec:configuration}{{10}{52}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.1}Configuration Sequence}{52}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.1.1}Possible modifications to the configuration Sequence}{53}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.2}Configuration steps of the underlying supervisors}{54}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.2.1}PixelDCSFSMInterface and PixelDCStoTrkFECDpInterface}{54}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.2.2}PixelTKFECSupervisor}{54}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.2.3}PixelFEDSupervisor}{54}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.2.4}PixelFECSupervisor}{54}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {10.3}Quick reconfiguration for the fine delay scan}{54}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.3.1}Relevant settings}{54}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.3.2}Implementation}{55}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {10.3.3}Limitations}{55}}
+\@writefile{toc}{\contentsline {section}{\numberline {11}Event builder configurations}{55}}
+\@writefile{toc}{\contentsline {section}{\numberline {12}Directory Structure}{56}}
+\newlabel{directorystructure}{{12}{56}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.1}Tree structure}{56}}
+\newlabel{treestructure}{{12.1}{56}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Pass condition and summary information stored in the trees. If the condition for failure is satisfied, then the `''Pass'' state is stored as 0 in the summary tree. Otherwise the ``Pass'' state is stored as 1.}}{57}}
+\newlabel{treeinformation}{{5}{57}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Output directory structure veiwing by ROOT.}}{57}}
+\newlabel{fig:directory}{{9}{57}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Output root directory structure veiwed by ROOT.}}{57}}
+\newlabel{rootdirectory}{{10}{57}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Pass information of ROCUBEqualization calibration viewed by histoviewer.}}{58}}
+\newlabel{passinfo}{{11}{58}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces New VIBias of ROCUBEqualization calibration veiwed by histoviewer.}}{58}}
+\newlabel{summaryinfo}{{12}{58}}
+\@writefile{toc}{\contentsline {section}{\numberline {13}Calibration Algorithms}{59}}
+\newlabel{sect:calib}{{13}{59}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.1}AOH and FED channel mapping test}{59}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.1.1}Mapping test steps}{59}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.1.2}Parameters}{60}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Optional parameters for AOH and FED channel mapping test.}}{61}}
+\newlabel{tab:AOHAndFEDChannelMappingTestParameters}{{6}{61}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.2}FED phase and delay scan}{61}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.2.1}Output}{61}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.2.2}Example configuration}{62}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.3}Delay25 settings for send data and return data}{62}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.3.1}Output}{62}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.4}Delay25 trigger setting}{62}}
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces  This plot shows efficiency as a function of RDa and SDa. The blue dots indicates areas with 100\% transmission efficiency. The black dots indicated partial efficiency, larger dots have higher efficiency. The red square indicates the point chosen by the algorithm. }}{63}}
+\newlabel{fig:Delay25Scan}{{13}{63}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.5}FED baseline calibration}{64}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.6}AOH bias settings}{64}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.6.1}Introduction and discussion}{64}}
+\@writefile{lof}{\contentsline {figure}{\numberline {14}{\ignorespaces Black and ultrablack levels as a function of AOH bias.}}{65}}
+\newlabel{fig:AOHBiasScan}{{14}{65}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.6.2}AOH bias calibration steps}{66}}
+\newlabel{item:FEDReceiverOffset}{{5}{66}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.6.3}Parameters}{68}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.7}AOH gain calibration}{68}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.7.1}Introduction and discussion}{68}}
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Optional parameters for AOH bias calibration.}}{69}}
+\newlabel{tab:AOHBiasParameters}{{7}{69}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.7.2}AOH gain calibration steps}{69}}
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces Optional parameters for AOH gain calibration.}}{70}}
+\newlabel{tab:AOHGainParameters}{{8}{70}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.7.3}Parameters}{70}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.8}TBM UB calibration}{70}}
+\newlabel{sec:TBMUB}{{13.8}{70}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.8.1}Introduction and discussion}{70}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15}{\ignorespaces Diagram illustrating how the TBM DACs affect the output of the TBM. AnalogInputBias is referred to as Input AMP Bias (blue arrows), AnalogOutputBias is referred to as Output AMP Bias (red arrows), and AnalogOutputGain is referred to as TBM Gain (green arrows).}}{71}}
+\newlabel{fig:tbm-anal-dacs}{{15}{71}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.8.2}TBM UB calibration steps}{72}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.8.3}Parameters}{73}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.9}ROC UB equalization calibration}{73}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.9.1}Introduction and discussion}{73}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.9.2}ROC UB equalization calibration steps}{73}}
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces Parameters for TBM UB calibration. All except DACToScan are optional.}}{74}}
+\newlabel{tab:TBMUBParameters}{{9}{74}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.9.3}Parameters}{75}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Optional parameters for ROC UB equalization calibration.}}{76}}
+\newlabel{tab:ROCUBParameters}{{10}{76}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.10}Address level determination}{76}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.10.1}Data volume and time estimate}{76}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.11}Pixel alive, Scurve, and Gain calibration}{76}}
+\newlabel{sec:PATanalysis}{{13.11}{76}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.11.1}Practical issues}{77}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.12}Iana vs. Vana Calibration}{77}}
+\@writefile{lof}{\contentsline {figure}{\numberline {16}{\ignorespaces This figure shows the measured analog current, Iana, vs the Vana setting for a few ROCs. The top left plot shows the Iana measured for one ROC with the A1715 power supply that has a better resolution. The black lines indicate the default setting (Vana=140) used in the configuration when this data was taken. The red line indicate the setting that gives a analog current of 25 mA.}}{78}}
+\newlabel{fig:IanavsVana}{{16}{78}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.13}Settings of CalDelay and VcThreshold}{79}}
+\newlabel{sect:caldelvsvcthr}{{13.13}{79}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.13.1}Output}{79}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.13.2}Example}{79}}
+\@writefile{lof}{\contentsline {figure}{\numberline {17}{\ignorespaces The efficiency for detecting a hit is shown as a function of VcThr vs. CalDel. To large values of VcThr, corresponding to a low threshold, generates much noise that saturates the digital circuit and no hits are seen. The optimal point is indicated in black and the blue point indicates the old point from the configuration. }}{80}}
+\newlabel{fig:thresholdCalDel}{{17}{80}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.14}CalDel calibation}{81}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.14.1}Output}{81}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.14.2}Example}{81}}
+\@writefile{lof}{\contentsline {figure}{\numberline {18}{\ignorespaces  The efficiency as a function of WBC vs CalDel. }}{82}}
+\newlabel{fig:caldel}{{18}{82}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.15}Idigi vs. Vsf}{83}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.15.1}Output}{83}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.15.2}Example}{83}}
+\@writefile{lof}{\contentsline {figure}{\numberline {19}{\ignorespaces The digital current is shown as a function of Vsf. }}{84}}
+\newlabel{fig:IdigivsVsf}{{19}{84}}
+\@writefile{lof}{\contentsline {figure}{\numberline {20}{\ignorespaces Scans of pulse height vs.\nobreakspace  {}Vcal at different values of Vsf. The scan on the left has poor linearity, and the scan on the right has good linearity. (Note that these scans come from a detector which has no voltage bias, so the received charge and the slope of the linear section are lower than in a biased detector.)}}{85}}
+\newlabel{fig:PH_vs_Vcal_scans}{{20}{85}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.16}Linearity vs.\nobreakspace  {}Vsf}{85}}
+\newlabel{sec:LinearityVsVsf}{{13.16}{85}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.16.1}Introduction and discussion}{85}}
+\newlabel{eq:tanh}{{2}{85}}
+\@writefile{lof}{\contentsline {figure}{\numberline {21}{\ignorespaces Plots of nonlinearity vs.\nobreakspace  {}Vsf. On the left, nonlinearity is measured by $x_{\rm  mid}/x_{\rm  size}$, and on the right, it is measured by the integral in Eq.\nobreakspace  {}(3\hbox {}).}}{86}}
+\newlabel{fig:nonlinearityPlots}{{21}{86}}
+\newlabel{eq:nonlinearityIntegral}{{3}{86}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.16.2}Linearity vs.\nobreakspace  {}Vsf calibration steps}{86}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.16.3}Parameters}{87}}
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Optional parameters for linearity vs. Vsf calibration.}}{88}}
+\newlabel{tab:LinearityVsVsfParameters}{{11}{88}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.17}Vsf and VHldDel}{88}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.17.1}Introduction and discussion}{88}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.17.2}Vsf and VHldDel calibration steps}{88}}
+\@writefile{lof}{\contentsline {figure}{\numberline {22}{\ignorespaces \emph  {Top row:} Pulse height vs. VHldDel at low, medium, and high values of Vsf, with Vcal = 250 on the low scale. As Vsf increases, the right endpoint increases. The best Vsf value is the one for which the pulse heights measured at VHldDel = 0 and VHldDel = 255 are equal. \emph  {Bottom plot:} Pulse height at the endpoints of these plots, as a function of Vsf. Low values of Vsf produce garbage output.}}{89}}
+\newlabel{fig:PHvsVHldDel}{{22}{89}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.17.3}Parameters}{90}}
+\citation{bib:Gromova}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.18}Pulse height range calibration}{91}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.18.1}Introduction and discussion}{91}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.18.2}Pulse height calibration procedure}{91}}
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Optional parameters for pulse height range calibration.}}{92}}
+\newlabel{tab:PHRangeParameters}{{12}{92}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.18.3}Parameters}{92}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.19}Vana and time walk}{92}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.20}Trim bit determination}{93}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.21}Trim bit analysis}{94}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.21.1}Running the threshold analysis}{94}}
+\newlabel{sect:analyzetrimrun}{{13.21.1}{94}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.21.2}Quality of trimming}{95}}
+\newlabel{sect:checktrims}{{13.21.2}{95}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.21.3}Determining new VcThr settings}{96}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.21.4}Make simple plots of thresholds}{96}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.21.5}Full trim bit determination}{96}}
+\newlabel{sec:trimmingShort}{{13.21.5}{96}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {13.21.6}Determining all trimbits}{97}}
+\newlabel{sec:trimbits}{{13.21.6}{97}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.22}Emulated physics}{97}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.23}Baseline with emulated data}{98}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.24}Address levels with emulated data}{98}}
+\@writefile{toc}{\contentsline {section}{\numberline {14}Calibration Procedure}{98}}
+\newlabel{sec:calibproc}{{14}{98}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.1}Useful Tools, Background Knowledge}{98}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.2}Starting Point}{98}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.3}AOH and FED Channel Mapping}{99}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.4}Achieving Successful Programming}{99}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.5}Basic Signal Properties}{100}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {14.5.1}FEDBaseline}{100}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {14.5.2}AOH Settings}{102}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {14.5.3}Ultrablacks}{103}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {14.5.4}Clock Phase}{104}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.6}Getting Hits}{105}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.7}Address Levels}{105}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.8}Initial Trimming}{106}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.9}Vana Calibration}{106}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.10}Final Trimming}{108}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.11}Threshold Minimization}{109}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {14.12}Pulse Height Optimizations}{112}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {14.12.1}Vsf}{112}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {14.12.2}VHldDel}{112}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {14.12.3}PHRange}{113}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {14.12.4}Gain Calibration}{113}}
+\@writefile{toc}{\contentsline {section}{\numberline {15}XDAQ-DCS Interaction}{115}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.1}PSX Server}{115}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.2}PixelDCSFSMInterface}{116}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.3}Use of DCS information by the supervisors}{117}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.4}Configuration}{117}}
+\newlabel{item:FECconfig}{{6}{120}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.5}HV-dependent DAC programming}{120}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.6}Start and Resume transitions}{121}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.7}Pause, Stop, and Halt transitions}{121}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.8}Expected behavior}{121}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.9}Notes on hardcoding of information}{122}}
+\newlabel{sec:dcshardcode}{{15.9}{122}}
+\@writefile{toc}{\contentsline {section}{\numberline {16}Procedures to follow when hardware components are replaced}{122}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {16.1}FED board}{122}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {16.2}Pixel FEC including mFECs}{123}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {16.3}TKFEC}{123}}
+\@writefile{toc}{\contentsline {section}{\numberline {17}Low-level commands}{123}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {17.1}Resets}{123}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}FED phase and delay calibration}{125}}
+\newlabel{sect:phaseanddelay}{{A}{125}}
+\@writefile{lof}{\contentsline {figure}{\numberline {23}{\ignorespaces This figure shows on top the adc value as a function of clock+delay/16 for phase=0 and the same plot for phase=1 in the middle. The two plots are overlaid at the bottom.}}{126}}
+\newlabel{fig:phasedelayraw}{{23}{126}}
+\@writefile{lof}{\contentsline {figure}{\numberline {24}{\ignorespaces This figure shows on top the adc value as a function of clock+delay/16 for phase=0 and the same plot for phase=1 in the middle. The two plots are overlaid at the bottom. Here I have set the adc value to 0 for the combinations of clock and phase that are not valid.}}{127}}
+\newlabel{fig:phasedelayvalid}{{24}{127}}
+\@writefile{lof}{\contentsline {figure}{\numberline {25}{\ignorespaces This figure shows on top the adc value as a function of clock+delay/16 for phase=0 and the same plot for phase=1 in the middle. The two plots are overlaid at the bottom. Here the data within a clock has been ordered to give a continuous data signal.}}{128}}
+\newlabel{fig:phasedelayshifted}{{25}{128}}
+\@writefile{lof}{\contentsline {figure}{\numberline {26}{\ignorespaces This figure shows on top the adc value as a function of clock+delay/16 for phase=0 and the same plot for phase=1 in the middle. The two plots are overlaid at the bottom. Here the phase=1 data has been shifted so that it overlaps with the phase=0 data.}}{129}}
+\newlabel{fig:phasedelayfinal}{{26}{129}}
+\@writefile{toc}{\contentsline {section}{\numberline {B}Calibration Organization}{130}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.1}PixelSupervisor calibration code}{130}}
+\@writefile{lof}{\contentsline {figure}{\numberline {27}{\ignorespaces Here you see that for clocks in and after the TBM trailer that there is a feature in that some delays are oscillating. This 'excitation' seems to decay of after $O(20)$ clocks. }}{131}}
+\newlabel{fig:phasedelaylatedata}{{27}{131}}
+\@writefile{lof}{\contentsline {figure}{\numberline {28}{\ignorespaces Zooming in you can see that data in the two phases both agree on the shape of this feature. }}{132}}
+\newlabel{fig:phasedelaylatedatazoom}{{28}{132}}
+\@writefile{lof}{\contentsline {figure}{\numberline {29}{\ignorespaces This figure shows the results of scans for delay25 settings on the Cornell test stand. The upper left plots shows (large black dots) the region for which the return data was valid when sending a ROC command (CalPix). The upper right plot shows the valid region when sending a TBM command (tbm speed). The lower left shows the region of success when sending a roc init and the lower right shows the region of success with a roc trim load command. As is seen, the working region is smaller for the long commands. The red and blue points indicates the algorithm used to select the operating point. Need to check with Jennifer what this is doing.}}{133}}
+\newlabel{fig:scanDelay25}{{29}{133}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.2}PixelFEDSupervisor calibration code}{134}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.3}Implementation of algorithms}{135}}
+\@writefile{toc}{\contentsline {section}{\numberline {C}Outstanding tasks and improvements}{136}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.1}Calibration development}{136}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.2}Operation improvements}{136}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {C.3}Code improvements}{137}}
+\bibstyle{unsrt}
+\bibdata{UsersGuide}
+\bibcite{poswiki}{1}
+\bibcite{ROC}{2}
+\bibcite{TBM}{3}
+\bibcite{statemachine}{4}
+\bibcite{bib:Gromova}{5}

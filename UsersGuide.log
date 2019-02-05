@@ -1,0 +1,1049 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  22 AUG 2012 04:16
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**UsersGuide
+(./UsersGuide.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2009-06-19, ngerman-x-2009-06-19, afrikaans, ancientgreek, ibycus, arabi
+c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
+h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
+h, french, galician, german, ngerman, swissgerman, monogreek, greek, hungarian,
+ icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, marathi, or
+iya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, kurmanji,
+ lao, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk, pol
+ish, portuguese, romanian, russian, sanskrit, serbian, serbianc, slovak, sloven
+ian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, welsh, loaded
+.
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/epsfig.sty
+Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
+)
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count87
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
+\epsfxsize=\dimen105
+\epsfysize=\dimen106
+)
+\savepar=\box26
+
+(./UsersGuide.aux)
+\openout1 = `UsersGuide.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
+LaTeX Font Info:    ... okay on input line 22.
+
+(/usr/local/texlive/2011/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count88
+\scratchdimen=\dimen107
+\scratchbox=\box27
+\nofMPsegments=\count89
+\nofMParguments=\count90
+\everyMPshowfont=\toks15
+\MPscratchCnt=\count91
+\MPscratchDim=\dimen108
+\MPnumerator=\count92
+\makeMPintoPDFobject=\count93
+\everyMPtoPDFconversion=\toks16
+) (/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/04/22 v0.16 Utilities of pdfTeX for LuaTeX (HO)
+
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Managing graphics extensions (HO)
+
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Defining keys (HO)
+))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2010/12/23 v3.10 Keyval support for LaTeX options (HO)
+
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2011/04/07 v1.13 Key value parser (HO)
+
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Prefix for e-TeX command names (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+[1
+
+{/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(./UsersGuide.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 3.
+ [2] [3] [4] [5])
+\tf@toc=\write3
+\openout3 = `UsersGuide.toc'.
+
+ [6]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 69.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 69.
+ [7]
+<2860506-001.pdf, id=31, 685.02972pt x 462.41655pt>
+File: 2860506-001.pdf Graphic file (type pdf)
+ <use 2860506-001.pdf>
+Package pdftex.def Info: 2860506-001.pdf used on input line 134.
+(pdftex.def)             Requested size: 465.06001pt x 313.93811pt.
+
+[8 <./2860506-001.pdf>] <ROC.pdf, id=74, 453.82147pt x 483.90427pt>
+File: ROC.pdf Graphic file (type pdf)
+
+<use ROC.pdf>
+Package pdftex.def Info: ROC.pdf used on input line 152.
+(pdftex.def)             Requested size: 211.3883pt x 225.4045pt.
+ [9
+
+ <./ROC.pdf>] <TBM.pdf, id=126, 404.02101pt x 361.6951pt>
+File: TBM.pdf Graphic file (type pdf)
+
+<use TBM.pdf>
+Package pdftex.def Info: TBM.pdf used on input line 170.
+(pdftex.def)             Requested size: 211.3883pt x 189.24152pt.
+ [10
+
+ <./TBM.pdf>] <pFED.pdf, id=161, 436.7275pt x 439.61346pt>
+File: pFED.pdf Graphic file (type pdf)
+
+<use pFED.pdf>
+Package pdftex.def Info: pFED.pdf used on input line 191.
+(pdftex.def)             Requested size: 211.3883pt x 212.78296pt.
+ [11
+
+ <./pFED.pdf>] <pFEC.pdf, id=197, 374.20041pt x 421.33623pt>
+File: pFEC.pdf Graphic file (type pdf)
+
+<use pFEC.pdf>
+Package pdftex.def Info: pFEC.pdf used on input line 210.
+(pdftex.def)             Requested size: 211.3883pt x 238.02325pt.
+ [12
+
+ <./pFEC.pdf>]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 365.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 365.
+ [13
+
+] [14]
+<POScomponents.pdf, id=244, 795.04707pt x 471.01164pt>
+File: POScomponents.pdf Graphic file (type pdf)
+ <use POScomponents.pdf>
+Package pdftex.def Info: POScomponents.pdf used on input line 396.
+(pdftex.def)             Requested size: 465.06001pt x 275.51555pt.
+
+[15 <./POScomponents.pdf>] <package_dep.pdf, id=281, 560.0925pt x 386.44376pt>
+File: package_dep.pdf Graphic file (type pdf)
+
+<use package_dep.pdf>
+Package pdftex.def Info: package_dep.pdf used on input line 435.
+(pdftex.def)             Requested size: 465.06001pt x 320.88976pt.
+ <l1fm_states.png, id=282, 231.9867pt x 129.8451pt>
+File: l1fm_states.png Graphic file (type png)
+
+<use l1fm_states.png>
+Package pdftex.def Info: l1fm_states.png used on input line 457.
+(pdftex.def)             Requested size: 465.06001pt x 260.31757pt.
+ [16] [17 <./package_dep.pdf>]
+Overfull \hbox (89.42017pt too wide) in paragraph at lines 490--493
+\OT1/cmr/m/n/12 The L1FM is cre-ated us-ing the Cre-ate but-ton in RCMS. This c
+alls the method of \OT1/cmtt/m/n/12 PixelFunctionManager.java
+ []
+
+
+Overfull \hbox (35.022pt too wide) in paragraph at lines 494--503
+[]\OT1/cmr/m/n/12 After cre-ation, tran-si-tions of the FM FSM are han-dled by 
+meth-ods in \OT1/cmtt/m/n/12 PixelEventHandler.java\OT1/cmr/m/n/12 .
+ []
+
+[18 <./l1fm_states.png (PNG copy)>] [19] [20] [21]
+Overfull \hbox (71.17964pt too wide) in paragraph at lines 656--660
+[]\OT1/cmr/m/n/12 First in Sect. 7.1[] we de-scribe the C++ API. The in-ter-fac
+e is de-fined in the class \OT1/cmtt/m/n/12 PixelConfigInterface\OT1/cmr/m/n/12
+ .
+ []
+
+[22
+
+] [23]
+Overfull \hbox (11.89525pt too wide) in paragraph at lines 809--809
+[]                              \OT1/cmtt/m/n/12 std::pair<std::string, unsigne
+d int> > versions)[] 
+ []
+
+[24] [25]
+Overfull \hbox (11.89525pt too wide) in paragraph at lines 900--900
+[]                                             \OT1/cmtt/m/n/12 //we don't have
+ this constructor.[] 
+ []
+
+
+Overfull \hbox (92.17029pt too wide) in paragraph at lines 900--900
+[]  \OT1/cmtt/m/n/12 unsigned int ver=PixelConfigInterface::put(tempTrims,"pixe
+l/trim/FPix_BpI_D1_BLD1_PNL1");[] 
+ []
+
+
+Overfull \hbox (2.50342pt too wide) in paragraph at lines 922--928
+\OT1/cmr/m/n/12 was in-stalled. The im-ple-men-ta-tion of this tool reads the f
+ile to cre-ate a \OT1/cmtt/m/n/12 PixelDetectorConfig
+ []
+
+[26]
+Overfull \hbox (48.94527pt too wide) in paragraph at lines 968--968
+[]\OT1/cmtt/m/n/12 PixelConfigDBCmd.exe --insertConfigAlias Physics dac 1 detco
+nfig 0 nametranslation 0[] 
+ []
+
+[27]
+Overfull \hbox (11.89525pt too wide) in paragraph at lines 1019--1019
+[]\OT1/cmtt/m/n/12 PixelConfigDBCommand --insertConfigAlias Physics dac 5 detco
+nfig 3 tbm Physics[] 
+ []
+
+
+Overfull \hbox (55.12027pt too wide) in paragraph at lines 1024--1024
+[]\OT1/cmtt/m/n/12 PixelConfigDBCommand --insertConfigAlias PhysicsLowLumi dac 
+4 detconfig 3 tbm Physics[] 
+ []
+
+[28]
+Overfull \hbox (11.89525pt too wide) in paragraph at lines 1066--1066
+[]\OT1/cmtt/m/n/12 PixelConfigDBCommand --insertConfigAlias Physics dac Default
+ detconfig Physics[] 
+ []
+
+[29] [30] [31] [32]
+Overfull \hbox (24.24525pt too wide) in paragraph at lines 1370--1370
+[]    \OT1/cmtt/m/n/12 friend std::ostream& operator<<(std::ostream& s, const P
+ixelMaskBase& mask);[] 
+ []
+
+[33]
+Overfull \hbox (79.82028pt too wide) in paragraph at lines 1415--1415
+[]\OT1/cmtt/m/n/12 col00:   111100000000000000000000000000000000000000000000000
+00000000000000000000000000000[] 
+ []
+
+
+Overfull \hbox (79.82028pt too wide) in paragraph at lines 1415--1415
+[]\OT1/cmtt/m/n/12 col01:   000000000000000000000000000000000000000000000000000
+00000000000000000000000000000[] 
+ []
+
+
+Overfull \hbox (79.82028pt too wide) in paragraph at lines 1415--1415
+[]\OT1/cmtt/m/n/12 col02:   000000000000000000000000000000000000000000000000000
+00000000000000000000000000000[] 
+ []
+
+
+Overfull \hbox (79.82028pt too wide) in paragraph at lines 1415--1415
+[]\OT1/cmtt/m/n/12 col49:   000000000000000000000000000000000000000000000000000
+00000000000000000000000000000[] 
+ []
+
+
+Overfull \hbox (79.82028pt too wide) in paragraph at lines 1415--1415
+[]\OT1/cmtt/m/n/12 col50:   000000000000000000000000000000000000000000000000000
+00000000000000000000000000000[] 
+ []
+
+
+Overfull \hbox (79.82028pt too wide) in paragraph at lines 1415--1415
+[]\OT1/cmtt/m/n/12 col51:   000000000000000000000000000000000000000000000000000
+00000000000000000000000000000[] 
+ []
+
+
+Overfull \hbox (79.82028pt too wide) in paragraph at lines 1415--1415
+[]\OT1/cmtt/m/n/12 col00:   100000000000000000000000000000000000000000000000000
+00000000000000000000000000000[] 
+ []
+
+
+Overfull \hbox (79.82028pt too wide) in paragraph at lines 1415--1415
+[]\OT1/cmtt/m/n/12 col01:   200000000000000000000000000000000000000000000000000
+00000000000000000000000000000[] 
+ []
+
+
+Overfull \hbox (79.82028pt too wide) in paragraph at lines 1415--1415
+[]\OT1/cmtt/m/n/12 col02:   300000000000000000000000000000000000000000000000000
+00000000000000000000000000000[] 
+ []
+
+[34]
+Overfull \hbox (24.24525pt too wide) in paragraph at lines 1456--1456
+[]    \OT1/cmtt/m/n/12 friend std::ostream& operator<<(std::ostream& s, const P
+ixelTrimBase& mask);[] 
+ []
+
+[35]
+Overfull \hbox (73.64528pt too wide) in paragraph at lines 1509--1509
+[]\OT1/cmtt/m/n/12 col00:  1111111111111111111111111111111111111111111111111111
+1111111111111111111110000000[] 
+ []
+
+
+Overfull \hbox (73.64528pt too wide) in paragraph at lines 1509--1509
+[]\OT1/cmtt/m/n/12 col01:  1111111111111111111111111111111111111111111111111111
+1111111111111111111111111111[] 
+ []
+
+
+Overfull \hbox (73.64528pt too wide) in paragraph at lines 1509--1509
+[]\OT1/cmtt/m/n/12 col02:  1111111111111111111111111111111111111111111111111111
+1111111111111111111111111111[] 
+ []
+
+
+Overfull \hbox (73.64528pt too wide) in paragraph at lines 1509--1509
+[]\OT1/cmtt/m/n/12 col49:  1111111111111111111111111111111111111111111111111111
+1111111111111111111111111111[] 
+ []
+
+
+Overfull \hbox (73.64528pt too wide) in paragraph at lines 1509--1509
+[]\OT1/cmtt/m/n/12 col50:  1111111111111111111111111111111111111111111111111111
+1111111111111111111111111111[] 
+ []
+
+
+Overfull \hbox (73.64528pt too wide) in paragraph at lines 1509--1509
+[]\OT1/cmtt/m/n/12 col51:  1111111111111111111111111111111111111111111111111111
+1111111111111111111111111111[] 
+ []
+
+
+Overfull \hbox (73.64528pt too wide) in paragraph at lines 1509--1509
+[]\OT1/cmtt/m/n/12 col00:  1111111111111111111111111111111111111111111111111111
+1111111111111111111111111111[] 
+ []
+
+
+Overfull \hbox (73.64528pt too wide) in paragraph at lines 1509--1509
+[]\OT1/cmtt/m/n/12 col01:  1111111111111111111111111111111111111111111111111111
+1111111111111111111111111111[] 
+ []
+
+
+Overfull \hbox (73.64528pt too wide) in paragraph at lines 1509--1509
+[]\OT1/cmtt/m/n/12 col02:  1111111111111111111111111111111111111111111111111111
+1111111111111111111111111111[] 
+ []
+
+[36]
+Overfull \hbox (42.77026pt too wide) in paragraph at lines 1541--1541
+[]    \OT1/cmtt/m/n/12 friend std::ostream& operator<<(std::ostream& s, const P
+ixelDACSettings& mask);[] 
+ []
+
+[37] [38] [39] [40] [41] [42] [43]
+Overfull \hbox (63.91249pt too wide) in paragraph at lines 1909--1912
+\OT1/cmr/m/n/12 This fills the ROC list with all ROCs in the con-fig-u-ra-tion,
+ ex-cept for []\OT1/cmtt/m/n/12 FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC0
+ []
+
+
+Overfull \hbox (24.36005pt too wide) in paragraph at lines 1919--1921
+\OT1/cmr/m/n/12 This adds all ROCs on []\OT1/cmtt/m/n/12 FPix_BpI_D1_BLD1_PNL1 
+\OT1/cmr/m/n/12 ex-cept for []\OT1/cmtt/m/n/12 FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC0\
+OT1/cmr/m/n/12 . 
+ []
+
+[44]
+Overfull \hbox (21.53712pt too wide) in paragraph at lines 1949--1951
+[]\OT1/cmr/m/n/12 The auto-generated ROC list only adds ROCs on mod-ules given 
+in the []\OT1/cmtt/m/n/12 PixelDetectorConfig\OT1/cmr/m/n/12 . 
+ []
+
+[45] [46] [47]
+Overfull \hbox (5.72025pt too wide) in paragraph at lines 2105--2105
+[]  \OT1/cmtt/m/n/12 unsigned int globalKey=PixelConfigDB::getAliases_map().fin
+d(alias)->second;[] 
+ []
+
+
+Overfull \hbox (48.94527pt too wide) in paragraph at lines 2117--2117
+[]  \OT1/cmtt/m/n/12 PixelConfigDB::get(theDetectorConfiguration_, "pixel/detco
+nfig/", *theGlobalKey_);[] 
+ []
+
+[48]
+Overfull \hbox (48.94527pt too wide) in paragraph at lines 2191--2191
+[]  \OT1/cmtt/m/n/12 PixelConfigDB::get(theNameTranslation_, "pixel/nametransla
+tion/", *theGlobalKey_);[] 
+ []
+
+
+Overfull \hbox (48.94527pt too wide) in paragraph at lines 2191--2191
+[]  \OT1/cmtt/m/n/12 PixelConfigDB::get(theDetectorConfiguration_, "pixel/detco
+nfig/", *theGlobalKey_);[] 
+ []
+
+
+Overfull \hbox (18.07025pt too wide) in paragraph at lines 2191--2191
+[]  \OT1/cmtt/m/n/12 PixelConfigDB::get(theFECConfiguration_, "pixel/fecconfig/
+", *theGlobalKey_);[] 
+ []
+
+
+Overfull \hbox (209.49535pt too wide) in paragraph at lines 2191--2191
+[]  \OT1/cmtt/m/n/12 // Loop over all modules in the Detector Configuration and
+ instantiate FECInterfaces required in this crate.[] 
+ []
+
+
+Overfull \hbox (190.97034pt too wide) in paragraph at lines 2191--2191
+[]  \OT1/cmtt/m/n/12 std::vector <PixelModuleName>::iterator module_name = theD
+etectorConfiguration_->getModuleList().begin();[] 
+ []
+
+
+Overfull \hbox (48.94527pt too wide) in paragraph at lines 2191--2191
+[]  \OT1/cmtt/m/n/12 for (;module_name!=theDetectorConfiguration_->getModuleLis
+t().end();++module_name)[] 
+ []
+
+
+Overfull \hbox (85.99529pt too wide) in paragraph at lines 2191--2191
+[]   \OT1/cmtt/m/n/12 diagService_->reportError("Congiguring module=" + module_
+name->modulename(),DIAGDEBUG);[] 
+ []
+
+
+Overfull \hbox (104.5203pt too wide) in paragraph at lines 2191--2191
+[]   \OT1/cmtt/m/n/12 const PixelHdwAddress* module_hdwaddress=theNameTranslati
+on_->getHdwAddress(*module_name);[] 
+ []
+
+
+Overfull \hbox (110.6953pt too wide) in paragraph at lines 2191--2191
+[]  \OT1/cmtt/m/n/12 unsigned int fecVMEBaseAddress=theFECConfiguration_->VMEBa
+seAddressFromFECNumber(fecnumber);[] 
+ []
+
+
+Overfull \hbox (92.17029pt too wide) in paragraph at lines 2191--2191
+[]    \OT1/cmtt/m/n/12 PixelFECInterface* tempFECInterface=new PixelFECInterfac
+e(fecVMEBaseAddress, aBHandle);[] 
+ []
+
+[49]
+Overfull \hbox (67.47028pt too wide) in paragraph at lines 2191--2191
+[]    \OT1/cmtt/m/n/12 tempTrims->generateConfiguration(tempFECInterface, theNa
+meTranslation_, *tempMask);[] 
+ []
+
+[50] [51] [52
+
+]
+Overfull \hbox (81.59831pt too wide) in paragraph at lines 2295--2307
+\OT1/cmr/m/n/12 the Pix-elTK-FEC-Su-per-vi-sors, checks the FSM state of each a
+s main-tained in \OT1/cmtt/m/n/12 statePixelTKFECSupervisors[]\OT1/cmr/m/n/12 ,
+
+ []
+
+[53] [54] [55] <directory.pdf, id=420, 614.295pt x 794.97pt>
+File: directory.pdf Graphic file (type pdf)
+
+<use directory.pdf>
+Package pdftex.def Info: directory.pdf used on input line 2535.
+(pdftex.def)             Requested size: 213.39566pt x 276.15726pt.
+
+Overfull \hbox (39.58862pt too wide) in paragraph at lines 2535--2536
+ [][] 
+ []
+
+<ROCUB_directory.pdf, id=421, 614.295pt x 794.97pt>
+File: ROCUB_directory.pdf Graphic file (type pdf)
+ <use ROCUB_directory.pdf>
+Package pdftex.def Info: ROCUB_directory.pdf used on input line 2542.
+(pdftex.def)             Requested size: 270.30118pt x 349.80002pt.
+
+Overfull \hbox (2.5374pt too wide) in paragraph at lines 2542--2543
+ [][] 
+ []
+
+<ROCUB_pass.pdf, id=422, 614.295pt x 794.97pt>
+File: ROCUB_pass.pdf Graphic file (type pdf)
+ <use ROCUB_pass.pdf>
+Package pdftex.def Info: ROCUB_pass.pdf used on input line 2551.
+(pdftex.def)             Requested size: 156.49014pt x 202.51451pt.
+
+Underfull \hbox (badness 4792) in paragraph at lines 2552--2552
+\OT1/cmr/m/n/12 qual-iza-tion cal-i-bra-tion viewed by his-
+ []
+
+<ROCUB_new_histoviewer.pdf, id=423, 614.295pt x 794.97pt>
+File: ROCUB_new_histoviewer.pdf Graphic file (type pdf)
+
+<use ROCUB_new_histoviewer.pdf>
+Package pdftex.def Info: ROCUB_new_histoviewer.pdf used on input line 2558.
+(pdftex.def)             Requested size: 241.84842pt x 312.9847pt.
+
+Overfull \hbox (21.063pt too wide) in paragraph at lines 2558--2559
+ [][] 
+ []
+
+[56] [57 <./directory.pdf> <./ROCUB_directory.pdf>] [58 <./ROCUB_pass.pdf> <./R
+OCUB_new_histoviewer.pdf>] [59] [60] [61]
+<graph_FPix_BmO_D2_PRT3_FPix_BmO_D2_BLD8_PNL1.pdf, id=461, 569.12625pt x 628.34
+75pt>
+File: graph_FPix_BmO_D2_PRT3_FPix_BmO_D2_BLD8_PNL1.pdf Graphic file (type pdf)
+ <use graph_FPix_BmO_D2_PRT3_FPix_BmO_D2_BLD8_PNL1.pdf>
+Package pdftex.def Info: graph_FPix_BmO_D2_PRT3_FPix_BmO_D2_BLD8_PNL1.pdf used 
+on input line 2761.
+(pdftex.def)             Requested size: 375.80542pt x 414.93115pt.
+ [62] [63 <./graph_FPix_BmO_D2_PRT3_FPix_BmO_D2_BLD8_PNL1.pdf>]
+<AOHBiasScan.pdf, id=510, 406.51875pt x 569.12625pt>
+File: AOHBiasScan.pdf Graphic file (type pdf)
+ <use AOHBiasScan.pdf>
+Package pdftex.def Info: AOHBiasScan.pdf used on input line 2819.
+(pdftex.def)             Requested size: 406.51775pt x 569.12486pt.
+
+[64] [65 <./AOHBiasScan.pdf>] [66] [67]
+Overfull \hbox (7.57222pt too wide) in paragraph at lines 2955--2980
+ [][] 
+ []
+
+[68] [69] [70] <tbm-anal-dacs.png, id=576, 925.4575pt x 650.43pt>
+File: tbm-anal-dacs.png Graphic file (type png)
+
+<use tbm-anal-dacs.png>
+Package pdftex.def Info: tbm-anal-dacs.png used on input line 3072.
+(pdftex.def)             Requested size: 465.06001pt x 326.85178pt.
+ [71 <./tbm-anal-dacs.png>] [72]
+Overfull \hbox (20.58412pt too wide) in paragraph at lines 3141--3142
+[]\OT1/cmr/m/n/12 One other pa-ram-e-ter is re-quired. The pa-ram-e-ter []\OT1/
+cmtt/m/n/12 DACToScan \OT1/cmr/m/n/12 must be set to []\OT1/cmtt/m/n/12 AnalogI
+nputBias\OT1/cmr/m/n/12 ,
+ []
+
+
+Overfull \hbox (24.4873pt too wide) in paragraph at lines 3151--3193
+ [][] 
+ []
+
+
+Overfull \hbox (9.95804pt too wide) in paragraph at lines 3216--3228
+[]\OT1/cmr/m/n/12 Scan over val-ues of []\OT1/cmtt/m/n/12 VIbias_DAC\OT1/cmr/m/
+n/12 . (If the calib.dat file spec-i-fied a fixed value of []\OT1/cmtt/m/n/12 V
+Ibias_roc\OT1/cmr/m/n/12 ,
+ []
+
+[73] [74]
+Overfull \hbox (5.1731pt too wide) in paragraph at lines 3234--3237
+[]\OT1/cmr/m/n/12 Write out new ROC con-fig-u-ra-tion files with the new []\OT1
+/cmtt/m/n/12 VIbias_DAC \OT1/cmr/m/n/12 set-tings. If []\OT1/cmtt/m/n/12 VIbias
+_roc
+ []
+
+[75] [76]
+Overfull \hbox (78.5736pt too wide) in paragraph at lines 3357--3361
+\OT1/cmr/m/n/12 Writing e.g. Pix-e-lAlive will pick up the de-fault con-fig-u-r
+a-tion xml file, con-fig-u-ra-tions/PixelAliveAnalysis.xml.
+ []
+
+<IanavsVana.pdf, id=598, 597.23125pt x 845.1575pt>
+File: IanavsVana.pdf Graphic file (type pdf)
+ <use IanavsVana.pdf>
+Package pdftex.def Info: IanavsVana.pdf used on input line 3403.
+(pdftex.def)             Requested size: 399.2946pt x 565.05325pt.
+
+
+LaTeX Warning: Float too large for page by 48.59157pt on input line 3413.
+
+[77] [78 <./IanavsVana.pdf>]
+Overfull \hbox (54.7885pt too wide) in paragraph at lines 3475--3483
+[]\OT1/cmr/m/n/12 In ad-di-tion to the DAC set-tings the cal-i-bra-tion pro-duc
+es the out-put file \OT1/cmtt/m/n/12 VcThrCalDelaySummary.txt
+ []
+
+<VcThrCalDel_example.png, id=619, 500.87125pt x 400.49625pt>
+File: VcThrCalDel_example.png Graphic file (type png)
+
+<use VcThrCalDel_example.png>
+Package pdftex.def Info: VcThrCalDel_example.png used on input line 3486.
+(pdftex.def)             Requested size: 375.80542pt x 300.50589pt.
+ [79] [80 <./VcThrCalDel_example.png>]
+<CalDelCalibration.pdf, id=627, 597.23125pt x 845.1575pt>
+File: CalDelCalibration.pdf Graphic file (type pdf)
+
+<use CalDelCalibration.pdf>
+Package pdftex.def Info: CalDelCalibration.pdf used on input line 3559.
+(pdftex.def)             Requested size: 469.75499pt x 664.7655pt.
+
+
+LaTeX Warning: Float too large for page by 90.30382pt on input line 3565.
+
+[81] [82 <./CalDelCalibration.pdf>]
+<idigi1.pdf, id=648, 597.23125pt x 845.1575pt>
+File: idigi1.pdf Graphic file (type pdf)
+ <use idigi1.pdf>
+Package pdftex.def Info: idigi1.pdf used on input line 3633.
+(pdftex.def)             Requested size: 469.75499pt x 664.7655pt.
+
+
+LaTeX Warning: Float too large for page by 90.30382pt on input line 3638.
+
+[83] [84 <./idigi1.pdf>]
+<PH_vs_Vcal_poorLinearity.pdf, id=670, 406.51875pt x 569.12625pt>
+File: PH_vs_Vcal_poorLinearity.pdf Graphic file (type pdf)
+
+<use PH_vs_Vcal_poorLinearity.pdf>
+Package pdftex.def Info: PH_vs_Vcal_poorLinearity.pdf used on input line 3666.
+(pdftex.def)             Requested size: 406.51775pt x 569.12486pt.
+
+<PH_vs_Vcal_goodLinearity.pdf, id=671, 406.51875pt x 569.12625pt>
+File: PH_vs_Vcal_goodLinearity.pdf Graphic file (type pdf)
+
+<use PH_vs_Vcal_goodLinearity.pdf>
+Package pdftex.def Info: PH_vs_Vcal_goodLinearity.pdf used on input line 3667.
+(pdftex.def)             Requested size: 406.51775pt x 569.12486pt.
+ [85 <./PH_vs_Vcal_poorLinearity.pdf> <./PH_vs_Vcal_goodLinearity.pdf>]
+<nonlinearityPlot_xmidOverXsize.pdf, id=761, 406.51875pt x 569.12625pt>
+File: nonlinearityPlot_xmidOverXsize.pdf Graphic file (type pdf)
+
+<use nonlinearityPlot_xmidOverXsize.pdf>
+Package pdftex.def Info: nonlinearityPlot_xmidOverXsize.pdf used on input line 
+3691.
+(pdftex.def)             Requested size: 406.51775pt x 569.12486pt.
+
+<nonlinearityPlot_integral.pdf, id=762, 406.51875pt x 569.12625pt>
+File: nonlinearityPlot_integral.pdf Graphic file (type pdf)
+
+<use nonlinearityPlot_integral.pdf>
+Package pdftex.def Info: nonlinearityPlot_integral.pdf used on input line 3692.
+
+(pdftex.def)             Requested size: 406.51775pt x 569.12486pt.
+
+Overfull \hbox (40.92776pt too wide) in paragraph at lines 3704--3705
+\OT1/cmr/m/n/12 be ei-ther ab-so-lute or rel-a-tive, ac-cord-ing to the pa-ram-
+e-ter ``[]\OT1/cmtt/m/n/12 absoluteNonlinearityThreshold\OT1/cmr/m/n/12 ".
+ []
+
+[86 <./nonlinearityPlot_xmidOverXsize.pdf> <./nonlinearityPlot_integral.pdf>]
+Overfull \hbox (26.61922pt too wide) in paragraph at lines 3738--3754
+ [][] 
+ []
+
+[87] <PH_vs_VHldDel_Vsf119.pdf, id=854, 406.51875pt x 569.12625pt>
+File: PH_vs_VHldDel_Vsf119.pdf Graphic file (type pdf)
+
+<use PH_vs_VHldDel_Vsf119.pdf>
+Package pdftex.def Info: PH_vs_VHldDel_Vsf119.pdf used on input line 3764.
+(pdftex.def)             Requested size: 406.51775pt x 569.12486pt.
+
+<PH_vs_VHldDel_Vsf136.pdf, id=855, 406.51875pt x 569.12625pt>
+File: PH_vs_VHldDel_Vsf136.pdf Graphic file (type pdf)
+
+<use PH_vs_VHldDel_Vsf136.pdf>
+Package pdftex.def Info: PH_vs_VHldDel_Vsf136.pdf used on input line 3765.
+(pdftex.def)             Requested size: 406.51775pt x 569.12486pt.
+
+<PH_vs_VHldDel_Vsf187.pdf, id=856, 406.51875pt x 569.12625pt>
+File: PH_vs_VHldDel_Vsf187.pdf Graphic file (type pdf)
+
+<use PH_vs_VHldDel_Vsf187.pdf>
+Package pdftex.def Info: PH_vs_VHldDel_Vsf187.pdf used on input line 3766.
+(pdftex.def)             Requested size: 406.51775pt x 569.12486pt.
+
+<PH_vs_Vsf.pdf, id=857, 406.51875pt x 569.12625pt>
+File: PH_vs_Vsf.pdf Graphic file (type pdf)
+ <use PH_vs_Vsf.pdf>
+Package pdftex.def Info: PH_vs_Vsf.pdf used on input line 3767.
+(pdftex.def)             Requested size: 406.51775pt x 569.12486pt.
+ [88]
+[89 <./PH_vs_VHldDel_Vsf119.pdf> <./PH_vs_VHldDel_Vsf136.pdf> <./PH_vs_VHldDel_
+Vsf187.pdf> <./PH_vs_Vsf.pdf>] [90] [91] [92] [93]
+Overfull \hbox (3.52205pt too wide) in paragraph at lines 4000--4004
+[]\OT1/cmr/m/n/12 After tak-ing an SCurve (trim) run (TrimDe-fault-Short, TrimV
+c-ThrShort, TrimVtrimShort,
+ []
+
+[94]
+Overfull \hbox (36.59526pt too wide) in paragraph at lines 4058--4058
+[]\OT1/cmtt/m/n/12 [pixelpro@vmepcS2B18-17 test]$ ./bin/linux/x86/PixelTrimAnal
+ysis.exe 100141 | more[] 
+ []
+
+
+Overfull \hbox (5.72025pt too wide) in paragraph at lines 4058--4058
+[]\OT1/cmtt/m/n/12 trimDefault:/nfshome0/pixelpro/TriDAS_build7/pixel/PixelRun/
+Runs/Run_100000/\[] 
+ []
+
+[95] [96] [97] [98] [99] [100] [101] [102] [103] [104] [105] [106]
+Overfull \hbox (20.30441pt too wide) in paragraph at lines 4635--4648
+[]\OT1/cmtt/m/n/12 PixelAnalysisTools/test/src/common/PixelInTimeVana.cc \OT1/c
+mr/m/n/12 has []\OT1/cmtt/m/n/12 assumeGlobal=false
+ []
+
+
+Overfull \hbox (5.24405pt too wide) in paragraph at lines 4635--4648
+[]\OT1/cmtt/m/n/12 ./bin/linux/x86/PixelInTimeVana.exe <key> <run number> > myl
+og.dat\OT1/cmr/m/n/12 . Keep-
+ []
+
+[107] [108] [109]
+Overfull \hbox (17.94156pt too wide) in paragraph at lines 4778--4785
+\OT1/cmr/m/n/12 the num-ber pix-els to ex-pect from each ROC. Change []\OT1/cmt
+t/m/n/12 printedFile \OT1/cmr/m/n/12 in SCurveLoop[]BPix(FPix).C
+ []
+
+
+Overfull \hbox (45.15034pt too wide) in paragraph at lines 4786--4790
+[]\OT1/cmr/m/n/12 Now run SCurveLoop[]BPix(FPix).C on the re-main-ing SCurve ru
+ns (Vc-Thr+0,2,4,6,8,10,12,14,16).
+ []
+
+
+Overfull \hbox (120.99883pt too wide) in paragraph at lines 4786--4790
+\OT1/cmr/m/n/12 ``...[]fail.dat'' files for each run by do-ing e.g. []\OT1/cmtt
+/m/n/12 cat plus6_BPIX_fail.dat plus6_FPIX_fail.dat > plus6_fail.dat\OT1/cmr/m/
+n/12 . 
+ []
+
+[110] [111] [112]
+Overfull \hbox (20.4262pt too wide) in paragraph at lines 4960--4968
+\OT1/cmr/m/n/12 FED's ADC. You can run Gain-Loop.C in Tri-DAS/pixel/PixelAnalys
+isTools/test/additionalTools
+ []
+
+[113]
+Overfull \hbox (240.37036pt too wide) in paragraph at lines 4991--4991
+[]\OT1/cmtt/m/n/12 ScanValues: Vcal 2 4 6 8 10 12 14 15 16 17 18 21 24 28 35 42
+ 49 56 63 70 77 84 91 98 105 112 119 126 133 140 160 -1[] 
+ []
+
+[114]
+Overfull \hbox (215.67035pt too wide) in paragraph at lines 5021--5021
+[]\OT1/cmtt/m/n/12 ScanValues: Vcal 6 8 10 12 14 15 16 17 18 21 24 28 35 42 49 
+56 63 70 77 84 91 98 105 112 119 126 133 140 160 -1[] 
+ []
+
+[115]
+Overfull \hbox (16.10262pt too wide) in paragraph at lines 5078--5079
+\OT1/cmr/m/n/12 MInter-face sends a SOAP mes-sage to the rel-e-vant Pix-elTK-FE
+C-Su-per-vi-sor/PixelFECSupervisor. 
+ []
+
+
+Overfull \hbox (14.23132pt too wide) in paragraph at lines 5080--5082
+[]\OT1/cmr/m/n/12 The nodes to be read-out from DCS are de-fined in \OT1/cmtt/m
+/n/12 PixelDCSInterface/xml/interface.xml\OT1/cmr/m/n/12 . 
+ []
+
+[116]
+Overfull \hbox (11.11711pt too wide) in paragraph at lines 5094--5098
+\OT1/cmr/m/n/12 A4603 power sup-plies. The low volt-age has three pos-si-ble st
+ates: LV[]OFF, LV[]ON[]REDUCED,
+ []
+
+<PixelSupervisorDAQDCS.png, id=1120, 722.7pt x 557.08125pt>
+File: PixelSupervisorDAQDCS.png Graphic file (type png)
+
+<use PixelSupervisorDAQDCS.png>
+Package pdftex.def Info: PixelSupervisorDAQDCS.png used on input line 5109.
+(pdftex.def)             Requested size: 455.24408pt x 350.92055pt.
+
+<PixelFECSupervisorDAQDCS.png, id=1121, 760.8425pt x 565.11125pt>
+File: PixelFECSupervisorDAQDCS.png Graphic file (type png)
+
+<use PixelFECSupervisorDAQDCS.png>
+Package pdftex.def Info: PixelFECSupervisorDAQDCS.png used on input line 5110.
+(pdftex.def)             Requested size: 455.24408pt x 338.13809pt.
+
+<PixelTKFECSupervisorDAQDCS.png, id=1122, 867.24pt x 650.43pt>
+File: PixelTKFECSupervisorDAQDCS.png Graphic file (type png)
+
+<use PixelTKFECSupervisorDAQDCS.png>
+Package pdftex.def Info: PixelTKFECSupervisorDAQDCS.png used on input line 5111
+.
+(pdftex.def)             Requested size: 455.24408pt x 341.43124pt.
+ [117]
+Overfull \vbox (75.76364pt too high) has occurred while \output is active []
+
+
+[118 <./PixelSupervisorDAQDCS.png> <./PixelFECSupervisorDAQDCS.png>] [119 <./Pi
+xelTKFECSupervisorDAQDCS.png>] [120] [121]
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <6> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 5286.
+
+
+Overfull \hbox (45.63461pt too wide) in paragraph at lines 5281--5292
+[][] 
+ []
+
+[122] [123] [124]
+<phaseAndDelayPlotRaw_channe_1_1.pdf, id=1148, 569.12625pt x 631.35875pt>
+File: phaseAndDelayPlotRaw_channe_1_1.pdf Graphic file (type pdf)
+
+<use phaseAndDelayPlotRaw_channe_1_1.pdf>
+Package pdftex.def Info: phaseAndDelayPlotRaw_channe_1_1.pdf used on input line
+ 5405.
+(pdftex.def)             Requested size: 469.75499pt x 521.14714pt.
+
+<phaseAndDelayPlotPurged_channe_1_1.pdf, id=1149, 569.12625pt x 631.35875pt>
+File: phaseAndDelayPlotPurged_channe_1_1.pdf Graphic file (type pdf)
+
+<use phaseAndDelayPlotPurged_channe_1_1.pdf>
+Package pdftex.def Info: phaseAndDelayPlotPurged_channe_1_1.pdf used on input l
+ine 5428.
+(pdftex.def)             Requested size: 469.75499pt x 521.14714pt.
+
+<phaseAndDelayPlotShifted_channe_1_1.pdf, id=1150, 569.12625pt x 631.35875pt>
+File: phaseAndDelayPlotShifted_channe_1_1.pdf Graphic file (type pdf)
+
+<use phaseAndDelayPlotShifted_channe_1_1.pdf>
+Package pdftex.def Info: phaseAndDelayPlotShifted_channe_1_1.pdf used on input 
+line 5445.
+(pdftex.def)             Requested size: 469.75499pt x 521.14714pt.
+
+<phaseAndDelayPlot_channe_1_1.pdf, id=1151, 569.12625pt x 631.35875pt>
+File: phaseAndDelayPlot_channe_1_1.pdf Graphic file (type pdf)
+
+<use phaseAndDelayPlot_channe_1_1.pdf>
+Package pdftex.def Info: phaseAndDelayPlot_channe_1_1.pdf used on input line 54
+65.
+(pdftex.def)             Requested size: 469.75499pt x 521.14714pt.
+ [125
+
+] [126 <./phaseAndDelayPlotRaw_channe_1_1.pdf>] [127 <./phaseAndDelayPlotPurged
+_channe_1_1.pdf>] [128 <./phaseAndDelayPlotShifted_channe_1_1.pdf>] [129 <./pha
+seAndDelayPlot_channe_1_1.pdf>]
+<phaseAndDelayPlot_channe_10_1_latedata.pdf, id=1336, 569.12625pt x 631.35875pt
+>
+File: phaseAndDelayPlot_channe_10_1_latedata.pdf Graphic file (type pdf)
+ <use phaseAndDelayPlot_channe_10_1_latedata.pdf>
+Package pdftex.def Info: phaseAndDelayPlot_channe_10_1_latedata.pdf used on inp
+ut line 5510.
+(pdftex.def)             Requested size: 469.75499pt x 521.14714pt.
+
+<phaseAndDelayPlot_channe_10_1_latedatazoom.pdf, id=1337, 569.12625pt x 631.358
+75pt>
+File: phaseAndDelayPlot_channe_10_1_latedatazoom.pdf Graphic file (type pdf)
+ <use phaseAndDelayPlot_channe_10_1_latedatazoom.pdf>
+Package pdftex.def Info: phaseAndDelayPlot_channe_10_1_latedatazoom.pdf used on
+ input line 5521.
+(pdftex.def)             Requested size: 469.75499pt x 521.14714pt.
+
+<graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_0.pdf, id=1338, 569.12625pt x 631
+.35875pt>
+File: graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_0.pdf Graphic file (type pdf
+)
+ <use graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_0.pdf>
+Package pdftex.def Info: graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_0.pdf use
+d on input line 5542.
+(pdftex.def)             Requested size: 225.48038pt x 250.14021pt.
+
+<graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_1.pdf, id=1339, 569.12625pt x 631
+.35875pt>
+File: graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_1.pdf Graphic file (type pdf
+)
+ <use graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_1.pdf>
+Package pdftex.def Info: graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_1.pdf use
+d on input line 5543.
+(pdftex.def)             Requested size: 225.48038pt x 250.14021pt.
+
+<graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_2.pdf, id=1340, 569.12625pt x 631
+.35875pt>
+File: graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_2.pdf Graphic file (type pdf
+)
+ <use graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_2.pdf>
+Package pdftex.def Info: graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_2.pdf use
+d on input line 5544.
+(pdftex.def)             Requested size: 225.48038pt x 250.14021pt.
+
+<graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_3.pdf, id=1341, 569.12625pt x 631
+.35875pt>
+File: graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_3.pdf Graphic file (type pdf
+)
+ <use graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_3.pdf>
+Package pdftex.def Info: graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_3.pdf use
+d on input line 5545.
+(pdftex.def)             Requested size: 225.48038pt x 250.14021pt.
+
+
+LaTeX Warning: Float too large for page by 28.31874pt on input line 5557.
+
+[130] [131 <./phaseAndDelayPlot_channe_10_1_latedata.pdf>] [132 <./phaseAndDela
+yPlot_channe_10_1_latedatazoom.pdf>] [133 <./graph_FPix_BpI_D1_PRT1_FPix_BpI_D1
+_BLD1_PNL1_0.pdf> <./graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_1.pdf> <./gra
+ph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_2.pdf> <./graph_FPix_BpI_D1_PRT1_FPix
+_BpI_D1_BLD1_PNL1_3.pdf>]
+Overfull \hbox (11.89525pt too wide) in paragraph at lines 5657--5657
+[]  \OT1/cmtt/m/n/12 virtual xoap::MessageReference beginCalibration(xoap::Mess
+ageReference msg);[] 
+ []
+
+[134]
+Overfull \hbox (11.89525pt too wide) in paragraph at lines 5657--5657
+[]  \OT1/cmtt/m/n/12 virtual xoap::MessageReference calibrationEvent(xoap::Mess
+ageReference msg);[] 
+ []
+
+
+Overfull \hbox (29.48221pt too wide) in paragraph at lines 5659--5665
+[]\OT1/cmr/m/n/12 Again the three meth-ods \OT1/cmtt/m/n/12 beginCalibration()\
+OT1/cmr/m/n/12 , \OT1/cmtt/m/n/12 calibrationEvent()\OT1/cmr/m/n/12 , and \OT1/
+cmtt/m/n/12 endCalibration()
+ []
+
+[135] [136] [137] [138] (./UsersGuide.bbl
+Overfull \hbox (99.90562pt too wide) in paragraph at lines 4--6
+[]\OT1/cmr/m/n/12 The pixel on-line wiki is avail-able at \OT1/cmtt/m/n/12 http
+s://twiki.cern.ch/twiki/bin/view/CMS/PixelOnlineSoftware\OT1/cmr/m/n/12 . 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 12--14
+[]\OT1/cmr/m/n/12 Token Bit Man-ager 05a Chip Doc-u-men-ta-tion, ver-sion 1.13.
+ Avail-able at
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--24
+[]\OT1/cmr/m/n/12 Katarina Gro-mova, ETH Zurich, Semester The-sis, \OT1/cmr/m/i
+t/12 Ad-just-ment of
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 21--24
+\OT1/cmr/m/it/12 the Read-out Range of the CMS Pixel De-tec-tor \OT1/cmr/m/n/12
+ (2008). Avail-able at
+ []
+
+) [139
+
+] (./UsersGuide.aux) ) 
+Here is how much of TeX's memory you used:
+ 1803 strings out of 493633
+ 29100 string characters out of 3143378
+ 98033 words of memory out of 3000000
+ 5057 multiletter control sequences out of 15000+200000
+ 9354 words of font info for 34 fonts, out of 3000000 for 9000
+ 831 hyphenation exceptions out of 8191
+ 37i,11n,24p,850b,274s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/local/texlive/2011/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmbx10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmbx12.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmex10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi12.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmmi6.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmi8.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmr10.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr12.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r5.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.
+pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
+></usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></
+usr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></u
+sr/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr
+/local/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/l
+ocal/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/loc
+al/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/loca
+l/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local
+/texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/
+texlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/te
+xlive/2011/texmf-dist/fonts/type1/urw/symbol/usyr.pfb>
+Output written on UsersGuide.pdf (139 pages, 3609585 bytes).
+PDF statistics:
+ 1697 PDF objects out of 1728 (max. 8388607)
+ 909 compressed objects within 10 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 201 words of extra memory for PDF output out of 10000 (max. 10000000)
+
