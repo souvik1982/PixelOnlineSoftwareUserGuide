@@ -1947,9 +1947,6 @@ AnalogOutputBias: 110
 AnalogOutputGain: 207
 Mode: SingleMode
 \end{verbatim}
-{\it Note that the name here should be a module name and not contain
-the plaquette and ROC number. We now have a 'PixelModuleName' class
-that we should use here.}
 
 
 \subsection{PixelPortcardMap}
@@ -2166,7 +2163,7 @@ is cleared in the halt transition. However, we now hold on to most of the config
 clear it before the next configuration if we see that the value of the global key has changed. In this way, we can avoid reloading
 identical data from the database on the next configuration.
 
-\subsection{Global delay 25 usage}
+\subsection{Global Delay 25 usage}
 
 The global delay 25 does not need to be included in a configuration. Then it
 is simply ignored if the PixelConfigInterface::get call returns a
@@ -2176,24 +2173,16 @@ following effects in the different applications:
 In the PixelTKFECSupervisor it is checked that we are in a physics
 run and have the global delay 25 settings. If this is the case then
 SCL and TRG are delayed by the delay setting in the global delay 25.
-{\it It is checked in the code if the calculated delay 25 setting is
+It is checked in the code if the calculated delay 25 setting is
 larger than 127. If this is the case then an error message is printed
-and the delay 25 without the global delay is applied. This is a little
-bit dangerous as it is easy to miss such a message. Should think about
-a safer way of handling this.}
-For the SDA, if the calculated delay25 setting is to large, it allows
+and the delay 25 without the global delay is applied.
+For the SDA, if the calculated delay25 setting is too large, it allows
 the SDA to wrap around.
 
-In the PixelFEDSupervisor the a similar logic is applied; if you
+In the PixelFEDSupervisor a similar logic is applied; if you
 have the global delay 25 and you are taking a physics run then
 the TTC RX chip adds a delay. This delay is calculated using the
 method {\tt PixelGlobalDelay25::getTTCrxDelay}.
-
-Comments by Anders: I think that we should modify this code such that
-the global delay25 delay is applied when your run all calibrations
-except for the Delay25 scans. This will allow simpler tests to make
-sure that the delays are properly applied, e.g., by running the
-address level calibration with different global delay 25 settings.
 
 \clearpage
 
@@ -2312,7 +2301,6 @@ Sec.~\ref{sec:dcshardcode} for more information.
 
 \subsubsection{PixelTKFECSupervisor}
 
-{\it Need to look through the code to verify this info!}
 \begin{itemize}
 \item Create a FecAccess object and issue a VME bus reset
 \item Issue a resetPlxFec to reset the CCU and portcard devices
@@ -2333,7 +2321,6 @@ settings come between the Delay25 and AOH settings.
 
 \subsubsection{PixelFECSupervisor}
 %should note the order of roc programming, tbm resets, etc
-
 
 %could add TTCciControl, LTC
 
@@ -2498,39 +2485,6 @@ Iana & new $\mathrm{Vana} \geq 249$ or maximum $\mathrm{Iana} < 25$ & new Vana, 
 }
  \end{table}
 
-
-\begin{figure}
-\begin{minipage}[htbp]{0.37\linewidth} % A minipage that covers half the
-\centering
-\includegraphics[width=7.5cm]{directory.pdf}
-\caption{Output directory structure veiwing by ROOT.}
-\label{fig:directory}
-\end{minipage}
-\hspace{0.5cm}
-\begin{minipage}[htbp]{0.57\linewidth}
-\centering
-\includegraphics[width=9.5cm]{ROCUB_directory.pdf}
-\caption{Output root directory structure veiwed by ROOT.}
-\label{rootdirectory}
-\end{minipage}
-\end{figure}
-
-\begin{figure}
-\begin{minipage}[b]{0.47\linewidth} % A minipage that covers half the
-\centering
-\includegraphics[width=5.5cm]{ROCUB_pass.pdf}
-\caption{Pass information of ROCUBEqualization calibration viewed by histoviewer.}
-\label{passinfo}
-\end{minipage}
-\hspace{0.5cm}
-\begin{minipage}[b]{0.47\linewidth}
-\centering
-\includegraphics[width=8.5cm]{ROCUB_new_histoviewer.pdf}
-\caption{New VIBias of ROCUBEqualization calibration veiwed by histoviewer.}
-\label{summaryinfo}
-\end{minipage}
-\end{figure}
-
 \section{Calibration Algorithms} \label{sect:calib}
 
 The two main purposes of the online software are the
@@ -2549,7 +2503,7 @@ correct FEC communication; it is very fundamental but once the
 settings are found they do not need to be readjusted often. We usually
 start by running the FEDBaselineCalibration, because it runs quickly
 and provides an informative plot of the data buffer for each FED
-channel. It is also needs to be run relatively frequently to adjust
+channel. It also needs to be run relatively frequently to adjust
 the black level. If the BaselineCalibration fails to converge, one can
 run the AOHBias calibration to more coarsely adjust the black levels,
 then subsequently try the BaselineCalibration again. The ClockPhase
@@ -2647,7 +2601,7 @@ fed\_params.dat files that are updated with the new
 FED settings for the phase and delay. The files
 should otherwise be identical to the input files
 specified in the configuration. In addition to the
-fed\_params.dat files the are several canvases generated in the output ROOT file. For each channel you get four
+fed\_params.dat files there are several canvases generated in the output ROOT file. For each channel you get four
 output canvases:
 \begin{verbatim}
 PhaseAndDelayRaw_37_1
@@ -2706,7 +2660,7 @@ command, it just checks the return status.
 \subsubsection{Output}
 
 The main output from this calibration is new delay settings
-that stored in the portcard files. The only changes made
+that are stored in the portcard files. The only changes made
 to the port card settings are for the send data and
 return data delays.
 
@@ -2726,6 +2680,9 @@ delay settings the scans are plotted in a ROOT file.
 An example plot is shown in
 Fig.~\ref{fig:Delay25Scan}.
 
+A plot from the Cornell test stand
+is shown in Fig.~\ref{fig:scanDelay25}.
+
 \begin{figure}
 \begin{center}
  \includegraphics[width=0.8\textwidth]{graph_FPix_BmO_D2_PRT3_FPix_BmO_D2_BLD8_PNL1.pdf}
@@ -2739,18 +2696,34 @@ The red square indicates the point chosen by the algorithm.
 \label{fig:Delay25Scan}
 \end{figure}
 
-
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.48\linewidth]{graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_0}
+\includegraphics[width=0.48\linewidth]{graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_1}
+\includegraphics[width=0.48\linewidth]{graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_2}
+\includegraphics[width=0.48\linewidth]{graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_3}
+\end{center}
+\caption{This figure shows the results of scans for delay25 settings on
+the Cornell test stand. The upper left plots shows (large black dots) the
+region for which the return data was valid when sending a ROC command (CalPix).
+The upper right plot shows the valid region when sending a TBM command
+(tbm speed). The lower left shows the region of success when sending a
+roc init and the lower right shows the region of success with a roc trim
+load command. As is seen, the working region is smaller for the long
+commands. The red and blue points indicates the algorithm used to select
+the operating point.}
+\label{fig:scanDelay25}
+\end{figure}
 
 
 
 \subsection{Delay25 trigger setting}
 
-{\it Not implemented.} Should also scan the trigger delay to
-make sure that the triggers are received correctly. Can we
-just scan the delay setting and look at the corresponding FED
-channel to make sure that the trigger arrived? I.e. that we
-saw data in the FED? You would need to do this before you run
-the phase and delay scan of the FED?
+Scans the trigger delay to
+make sure that the triggers are received correctly. The delay
+setting is scanned and the corresponding FED channel is read
+to make sure the trigger has arrived. This has to be done
+before the phase and delay scan of the FED.
 
 
 \subsection{FED baseline calibration}
@@ -2858,7 +2831,7 @@ full decoding would fail.  If no reliable time slots are found\footnote{A time s
 this channel is considered failed, and it is ignored in the rest of the
 routine.
 \item Now scan over AOH bias again, this time to record the TBM B and UB
-levels at each setting, using the time slots recorded in the previous step.\footnote{If good time slots were not found on a given channel, only the black level will be recorded and plotted.  It is taken from the first 10 slots of the transparent buffer, rather than from the TBM header and trailer.  This plot is for diagnostic purposes only; it is not used in generating new configuration settings.}
+levels at each setting, using the time slots recorded in the previous step\footnote{If good time slots were not found on a given channel, only the black level will be recorded and plotted.  It is taken from the first 10 slots of the transparent buffer, rather than from the TBM header and trailer.  This plot is for diagnostic purposes only; it is not used in generating new configuration settings.}.
 During the
 scan, if the signal goes out of range high or low, the FED channel offset is adjusted to bring it back into
 range, if possible.  Since only the B-UB difference is of interest, coherent
@@ -2889,7 +2862,7 @@ receiver offset cannot be increased further).
 level is within the target range, that channel is done.  If it is above or
 below the target range, decrease or increase AOH bias.  Repeat this until all
 channels are within range.  (Or, if two adjacent AOH bias values produce
-black levels that straddle the target range, chose the one that is closer to
+black levels that straddle the target range, choose the one that is closer to
 the target.)  AOH bias should not have to decrease unless the FED receiver
 input offset was at maximum.  If it does decrease, a warning is generated in
 the summary at the end of the calibration.
@@ -3266,14 +3239,14 @@ of address levels that could potentially cause problems,
 such as transitions from high to low levels and vice versa.
 
 Due to limitations in the size of the FIFO1 transparent
-data size of 512 clocks, we can not even take one hit
+data size of 512 clocks, we cannot even take one hit
 per ROC unless the timing is adjusted such that the
 start of the pulse train comes relatively early, i.e. in
 the first 20 or so clock cycles. Recall, each ROC, with
 one hit takes 9 clock cycles to read out. Then with 24 ROCs
 in a module we need 216 clock cycles just to read out the
 hits. Plus about 16 clock cycles to read out the TBM
-headers
+headers.
 
 
 \subsubsection{Data volume and time estimate}
@@ -3298,15 +3271,16 @@ readout time by a factor of 4 as we will need
 exactly 1/4 the number of triggers. This then
 becomes 235 seconds.
 
-We can also use different patters that used
+We can also use different patterns that use
 fewer pixel hits. But one has to take care to have all
 relevant transitions.
 
 
 \subsection{Pixel alive, Scurve, and Gain calibration}
 \label{sec:PATanalysis}
-The pixel alive calibration loops over pixel, inject
-charge, for a fixed VCal setting. The data is analyzed
+
+The pixel alive calibration loops over pixels and injects
+charge for a fixed VCal setting. The data is analyzed
 to produce an efficiency map that displays the efficiency
 for each pixel on a plaquette.
 
@@ -3341,7 +3315,7 @@ in-time WBC only.
 
 If you get a lot of ``Time Out Error'' messages it could
 be because you don't have the right channels enabled on the
-FED. Or more specifically that you have enables channels that
+FED. Or more specifically that you have enabled channels that
 are not connected.
 
 \subsection{Iana vs. Vana Calibration}
@@ -3349,12 +3323,11 @@ are not connected.
 A calibration called ``Iana'' is implemented to
 scan Vana and measure the analog current, Iana.
 As the power distribution for the low voltage is
-done per portcard for the forward pixels ({\it need
-to add how this works for BPix.}) this calibration
+done per portcard for the forward pixels, this calibration
 works in parallel on a ROC at the time on each
 of the portcards. The current changes we are
 measuring is of the order 50 mA as you go from
-Vana=0 to Vana=255. The A4603 power modules has
+Vana=0 to Vana=255. The A4603 power module has
 a resolution of about 7 mA. We perform this
 measurement when all other ROCs are configured
 to their default values. Hence, we measure the
@@ -3366,7 +3339,7 @@ Hence, we have to take the data and fit it in order to
 interpolate between the points. (It takes a
 long time to do these measurments as one has to
 wait up to 6 seconds before the current measurement
-is stable. This should also be brought up with CAEN.)
+is stable.)
 
 \begin{figure}
 \begin{center}
@@ -3400,7 +3373,7 @@ First the raw data is fit to this form. After doing this
 fit the offset at Vana=0 is subtracted and the data is
 refit and plotted. These are the fits shown in Fig.~\ref{fig:IanavsVana}.
 
-A black line is used to indicate where the current used for
+A black line is used to indicate the current for
 the default Vana setting (Vana=140). In red is shown where you should
 set Vana to get an analog current of 25 mA.
 
@@ -3456,7 +3429,7 @@ of a plot is shown in Fig.~\ref{fig:thresholdCalDel}.
 \includegraphics[width=0.8\linewidth]{VcThrCalDel_example.png}
 \end{center}
 \caption{The efficiency for detecting a hit is shown
-as a function of VcThr vs. CalDel. To large values
+as a function of VcThr vs. CalDel. Too large values
 of VcThr, corresponding to a low threshold, generates
 much noise that saturates the digital circuit and no
 hits are seen. The optimal point is indicated in black
@@ -3487,11 +3460,11 @@ all
 
 \subsection{CalDel calibation}
 
-Again the note from Sect.~\ref{sect:caldelvsvcthr} apply
+Again the note from Sect.~\ref{sect:caldelvsvcthr} applies
 in that CalDel is not relevant for physics data.
 
 In this calibration we scan CalDel for a series
-of different WBC settings. The creates a pattern
+of different WBC settings. This creates a pattern
 as indicated in Fig.~\ref{fig:caldel}. As
 a change of one unit of WBC corresponds to
 24.95ns (40.079 MHz) we can use the change in
@@ -3522,15 +3495,13 @@ generates output to display the region of good
 efficiency in the WBC vs CalDel. The output can
 be processed to generate plots using the root script
 {\tt caldel.c}. An example plot is shown in
-Fig.~\ref{fig:caldel}
+Fig.~\ref{fig:caldel}.
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=\linewidth]{CalDelCalibration}
+\includegraphics[width=\linewidth]{CalDelCalibration.pdf}
 \end{center}
-\caption{
-The efficiency as a function of WBC vs CalDel.
-}
+\caption{The efficiency as a function of WBC vs CalDel.}
 \label{fig:caldel}
 \end{figure}
 
@@ -3585,8 +3556,7 @@ will use. If Vsf is too large the digital current
 increases. In the configuration for this calibration
 you can set the maximum increase in Idigi that
 you allow using the parameter IdigiMax (units are
-in mA). {\it Not yet implemented, there is a hardcoded
-number of 7 mA now.}
+in mA). IdigiMax is currently set to 7 mA.
 
 \subsubsection{Output}
 
@@ -3602,8 +3572,7 @@ shown in Fig.~\ref{fig:IdigivsVsf}.
 \begin{center}
 \includegraphics[width=\linewidth]{idigi1}
 \end{center}
-\caption{The digital current is shown as a function
-of Vsf. }
+\caption{The digital current is shown as a function of Vsf. }
 \label{fig:IdigivsVsf}
 \end{figure}
 
@@ -3805,7 +3774,7 @@ This calibration has no additional parameters aside from the standard ones.
 
 A number of ROC DAC settings affect the scaling of the pulse height signal that is sent to the FED.  (This refers not to the actual charge collection, but to the translation of that charge into the signal sent out to the FED.)  We want the range of this signal -- the difference in recorded pulse height between small and large amounts of charge -- to be large.  However, the pulse height signal should not go low enough to be confused with the ultrablack level, nor high enough to exceed the FED's dynamic range.
 
-The ROC DAC setting \verb|VIbias_PH| is intended to be used for adjusting the pulse height, so this DAC should be scanned.  Other DACs that affect the pulse height are \verb|VOffsetRO|, \verb|VIon|, and \verb|VOffsetOp|.  Previous studies found that adjusting \verb|VIbias_PH| and \verb|VOffsetOp|, while fixing \verb|VOffsetRO| and \verb|VIon|, worked well.~\cite{bib:Gromova}
+The ROC DAC setting \verb|VIbias_PH| is intended to be used for adjusting the pulse height, so this DAC should be scanned.  Other DACs that affect the pulse height are \verb|VOffsetRO|, \verb|VIon|, and \verb|VOffsetOp|.  Previous studies found that adjusting \verb|VIbias_PH| and \verb|VOffsetOp|, while fixing \verb|VOffsetRO| and \verb|VIon| worked well~\cite{bib:Gromova}.
 
 \subsubsection{Pulse height calibration procedure}
 
@@ -3854,10 +3823,7 @@ maxPH                   & 254         & Maximum allowed pulse height \\
 
 \subsection{Vana and time walk}
 
-{\it This calibration is not yet fully implemented.
-The description below represents what we intend
-to do.}
-
+This calibration has not been completely implemented.
 The idea is to run a scan of Vana vs CalDel. For a large
 charge we will assume that the response of different
 sensors is similar. As for a large charge (the maximum
@@ -3874,12 +3840,7 @@ over threshold.
 
 \subsection{Trim bit determination}
 
-{\it This section outlines an idea for triming. The actual
-algorithms used are slightly different. The next section
-describes the analysis tools that are available. This
-section should be updated.}
-
-The algorithm described below is iterative. It uses a linerized
+The algorithm described below is iterative. It uses a linearized
 model to determine the parameters. Successive iterations of this
 algorithm should provide better values of the trim parameters.
 
@@ -3949,9 +3910,8 @@ Last all we have to do is to loop over all pixels and calculate deltaTrim$_i$.
 This algorithm can be iterated to determined a better approximation
 of the trim bits.
 
-The derivatives used above has to be determined numerically by running
-several Scurve runs. Need to describe how to do this; but this is
-really the core of the implementation.
+The derivatives used above have to be determined numerically by running
+several S-curve runs.
 
 
 \subsection{Trim bit analysis}
@@ -3969,10 +3929,10 @@ thresholds for each pixel.
 
 After taking an SCurve (trim) run (TrimDefaultShort,
 TrimVcThrShort, TrimVtrimShort, TrimOnShort, TrimOffShort,
-TrimDefault, TrimVcThr, TrimVtrim, TrimOn, TrimOff)
+TrimDefault, TrimVcThr, TrimVtrim, TrimOn, TrimOff) and
 analyze the run using
 
-./bin/linux/x86/PixelAnalysis.exe SCurve <runnum>
+./bin/linux/x86/PixelAnalysis.exe\_SCurve\_<runnum>
 
 The configuration/SCurveAnalysis.xml file needs to contain:
 \begin{verbatim}
@@ -3998,7 +3958,7 @@ TrimOff.dat
 \subsubsection{Quality of trimming}
 \label{sect:checktrims}
 
-There is a command line tools that looks at the quality of the
+There is a command line tool that looks at the quality of the
 trimming. It can be run using:
 \begin{verbatim}
 [pixelpro@vmepcS2B18-17 test]$ ./bin/linux/x86/PixelTrimAnalysis.exe 100141 | more
@@ -4037,20 +3997,14 @@ run the following. First, take one 'TrimDefault(Short)' and one
 'TrimVcThr(Short)'. In this example these are
 runs 65624 and 65626 respectively. The 'TrimVcThr' run
 adjusts VcThr (down) by a fixed amount for each ROC, e.g.
-5 DAC settings. {\it Currently you have to manually
-make sure when you run the analysis below that this change of
-VcThr is conistent in the analysis program and in the
-configuration file. A relatively simple update in the
-future would be to automatically determine this change
-from the calib.dat files.}
+5 DAC settings.
 
 To run the analysis code
 \begin{verbatim}
 ./bin/linux/x86/PixelTrimVcThr.exe 10630 65624 65626 > log_TrimVcThr_65624
 \end{verbatim}
 
-10630 is the configuration key for run 65624. {\it Again
-this has to be manually supplied.}
+10630 is the configuration key for run 65624.
 The output is a new set of DAC settings in the current
 directory with new VcThr values. The target Vcal
 is set in {\tt src/common/PixelTrimVcThr.cc} on the line
@@ -4092,9 +4046,9 @@ First you need to take five runs:
   TrimOnShort
   TrimOffShort
 \end{verbatim}
-Normally, we use the 'short' configuration files that only use
+Normally, we use the `short' configuration files that only use
 about 50 to 100 pixels on each ROC. This is enough pixels to find the
-values need for VcThr and Vtrim on a given ROC. In a later step we
+values needed for VcThr and Vtrim on a given ROC. In a later step we
 adjust just the trim bits for the remaining pixels.
 The TrimDefaultShort run is a run with the 'default' or current
 settings. The procedure is iterative and the parameters produced in
@@ -4113,7 +4067,7 @@ using
 <runTrimVtrim> <runTrimOn> <runTrimOff>
 \end{verbatim}
 Running this command produces new DAC settings and trimbits.
-In addition if produces a file called 'rocder.dat'. The
+In addition, it produces a file called 'rocder.dat'. The
 use of this file is described in the next section.
 
 \subsubsection{Determining all trimbits}
@@ -4123,8 +4077,7 @@ a file called 'rocder.dat' should have been produced. This file
 contains three numbers for each ROC determined from the analysis
 described above. First is the derivative of the threshold with
 respect to the VcThr setting. The second is the derivative of the
-threshold with respect to Vtrim {\it This needs to be defined
-more precisely.} The last is the change in the threshold
+threshold with respect to Vtrim. The last is the change in the threshold
 with respect to changing trim bits, averaged over the pixels
 on the ROC. The change in threshold with respect to the
 trimbits is used in the adjustment of the trim bits.
@@ -4149,18 +4102,16 @@ from the emulated data. This does not involve the FEC at all, as no real data
 from the ROCs are received. Therefore, this requires independent
 but similar calibration procedures.
 
-\subsection{Baseline with emulated data}
-
+%\subsection{Baseline with emulated data}
 % Souvik
 
-\subsection{Address levels with emulated data}
-
+%\subsection{Address levels with emulated data}
 % Souvik
 
 
 \section{Calibration Procedure}
 \label{sec:calibproc}
-In this section, we describe a way to do a full calibration the detector ``from scratch''.
+In this section, we describe a way to do a full calibration of the detector ``from scratch''.
 Detailed descriptions of each algorithm are in the previous section.
 The procedure must be followed {\it in order}, because of the various
 dependencies between settings.
@@ -4264,7 +4215,7 @@ Commands:
 \end{verbatim}
 
     {\bf Tip:} If your efficient band is very thin, it might be because the
-bias settings of the DOH (DOH\_Ch0Bias\_CLK and DOH\_Ch1Bias\_Data), which read
+bias settings of the DOH (DOH\_Ch0Bias\_CLK and DOH\_Ch1Bias\_Data), which reads
 back the result of the programming test, are
 too low.  The plot can also look bad if the fibers are dirty.
 
@@ -4501,7 +4452,7 @@ all
 
 \subsection{Getting Hits}
 The rest of the calibrations require the use of the charge injection feature of the ROC.
-For the injected charge to be readout as a hit, it has to cross threshold (which involves amount of
+For the injected charge to be read out as a hit, it has to cross threshold (which involves amount of
 charge and the threshold) and be validated be the trigger (which involves the timing of the injection).
 You can get hits by doing the VcThrCalDelFIFO3 calibration, which chooses compatible values
 for VcThr and CalDel.  This calibration will not choose the optimal settings; rather it
@@ -4525,7 +4476,7 @@ all
 
 \subsection{Address Levels}
 Now that you have hits, you can take an address level calibration.  This will allow the
-FEDs to decode the hit related data.  We run on a subset of pixels of pixels to save time.
+FEDs to decode the hit related data.  We run on a subset of pixels to save time.
 The subset is chosen to exercise the various address level transitions.
 
 {\bf Always run a FEDBaseline calibration afterwards} to reset some levels
@@ -4746,11 +4697,11 @@ to the correct root file and \verb|out_name| to something that indicates
 which run it is (e.g. ``minus20'').  Run by doing \verb|root -l -b -q SCurveLoop\_FPix.C|.
 
 You should now have two ``...\_print.dat'' files (one for FPix and one for BPix)
-that contain the number pixels to expect from each ROC.
+that contain the number of pixels to expect from each ROC.
 Change \verb|printedFile| in SCurveLoop\_BPix(FPix).C to open the BPix(FPix) file
 and set the following options:
 \verb|PRINT=0|, \verb|print=0|, \verb|plot=0|, \verb|hold=0|, \verb|useBase=1|.
-Now when the macros are run, the number pixels expected from a ROC will be
+Now when the macros are run, the number of pixels expected from a ROC will be
 taken from the VcThr-20 run.
 
 Now run SCurveLoop\_BPix(FPix).C on the remaining SCurve runs (VcThr+0,2,4,6,8,10,12,14,16).
@@ -4759,20 +4710,20 @@ Combine the FPix and BPix ``...\_fail.dat'' files for each run by doing e.g.
 \verb|cat plus6_BPIX_fail.dat plus6_FPIX_fail.dat > plus6_fail.dat|.
 
 
-Create a copy of the Default dacs.  Use the changeSome.pl script to shift
+Create a copy of the Default DACs. Use the changeSome.pl script to shift
 the VcThr of every ROC included in the configuration (so, not noInit or noAnalogSignal ROCs)
 by +14 (two units less than the farthest you went, as a safety margin).
 iterate.pl will tell you how much the thresholds of each ROC must be raised
 away from these settings in order for them to be above their failure point.  First change
 the input files in iterate.pl to the ``...\_fail.dat'' files you just created.  Then
-run it by doing ``perl iterate.pl'' (sorry the code is so ugly -- this was Ben's first perl script).
+run it by doing ``perl iterate.pl''.
 This will create lists of ROCs grouped by the
-required VcThr shift.  The lists are put into text files with names the indicate
-the required VcThr shift.  For example, \verb|sub6.dat| contains the list of ROCs that
+required VcThr shift.  The lists are put into text files with names that indicate
+the required VcThr shift.  For that example, \verb|sub6.dat| contains the list of ROCs that
 must have 6 subtracted from their VcThr value.  Use changeSome.pl with all of these ``subX.dat''
 files to apply all of the necessary shifts.
 
-You now have a the first guess at the minimized thresholds.  You should now rerun
+You now have a preliminary guess of the minimized thresholds.  You should now rerun
 an SCurve with the new VcThr values (and no shift).  Some ROCs will fail even though
 according to the runs you took earlier they should pass (I guess this is because the
 ROCs are not fully independent from one another... or they are unstable near the failing point).
@@ -4875,7 +4826,7 @@ ToCalibrate:
 all
 \end{verbatim}
 
-{\bf Tip:} If a ROC fails, it may be because it's threshold is too low.  Decrease VcThr by 5-10 units and try again.
+{\bf Tip:} If a ROC fails, it may be because its threshold is too low.  Decrease VcThr by 5-10 units and try again.
 
 \subsubsection{VHldDel}
 
@@ -4894,7 +4845,8 @@ ToCalibrate:
 all
 \end{verbatim}
 
-Note that the value the calibration chooses depends somewhat on the VCal used.  THe value of 250 (low scale) has been used for a long time
+Note that the value the calibration chooses depends somewhat on the VCal used.
+The value of 250 (low scale) has been used for a long time
 and seems to work well enough.
 
 \subsubsection{PHRange}
@@ -4992,7 +4944,6 @@ all
 
 
 \section{XDAQ-DCS Interaction}
-%FIXME this section is now a bit out of date
 
 Close interaction between the DAQ and DCS (Detector Control System)
 software systems are needed for the powering of the FPix, and also so
@@ -5038,11 +4989,11 @@ The PixelDCSFSMInterface provides an interface between the PSX server and our ot
 \begin{itemize}
 \item If all A4603 power supplies in the summary group are ON (HV and LV is ON), then the summarized state reflects this
 	\begin{itemize}
-	\item A4603 power supplies in state {\tt HVMIXED} (one HV channel is on and the other is either off or ramping), are treated as if they were ON.\footnote{This configuration was deployed while planning for the first beam data, because of a desire to have the high-voltage treated as ON, even if the FPix inner radius HV was OFF.}
+	\item A4603 power supplies in state {\tt HVMIXED} (one HV channel is on and the other is either off or ramping), are treated as if they were ON\footnote{This configuration was deployed while planning for the first beam data, because of a desire to have the high-voltage treated as ON, even if the FPix inner radius HV was OFF.}.
 	\end{itemize}
 \item When forming the summary, if an entire power supply has been marked as noInit or noAnalogSignal in the detconfig, then that power supply is ignored when forming the summary\footnote{Initially the code would only ignore the power supply if the status was marked as noInit (because a noAnalogSignal power group still required LV power). However, for the partial configurations prepared for the first beam running, we wanted to be able to ignore a power supply even if it was in state noAnalogSignal.}
-\item If one or more power supply in the summary group has the HV in the off state, then the summarized state treats the whole group as though it is in the state with HV off and LV on.
-\item If one or more power supply in the summary group has the LV off, then the summarized state treats the whole group as off.
+\item If at least one power supply in the summary group has the HV in the off state, then the summarized state treats the whole group as though it is in the state with HV off and LV on.
+\item If at least one power supply in the summary group has the LV off, then the summarized state treats the whole group as off.
 \end{itemize}
 
 When the summarized state of one of the half cylinders/shells changes, the PixelDCSFSMInterface sends a SOAP message to the relevant PixelTKFECSupervisor/PixelFECSupervisor.
@@ -5057,7 +5008,7 @@ PixelTKFECSupervisors and PixelFECSupervisors in real time whenever
 the summarized state of the power supplies changes. The Supervisors
 receive these messages asynchronously (in other words, they handle
 them immediately in a separate thread). When a supervisor receives an
-update about the power status, the only action taken is the update
+update about the power status, the only action taken is to update
 member data that stores the summarized state. No other action is
 taken at that moment.
 
@@ -5267,8 +5218,7 @@ With a table such as this, we could eliminate both the xml file and the hardcodi
 
 This section documents the procedures that are to be followed
 when off detector hardware components are replaced that
-affects the online software and calibrations. {\it This
-section is not complete!}
+affects the online software and calibrations.
 
 \subsection{FED board}
 
@@ -5324,7 +5274,7 @@ solving. These are described in this section.
 \item ResetROC: sent via the TTC. Availabe as a button in the PixelSupervisor GUI. Implemented and verified to work.
 \item ResetTBM: sent via the TTC. Availabe as a button in the PixelSupervisor GUI. Implemented and verified to work.
 \item ResetCCU: causes the TKFECSupervisors to issue the command {\tt resetPlxFec()}. Availabe as a button in the PixelSupervisor GUI. Implemented. Sends resetPlxFec via the FecSoftware.
-\item PIA resets: a menu of resets available from the PixekTKFECSupervisor GUI, implemented by passing a value to the FecSoftware command {\tt testPIAResetfunctions}
+\item PIA resets: a menu of resets available from the PixelTKFECSupervisor GUI, implemented by passing a value to the FecSoftware command {\tt testPIAResetfunctions}
 \begin{itemize}
 \item roc: value = 0x1
 \item aoh: value = 0x2
@@ -5334,7 +5284,7 @@ solving. These are described in this section.
 \item fpixroc: value = 0x2A (bits 1, 3, and 5); this resets the TBM and ROCs
 \item fpixdevice: value = 0x15 (bits 0, 2, and 4); this resets the portcard devices (Delay25, DOH, AOH, DCU)
 \end{itemize}
-The PIA resets are hard resets using hardware lines. In the FPix they go from the CCU parallel output lines to reset lines on the portcard. One is fanned out to all the portcard devices. The other is routed to the TBM and ROCs through the adapter board.\footnote{https://hypernews.cern.ch/HyperNews/CMS/get/pixelOnlineSW/1155/1/1.html}
+The PIA resets are hard resets using hardware lines. In the FPix they go from the CCU parallel output lines to reset lines on the portcard. One is fanned out to all the portcard devices. The other is routed to the TBM and ROCs through the adapter board\footnote{https://hypernews.cern.ch/HyperNews/CMS/get/pixelOnlineSW/1155/1/1.html}.
 \end{itemize}
 
 
@@ -5346,14 +5296,13 @@ The PIA resets are hard resets using hardware lines. In the FPix they go from th
 \label{sect:phaseanddelay}
 
 This section will describe some aspects of determining the
-so called 'phase' and 'delay' of the FED. The sample
+so called `phase' and `delay' of the FED. The sample
 plots shown in this section are taken from runs on the
-FPIX pilot run detector. this was done using a version 4 FED
+FPIX pilot run detector. This was done using a version 4 FED
 with the Aug. 22, 2007 firmware version.
 
 In order to get the transparent data to 'look' OK I had
-to send an LRES before each trigger. Will Johns and I had
-long email exchanges trying to understand this. I think
+to send an LRES before each trigger. I think
 that the final conclusion was that the FED state machine
 gets confused when the input data is non standard. In the
 scans over phases and delays there are certain settings that
@@ -5362,14 +5311,14 @@ data is available. At the end of this section I will discuss
 two issues that I noticed in looking at the transparent data.
 
 For the above reason we also turn off the automatic baseline
-correction to avoid it getting confused if you seend non valid
+correction to avoid it getting confused if you send non valid
 data or if you don't have correct address levels.
 
 In these tests we take 10 triggers for each delay and phase
 setting. I'll show plots, as in Fig.~\ref{fig:phasedelayraw},
 where for each of the two possible phases the profile
 histogram shows the adc value as a function of clock+delay/16.
-The third plots just shows the two plots on top of each other.
+The third plots just show the two plots on top of each other.
 \begin{figure}
 \begin{center}
 \includegraphics[width=\linewidth]{phaseAndDelayPlotRaw_channe_1_1}
@@ -5385,7 +5334,7 @@ as you try to read out the ADC before the data is available.
 To identify the invalid combinations of phase and delay I
 calculate the rms for the different phase and delay settings
 in the first 20 clock cycles, i.e. before the TBM header arrives.
-Based on the rms distribution it is seen that for phase=0 that
+Based on the rms distribution it is seen that for phase=0
 we got invalid data with delays of 1, 2, and 3, while for
 phase=1 the delays of 10, 11, and 12 generate invalid data.
 From now on I will reject these combinations. (In the plots I set the
@@ -5428,7 +5377,7 @@ data overlaps. I do this by shifting the data for the events with phase=1
 by 10 delay steps. The final result is shown in
 Fig.~\ref{fig:phasedelayfinal}. For the bins in the plot where there
 is data from both phase=0 and phase=1 we see that there is excellent
-agreement. We also not that the signal undershoots in a transition
+agreement. We also note that the signal undershoots in a transition
 from black to ultrablack and that it overshoots on the reverse transition.
 \begin{figure}
 \begin{center}
@@ -5463,11 +5412,11 @@ I find that the results are very consistent. The phase is either 0 or
 15 in the (aligned delay) for the raw delay setting this corresponds
 to 2 or 3 for phase=1.
 
-Open questions: Is the same set of phases and delays illegal on all
-FEDs and channels? Also, are the shifts that are needed to time-order
-the data the same on all FEDs and channels? Looking at more data will
-resolve this. It is easy to test that the data in the two phases are
-compatible by forming a $\chi^2$.
+%Open questions: Is the same set of phases and delays illegal on all
+%FEDs and channels? Also, are the shifts that are needed to time-order
+%the data the same on all FEDs and channels? Looking at more data will
+%resolve this. It is easy to test that the data in the two phases are
+%compatible by forming a $\chi^2$.
 
 The code was written as a root macro. I will 'transplant' this code
 into XDAQ so we can run it automatically to produce the phase and delay
@@ -5505,27 +5454,6 @@ almost all channels, though they are not as strong on channel 1, 7,
 and 9.
 
 
-
-
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.48\linewidth]{graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_0}
-\includegraphics[width=0.48\linewidth]{graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_1}
-\includegraphics[width=0.48\linewidth]{graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_2}
-\includegraphics[width=0.48\linewidth]{graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_3}
-\end{center}
-\caption{This figure shows the results of scans for delay25 settings on
-the Cornell test stand. The upper left plots shows (large black dots) the
-region for which the return data was valid when sending a ROC command (CalPix).
-The upper right plot shows the valid region when sending a TBM command
-(tbm speed). The lower left shows the region of success when sending a
-roc init and the lower right shows the region of success with a roc trim
-load command. As is seen, the working region is smaller for the long
-commands. The red and blue points indicates the algorithm used to select
-the operating point. Need to check with Jennifer what this is doing.}
-\label{fig:scanDelay25}
-\end{figure}
-
 \section{Calibration Organization}
 
 The calibrations all share a similar format.
@@ -5538,9 +5466,9 @@ The calibrations all share a similar format.
 \item After all event data is taken it is analyzed and the results are
       saved.
 \end{itemize}
-This section will describe a {\it proposal} for how to formalize this process.
+This section will describe a proposal for how to formalize this process.
 A first step in this direction was taken when the calibration classes
-were broken out from the the PixelSupervisor and the PixelFEDSupervisor.
+were broken out from the PixelSupervisor and the PixelFEDSupervisor.
 This first step was almost trivial as it just copied the code out to
 separate classes. There are a few more changes we should make that will
 allow us to run these jobs in workloops. Among other things, this will
@@ -5585,7 +5513,7 @@ Then the {\tt end()}
 method is invoked to perform any analysis of the acquired data.
 
 
-More details on what these methods needs to do will be
+More details on what these methods need to do will be
 discussed below.
 
 
@@ -5699,10 +5627,10 @@ is 'operations', the third is code improvements.
 \item Tools to view the calibration results should be
       migrated to look at root files.
 \item Deploy database.
-\item Use filebased interface and aliases to nor write over
+\item Use filebased interface and aliases to not write over
       old files. This is basically done. But should modify the
       writing of files so that all files in the configuration
-      is written out again. Otherwise it will be to hard to used.
+      is written out again. Otherwise it will be to hard to be used.
       This is not very complicated, but not sure what is the
       best strategy.
 \item Deploy the error logger to make sure that we send relevant
@@ -5730,7 +5658,7 @@ is 'operations', the third is code improvements.
       This is mostly implemented now. Some calibrations
       still need to migrate to executing the calibration
       in 'steps', and not just as on call.
-\item should use dynamic cast instead of static cast.
+\item Should use dynamic cast instead of static cast.
 \item Further cleanup in calibrations. A number of the
       calibrations contains a large amount of duplication.
 \item Some code like the FEDInterface and FEDCard is too verbose.
