@@ -19,6 +19,7 @@
 \setlength{\marginparwidth}{0.0in}
 \setlength{\textwidth}{6.5in}
 \setcounter{secnumdepth}{4}
+\usepackage[htt]{hyphenat}
 \begin{document}
 %\def\decaysto{\vbox{
 %   \hbox{\raise.5ex\hbox{\vrule height10pt}
@@ -39,16 +40,11 @@ Ben Kreis ({\it benjaminkreis@gmail.com})\\
 \today \\
 \end{center}
 
-%%to do:
-% i would like to add a plain text explanation of what each supervisor does:
-%%%%at each finite state machine transition (some of this is already covered in Configuration secion)
-%%%%outside of FSM transitions (ongoing workloops)
-
 \begin{abstract}
-The Pixel Online Software orchestrates the operation, calibration and monitoring of the 
-CMS Pixel Detector. This Note describes the structure and installation of this Software.
+Pixel Online Software (POS) orchestrates the operation, calibration and monitoring of the
+CMS pixel detector. This Note describes the structure and installation of this software.
 It also documents the algorithms used to calibrate the detector. This document currently
-serves both as a Reference Manual for and a User's Guide to the Pixel Online Software.
+serves both as a Reference Manual for and a User's Guide to POS.
 
 %We might want to separate out the different components later.
 \end{abstract}
@@ -62,24 +58,22 @@ serves both as a Reference Manual for and a User's Guide to the Pixel Online Sof
 
 \section{Introduction}
 
-This note is intended to describe the design and implementation of the
-pixel online software. The pixel online software is used for controlling and calibrating the CMS pixel
+This note describes the design and implementation of
+Pixel Online Software (POS). POS is used for controlling and calibrating the CMS pixel
 detector. In particular, it performs the following functions:
 \begin{itemize}
-\item Configure the detector
-\item Perform online calibrations
-%JMT: isn't this outside the scope of POS?
-\item Analyze calibration data in online farm (CMSSW)
-\item Monitor the detector during data taking
-%\item Control the detector environment (DCS)
+\item Configuring the detector
+\item Performing online calibrations
+\item Analyzing calibration data in online farm (CMSSW)
+\item Monitoring the detector during data taking
 \end{itemize}
 
-In Section~\ref{sect:overview} the main software components 
+In Section~\ref{sect:overview} the main software components
 are introduced. Next the software organization is discussed.
 In Section~\ref{sect:swcomponets} the different software components
 are discussed in more detail. In Section~\ref{sect:calib} the
 different calibrations are described. Other information about
-pixel online software is available at the pixel online
+Pixel Online Software is available at the pixel online
 software wiki pages~\cite{poswiki}.
 
 \section{Pixel DAQ System}
@@ -88,18 +82,18 @@ The intention of this section it to give an overview of
 the CMS pixel DAQ system. For more details the reader
 can follow the references given in the text. But the
 introduction given here should be sufficient to understand
-the main goals of the pixel software.
+the main goals of POS.
 
 \subsection{Overview of DAQ components}
 
-The CMS pixel DAQ system consists of a number of 
+The CMS pixel DAQ system consists of a number of
 components as illustrated in Fig.~\ref{fig:daqcomponents}.
 This figure is specific to the FPix detector, but the
-modification for the BPix are minor and not really 
-relevant to the discussion here unless otherwise 
-mentioned. Starting from the detector itself we have the the
-Read Out Chip (ROC)~\cite{ROC} and the token bit manager 
-(TBM)~\cite{TBM}. Some properties of the ROC are described 
+modification for the BPix are minor and not really
+relevant to the discussion here unless otherwise
+mentioned. Starting from the detector itself we have the
+Read Out Chip (ROC)~\cite{ROC} and the Token Bit Manager
+(TBM)~\cite{TBM}. Some properties of the ROC are described
 below as needed to understand the calibrations. The
 ROC reads out 4,160 pixels and the TBM coordinates
 the communication with a group of 8 to 24 ROCs.
@@ -107,16 +101,16 @@ The TBM is electrically connected to the portcard via
 extension cables $\approx 2$ feet in length.
 
 The portcard receives and sends optical signals to the
-FrontEnd Controller (FEC) and FrontEnd Driver (FED)
-respectively. The FEC is used to program the TBM 
+Front-End Controller (FEC) and Front-End Driver (FED)
+respectively. The FEC is used to program the TBM
 and ROCs and the data read out from the detector is
-send to the FED to be digitized. The portcard is the
-home of several discrete components. We have the 
-Digital Optic Hybrid (DOH) that receives data from
-the FEC and the Analog Optic Hybrid (AOH) that 
+send to the FED to be digitized. The portcard is
+home to several discrete components. We have the
+Digital Opto-Hybrid (DOH) that receives data from
+the FEC and the Analog Opto-Hybrid (AOH) that
 transmits data to the FED. On the portcard we
 have in addition the (t)PLL, Delay25, and gatekeeper
-chips. 
+chips.
 
 Of particular interest is the Delay25 chip. The communication
 to the portcard via the DOH is done at 40MHz on a serial
@@ -141,8 +135,8 @@ CCU. The CCU is again controlled from a Tracker FEC (TkFEC).
 
 \subsubsection{The Read Out Chip}
 
-Each Read Out Chip (ROC)~\cite{ROC}, ilustrated in Fig.~\ref{fig:ROC} collates data from 52 $\times$ 80 = 4,160 pixels 
-and contains about 1.3 million transistors in all.
+Each Read Out Chip (ROC)~\cite{ROC}, illustrated in Fig.~\ref{fig:ROC}, collates data from 52 $\times$ 80 = 4,160 pixels
+and contains about 1.3 million transistors.
 It amplifies and zero suppresses data using 4 trim bits
 that specify a threshold for every pixel. The chip buffers hit data
 until the trigger decision arrives. It is developed at PSI and manufactured by IBM.
@@ -161,7 +155,7 @@ until the trigger decision arrives. It is developed at PSI and manufactured by I
 
 A Token Bit Manager (TBM) controls groups of 8 to 24 ROCs.
 It distributes the clock and trigger signals.
-It serializes analog readout using a token bit 
+It serializes analog readout using a token bit
 passed from ROC to ROC. It is physically mounted next to the ROCs.
 The TBM is developed at Rutgers.
 
@@ -180,7 +174,7 @@ The TBM is developed at Rutgers.
 The Pixel Front End Driver (FED) is a VME module
 with 36 optical inputs. It sits in the counting room and receives the analog output
 of the ROCs via an optical fiber from the center of the CMS detector.
-In order for the FED to decode and digitize this data, it has to have address levels 
+In order for the FED to decode and digitize this data, it has to have address levels
 well calibrated, and this is one of the several tasks performed by the Pixel Online Software.
 Internal timings of the FED also have to be calibrated within errors of a few nanoseconds,
 and this is also accomplished using the POS. The output of the FED
@@ -198,11 +192,11 @@ is dispatched, in a binary format readable to the entire CMS experiment, via an 
 
 \subsubsection{The Pixel FEC}
 
-The Pixel Front End Controller (FEC) sends triggers, clocks 
-and programming data to the ROCs. For the pixel detector, 
+The Pixel Front End Controller (FEC) sends triggers, clocks
+and programming data to the ROCs. For the pixel detector,
 we use a one-way `fast' I2C protocol to send this data.
 We need to send 1 byte of data per pixel, or 66 MB of data
-for the entire detector. For this, we use a 40 MHz serial line, 
+for the entire detector. For this, we use a 40 MHz serial line,
 and this calls for timing calibrations in order to enable downloads.
 
 \begin{figure}[h]
@@ -218,7 +212,11 @@ and this calls for timing calibrations in order to enable downloads.
 \subsection{Installation at P5}
 
 Table~\ref{tab:P5PCs} lists the online PCs that we have at P5
-for pixel online software.
+for Pixel Online Software. Table~\ref{tab:FpixFED} lists the FED boards
+and their locations in the VME crate within the CMS Counting Room. The slots
+and the VME addresses are also provided. Similarly, we list the FEC boards
+and their locations in Table~\ref{tab:FpixFEC}. The CCU connections in the Counting
+Room is shown in Table~\ref{tab:FpixCCU}.
 
 \begin{table}
 \centering
@@ -228,7 +226,7 @@ for pixel online software.
 \begin{tabular}{lcccccccc}
 \hline
 \hline
-Slot in rack & Node name     & Front & Label & Size & Function        & Comments     & OS \\ 
+Slot in rack & Node name     & Front & Label & Size & Function        & Comments     & OS \\
 \hline
           -  & vmepcs2b18-17 & Pixel & -  & ?U      &  Histoviewer    &              & SLC4 \\
           19 & vmepcs2b18-16 & Pixel & 1/10  & 1U   &  VME/S1G01i     & BPix FECs    & SLC4 \\
@@ -348,25 +346,24 @@ S1G01  &  middle & 18   &  5   & BmI            & HC-Z1 \\
 \end{small}
 
 
-\section{Online Software Overview} 
+\section{Pixel Online Software Overview}
 \label{sect:overview}
 
-The pixel online software is based on the xdaq toolkit and is
-built from a number of different components (applications). The
-different xdaq based components are shown in green in 
-Fig.~\ref{fig:components}. The top level application is the 
+The Pixel Online Software is based on the XDAQ toolkit and is a suite of applications. The
+different XDAQ based components are shown in green in
+Fig.~\ref{fig:components}. The top level application is the
 PixelSupervisor. This application is responsible for the overall
 coordination of the pixel DAQ. The PixelSupervisor talks to the
-supervisors that directly control the hardware. For example 
+supervisors that directly control the hardware. For example
 we have the PixelFECSupervisor that provides the interface to the
-pixel FECs. Similarly the PixelFEDSupervisor controls FEDs. 
+pixel FECs. Similarly the PixelFEDSupervisor controls FEDs.
 In production at P5, there are multiple instances of the PixelFECSupervisor and
-PixelFEDSupervisor; one per VME crate.\footnote{The strip tracker
-uses a design where there is one supervisor per VME board.}
+PixelFEDSupervisor; one per VME crate\footnote{The strip tracker
+uses a design where there is one supervisor per VME board.}.
 
 The PixelTKFECSupervisor controls the tracker FEC hardware. The
 pixel system uses the tracker FEC hardware slow I2C to
-initialize the fast I2C used for the download of most 
+initialize the fast I2C used for the download of most
 configuration data.
 
 The PixelTTCSupervisor controls the pixel TTC module used for trigger
@@ -377,7 +374,7 @@ TTCciControl, which is a standard package maintained by the TTC group.
 
 The PixelLTCSupervisor is used for the local trigger control.
 
-The various supervisors run as indepdendent processes, or even on
+The various supervisors run as independent processes, or even on
 different computers. Therefore, in order to communicate with each
 other they must exchange messages on the network. This is done using
 the SOAP protocol.
@@ -385,11 +382,11 @@ the SOAP protocol.
 The Level 1 function manager (L1FM or FM) for the pixels is the
 interface the pixel system has to the global run control (RCMS for
 Run Control and Monitoring System). The FM is a java application.
-It responds to requests from RCMS to change states in the 
+It responds to requests from RCMS to change states in the
 state diagram that describe the state of the DAQ system. This
 state diagram is shown in Fig.~\ref{fig:l1fm}.  The pixel
 FM is a relatively thin layer that basically just passes the state
-changes on to the PixelSupervisor. 
+changes on to the PixelSupervisor.
 
 \begin{figure}
 \begin{center}
@@ -401,7 +398,7 @@ changes on to the PixelSupervisor.
 
 \section{Package structure} \label{sect:swcomponets}
 
-In the pixel online software the code is distributed
+In the Pixel Online Software the code is distributed
 among a number of packages. These packages are listed
 here.
 \begin{itemize}
@@ -423,19 +420,16 @@ here.
 \item PixelUtilities
 \end{itemize}
 The package dependency tree is shown in Fig~\ref{fig:dependencies}.
-The supervisor applications are at the top and depend on the 
+The supervisor applications are at the top and depend on the
 packages below. We should make sure that the dependencies
-form a tree and not contain loops. (If it seems necessary
-to create a loop the solution is almost always to separate
-out some piece of code into a separate package.)
-
+form a tree and not contain loops.
 
 \begin{figure}
 \begin{center}
  \includegraphics[width=0.99\textwidth]{package_dep.pdf}
 \end{center}
 \caption{The dependencies among the packages are indicated here.
-At top are the supervisor applications. }
+At the top are Supervisor applications. }
 \label{fig:dependencies}
 \end{figure}
 
@@ -443,12 +437,11 @@ At top are the supervisor applications. }
 
 \subsection{Pixel Function Manager}
 \label{sec:l1fm}
-The pixel function manager (the Level 1 Function Manager) acts as an interface between
-run control (the level 0 function manager) and the pixel
-online software. The pixel function manager is a java
-application. It implements the state machine of 
-CMS~\cite{statemachine}. The function manager interacts
-with the PixelSupervisor to carry out the 
+The Pixel Function Manager (the Level 1 Function Manager) acts as an interface between
+Run Control (the Level 0 Function Manager) and POS. The Pixel Function Manager is a Java
+application. It implements the state machine of
+CMS~\cite{statemachine}. The Function Manager interacts
+with the PixelSupervisor to carry out the
 different tasks needed in state transitions of the
 run control.
 
@@ -461,20 +454,19 @@ run control.
 \end{figure}
 
 \subsubsection{FSM Implementation Status}
-The CMS run control finite state machine (FSM) is shown in
-Fig.~\ref{fig:l1fm}. This model is implemented in the the pixel
-function manager, and also in the PixelSupervisor. The other
-Supervisors implement portions of this model as required. At the
-moment, the FSM depicted in the figure is completely implemented in
-the PixelSupervisor, with the exception of the ``Reset'' transition
-and its accompanying ``Resetting'' state. The PixelSupervisor does
+The CMS Run Control finite state machine (FSM) is shown in
+Fig.~\ref{fig:l1fm}. This model is implemented in the Pixel Function Manager,
+ and also in the PixelSupervisor. The other
+Supervisors implement portions of this model as required.
+The FSM depicted in the figure is completely implemented in
+the PixelSupervisor. The PixelSupervisor does
 include transitions from any state into the ''Error'' state, and then
 allows a ``Recover'' transition that returns the FSM to the ``Halted''
 state.
 
-\subsubsection{Control of the L1FM}
+\subsubsection{Control of the L1 Function Manager}
 
-During global running, the L1FM is driven by the L0FM, which is
+During global running, the L1 Function Manager (L1FM) is driven by the L0FM, which is
 operated by central DAQ. The pixel user should not intervene via the
 L1FM GUI, except to check its status.
 
@@ -488,7 +480,7 @@ initiated from the L1FM GUI.\footnote{In practice, this is only useful for simpl
 \subsubsection{Outline of L1FM implementation}
 
 The L1FM is created using the Create button in RCMS. This calls the
-method of {\tt PixelFunctionManager.java} called {\tt
+method of \texttt{PixelFunctionManager.java} called \texttt{
 createAction()}.
 
 After creation, transitions of the FM FSM are handled
@@ -499,7 +491,7 @@ corresponds to the {\tt initAction} method and ``Configure''
 corresponds to the {\tt configureAction} method). Inside each {\tt
 fooAction} method are two blocks: one to handle objects of type {\tt
 StateEnteredEvent} and one to handle objects of type {\tt
-StateNotification}. 
+StateNotification}.
 
 When an FSM transition ``foo'' is initiated by the L0FM or L1FM GUI,
 we enter the {\tt StateEnteredEvent} block of {\tt fooAction}. This
@@ -507,9 +499,9 @@ block then contains the code to send a message to PixelSupervisor,
 telling it to proceed with transition ``foo''. The L1FM then does
 nothing while PixelSupervisor coordinates the necessary activities in
 POS. When the transition is completed by the PixelSupervisor, it
-passes a message back to the L1FM.\footnote{This is implemented in
+passes a message back to the L1FM\footnote{This is implemented in
 PixelSupervisor using the {\tt stateChanged} method of the {\tt
-rcmsStateNotifier\_} object.} This message triggers entry into the {\tt
+rcmsStateNotifier\_} object.}. This message triggers entry into the {\tt
 StateNotification} block of {\tt fooAction}. If PixelSupervisor
 reports that the transition was successful, this block moves the L1FM
 FSM into the state ``foo''. If PixelSupervisor reports an error, this
@@ -519,8 +511,8 @@ block moves the L1FM FSM into state ``Error''. In this way, the L0FM
 
 \subsection{PixelSupervisor}
 
-The PixelSupervisor is the top level xdaq application
-in the pixel online software. As described above it takes
+The PixelSupervisor is the top level Pixel Online Software application
+in the Pixel Online Software. As described above it takes
 commands from the function manager. There is one pixel
 supervisor for the pixel online system.
 
@@ -533,7 +525,7 @@ Sec.~\ref{sect:calib}). It is responsible for updating the
 configuration database with new settings obtained by calibrations.
 
 The PixelSupervisor also communicates the state of the pixel
-xdaq software (POS) to the Level 1 Function Manager (Sec.~\ref{sec:l1fm}).
+XDAQ software (POS) to the Level 1 Function Manager (Sec.~\ref{sec:l1fm}).
 
 \subsubsection{Interface}
 The PixelSupervisor web GUI is an html page, which by default
@@ -546,7 +538,7 @@ The PixelSupervisor runs the JobControl Monitor, which is a utility
 that periodically sends ``heartbeat'' SOAP messages to the JobControl
 processes running on the various machines at P5. The PixelSupervisor
 GUI uses the replies from these SOAP messages to display whether any of
-the POS xdaq processes has crashed, or whether any of the JobControl
+the POS XDAQ processes has crashed, or whether any of the JobControl
 processes themselves are unresponsive. (Note that we typically only
 run JobControl at P5, so this feature is not available elsewhere.)
 
@@ -569,24 +561,24 @@ The FED Supervisor controls and monitors the pixel FEDs.
 
 \subsection{Makefile}
 
-The pixel online software is built with a
+The Pixel Online Software is built with a
 Makefile located in each (sub)package. The
-Makefile builds on the xdaq tools. This
+Makefile builds on the XDAQ tools. This
 file should ideally be as short as possible
-and use the functionallity in the xdaq package.
-You invoke the Makefile in each package by 
-doing a 'make'. There is also a {\tt clean} target.
+and use the functionallity in the XDAQ package.
+You invoke the Makefile in each package by
+doing a `make'. There is also a {\tt clean} target.
 
-In addition to the package level makefiles 
-this is a toplevel makefile in the pixel
-directory. This makefile allow you to build 
-all the xdaq packages using {\tt make Set=pixel}.
-You can also clean all packages using 
+In addition to the package level makefiles
+there is a top level makefile in the pixel
+directory. This makefile allows you to build
+all the XDAQ packages using {\tt make Set=pixel}.
+You can also clean all packages using
 {\tt make Set=pixel clean}.
 
 \subsection{Include files}
 
-Include statements should include the file path 
+Include statements should include the file path
 starting from the project. For example you should do
 
 \begin{verbatim}
@@ -596,7 +588,7 @@ starting from the project. For example you should do
 
 \subsection{CVS tags}
 
-We create 'official' tags of the form 'POS\_X\_Y\_Z',
+We create `official' tags of the form 'POS\_X\_Y\_Z',
 e.g. 'POS\_2\_4\_5'. For every tag created, starting
 with POS\_2\_5\_0, an entry should be made in the
 file pixel/README that describes briefly the new
@@ -610,17 +602,17 @@ following steps are required.
 \item Prepare the code, update the README file, and VERSION file and
       commit and tag the code. The VERSION file contains the version
       of the RPM to build.
-\item Invoke 'make Set=pixel rpm' to build RPMs for all pixel online software 
+\item Invoke `make Set=pixel rpm' to build RPMs for all Pixel Online Software
       packages.
 \item In the {\tt PixelUtilities} directory, invoke 'buildExternalRPMs.sh'
       to build RPMs for DiagSystem, TTCSoftware, and FecSoftwareV3\_0.
       At the end of building the external RPMs this script copies
       all RPMs to \$BUILD\_HOME/RPM\_X.Y.Z-V, where X, Y, Z, and V are
-      the major version, minor version, patch, and build version, 
+      the major version, minor version, patch, and build version,
       respectively.
 \end{itemize}
 The set of RPMs built can be tested (in the online environment) for
-consistency by invoking the command 'rpm --test -Uvh *.rpm' in the directly
+consistency by invoking the command 'rpm --test -Uvh *.rpm' in the directory
 where all the RPMs are located.
 
 Old RPMs can be cleaned out of the build area using the command 'make Set=pixel cleanrpm'.
@@ -632,12 +624,9 @@ Old RPMs can be cleaned out of the build area using the command 'make Set=pixel 
 The next two sections describe a C++ interface
 for configuration data management and the
 different classes that are used to store this
-information. 
-
-The idea behind this organization should be
-explained here. For now I just add a pointer
-to a presentation I gave at a pixel software
-meeting that contains the ideas:
+information. For details of the organizational
+details of the database structure, please refer
+to the presentation:
 \begin{verbatim}
 http://indico.cern.ch/conferenceDisplay.py?confId=8768
 \end{verbatim}
@@ -645,12 +634,12 @@ http://indico.cern.ch/conferenceDisplay.py?confId=8768
 \section{Configuration Database Interface}
 
 Since early summer 2006, we have used an interface for accessing
-configuration data in the online software framework. 
+configuration data in the online software framework.
 The access was originally file based, and has now (starting in 2009) been
-supplemented with infrastructure to access an Oracle database. The 
+supplemented with infrastructure to access an Oracle database. The
 interface used is rather generic and the purpose of this document
-is to write down the interface so that we can have a 
-clear separation between the database code and the applications 
+is to write down the interface so that we can have a
+clear separation between the database code and the applications
 that use data from the configuration database.
 
 First in Sect.~\ref{sect:cppinterface} we describe the C++ API.
@@ -662,15 +651,15 @@ In Sect.~\ref{sect:cmdline} a simple command line tool is described.
 This tool is implemented through the C++ interface and should work
 both for the file based and the final data base implementation.
 
-Examples below use a few of the configuration data classes that are used. 
+Examples below use a few of the configuration data classes that are used.
 % In Sect.~\ref{sect:configclasses} the full
 % set of classes that are used to configure and control the pixel
 % online software are discussed.
 
 \subsection{C++ Configuration Data Access API}
-\label{sect:cppinterface} 
+\label{sect:cppinterface}
 
-The class {\tt PixelConfigInterface} in the package 
+The class {\tt PixelConfigInterface} in the package
 {\tt PixelConfigDBInterface} defines the interface for
 access of configuration data. This interface is intended
 to provide type safe access methods for retrieving and
@@ -687,61 +676,61 @@ The primary method for retrieving the data is
 \end{verbatim}
 
 The {\tt PixelConfigKey} is just an integer that holds the top
-level configuration key to be used. 
+level configuration key to be used.
 This interface returns a pointer to the data. The caller is assumed
-to take ownership of the data and delete it. 
+to take ownership of the data and delete it.
 The path is a 'secondary key'. It would allow us to store more than
 one object of the same type in a given configuration. (In the file
-based implementation this label is used to build the path to were the
+based implementation this label is used to build the path to where the
 file is stored.)
-Below are a few example of using this interface.
+Below are a few examples of using this interface.
 \begin{verbatim}
 
   PixelConfigKey theGlobalKey(5);
 
   PixelNameTranslation *theNameTranslation=0;
-  PixelConfigInterface::get(theNameTranslation, "nametranslation/", 
+  PixelConfigInterface::get(theNameTranslation, "nametranslation/",
                      theGlobalKey);
 
   PixelDetectorConfig *theDetectorConfiguration=0;
-  PixelConfigInterface::get(theDetectorConfiguration, "detconfig/", 
+  PixelConfigInterface::get(theDetectorConfiguration, "detconfig/",
                      theGlobalKey);
 
   PixelFECConfig *theFECConfiguration=0;
-  PixelConfigInterface::get(theFECConfiguration, "fecconfig/", 
+  PixelConfigInterface::get(theFECConfiguration, "fecconfig/",
                      theGlobalKey);
 
 \end{verbatim}
 
-These examples show how you extract objects for which there is only one 
+These examples show how you extract objects for which there is only one
 instance of for the
-whole detector configuration. You pass in as the first argument a pointer. The 
-pointer will return 0 if the object was not successfully retrieved.\footnote{We have now tried to improve on this error-handling scheme by throwing a {\tt std::exception} in case there is a failure to retrieve the configuration information. When we attempt to retrieve configuration data in the POS software, we both test for a null pointer and handle any exceptions thrown.} The
+whole detector configuration. You pass in as the first argument a pointer. The
+pointer will return 0 if the object was not successfully retrieved\footnote{We have now tried to improve on this error-handling scheme by throwing a {\tt std::exception} in case there is a failure to retrieve the configuration information. When we attempt to retrieve configuration data in the POS software, we both test for a null pointer and handle any exceptions thrown.}. The
 second argument is the label for the object. This is essentially a key that
-is used to look up the data. The interface is type safe, i.e., if you specify 
+is used to look up the data. The interface is type safe, i.e., if you specify
 a path to an object of the wrong type you will get back a null pointer. The
-third argument is the global configuration key. This basically specifies 
+third argument is the global configuration key. This basically specifies
 the versions of all objects used in a given configuration. This key is
 implemented as an integer.
 
 Besides objects like the name translation and detector configuration listed
-above, there are objects such as trim bits, mask bits, and dac values 
+above, there are objects such as trim bits, mask bits, and DAC values
 that we need
 to access on a finer granularity than for the whole detector. To do this
 we use slightly modified arguments
 
 \begin{verbatim}
   PixelDACSettings *tempDACs=0;
-  PixelConfigInterface::get(tempDACs,''pixel/dac/FPix_BpI_D1_BLD1_PNL1'', 
+  PixelConfigInterface::get(tempDACs,''pixel/dac/FPix_BpI_D1_BLD1_PNL1'',
                      theGlobalKey);
 \end{verbatim}
 
-where we have added to the path the module name for which we want to 
+where we have added to the path the module name for which we want to
 extract the
-dac settings.
+DAC settings.
 
 As a given application, for example the PixelFECSupervisor, will need to access
-dac settings for many modules, and it is more efficient to extract
+DAC settings for many modules, and it is more efficient to extract
 the data 'in bulk' from the database, we have also added an interface
 that allows extraction of multiple objects at the time
 
@@ -771,12 +760,12 @@ There is also a version that retrieves all the objects
 		  unsigned int version)
 \end{verbatim}
 In general the access based on the configuration key should be used
-in the xdaq applications.
+in the XDAQ applications.
 
 
 \subsubsection{Storing data in the database}
 
-To store data in the configuration database use the following 
+To store data in the configuration database use the following
 method
 
 \begin{verbatim}
@@ -801,7 +790,7 @@ pair is the sub path used for the object.
 \subsubsection{Configuration keys}
 
 A configuration key consists of a set of objects and their versions.
-The simplest form is just to specify a list of the paths and the 
+The simplest form is just to specify a list of the paths and the
 versions to use in the key
 \begin{verbatim}
   static unsigned int makeKey(std::vector<
@@ -812,13 +801,13 @@ The method returns the new configuration key.
 
 \subsubsection{Alias manipulation}
 
-For configurations aliases you can retrieve the list of defined 
+For configurations aliases you can retrieve the list of defined
 aliases using
 \begin{verbatim}
   static std::vector<std::pair<std::string, unsigned int> > getAliases()
 \end{verbatim}
-The string is the name of the alias and the unsigned int is the 
-corresponding key. {\it I think it should actually be a PixelConfigKey.}
+The string is the name of the alias and the unsigned int is the
+corresponding key.
 
 A very similar method is
 \begin{verbatim}
@@ -831,22 +820,22 @@ The method
 static void addAlias(std::string alias, unsigned int key)
 \end{verbatim}
 inserts a new alias. Note that if the alias already exists it will
-just be updated to point to the new key. 
+just be updated to point to the new key.
 
 The method below is a lower level method. This method
 allows you to define an alias to a version that has key
 already created and link it to version aliases. This method
 should eventually be removed as it is probably to error prone...
 \begin{verbatim}
-  static void addAlias(std::string alias, 
+  static void addAlias(std::string alias,
                        unsigned int key,
 		       std::vector<std::pair<std::string, std::string> > versionaliases)
 \end{verbatim}
 
-To create an alias for a configuration object use the method.
+To create an alias for a configuration object use the method:
 \begin{verbatim}
-    static void addVersionAlias(std::string path, 
-                                unsigned int version, 
+    static void addVersionAlias(std::string path,
+                                unsigned int version,
                                 std::string alias)
 \end{verbatim}
 
@@ -855,7 +844,7 @@ configuration key, use
 
 \begin{verbatim}
   static void addVersionAlias(std::string path,
-                              unsigned int version, 
+                              unsigned int version,
                                std::string alias)
 \end{verbatim}
 
@@ -870,10 +859,10 @@ To get the actual version that an alias points to use the method
 
 The interface should support polymorphism in the sense described
 below. For example, for trim bits it may be convenient to have ways of
-storing the trim bits in different ways. We will need to be able 
+storing the trim bits in different ways. We will need to be able
 to store trim bits so that we can set them independently for
 each pixel. But there are other cases where we might want to set
-all trim bits the same on a whole ROC, or the same in each 
+all trim bits the same on a whole ROC, or the same in each
 double column.
 
 Consider that we have a base class, {\tt PixelTrimBase} and that there
@@ -884,19 +873,19 @@ operations like
 
 \begin{verbatim}
   PixelTrimBase *tempTrims=0;
-  PixelConfigInterface::get(tempTrims,"pixel/trim/FPix_BpI_D1_BLD1_PNL1", 
+  PixelConfigInterface::get(tempTrims,"pixel/trim/FPix_BpI_D1_BLD1_PNL1",
                      theGlobalKey);
 \end{verbatim}
 
-where after {\tt tempTrims} points to the data type stored in the 
+where after {\tt tempTrims} points to the data type stored in the
 database for the configuration.
 
 Similarly you should be able to store data
 
 \begin{verbatim}
-  PixelTrimBase *tempTrims=new PixelTrimROC; //probably would not compile as
-                                             //we don't have this constructor.
-  unsigned int ver=PixelConfigInterface::put(tempTrims,"pixel/trim/FPix_BpI_D1_BLD1_PNL1");
+  PixelTrimBase *tempTrims=new PixelTrimROC; // no such constructor.
+  unsigned int ver=PixelConfigInterface::put(tempTrims,
+     "pixel/trim/FPix_BpI_D1_BLD1_PNL1");
 \end{verbatim}
 
 
@@ -910,7 +899,7 @@ data. The functionality of this interface is described below.
 
 \subsubsection{Inserting new data}
 
-Here we will start be discussing how you insert a
+Here we will start by discussing how you insert a
 {\tt PixelDetectorConfig} object. There is
 only one such object in the configuration. Assuming that we
 have this in a file named {\tt detconfig.dat}. We now want to
@@ -919,28 +908,28 @@ insert this into the configuration database. This is done with
 \begin{verbatim}
 PixelConfigDBCmd.exe --insertData detconfig detectconfig.dat
 \end{verbatim}
-This would install the content of the file {\tt detconfig.dat} 
+This would install the content of the file {\tt detconfig.dat}
 under the path {\tt detconfig} by creating a new version.
 This new version is returned by the command so that it is known
 where it was installed. The implementation of this tool
 reads the file to create a {\tt PixelDetectorConfig} object and
 then uses the C++ interface to store the data.
 
-As a variation of this you might want to install, e.g., a new set of 
-DAC settings for the ROCs. As we insist that no data can be 
+As a variation of this you might want to install, e.g., a new set of
+DAC settings for the ROCs. As we insist that no data can be
 changed in the configuration database after it has been loaded
 this implies that the DAC settings for all ROCs needs to be
 loaded at once. To insert that prepare the files that contains the
-ROC dac settings. Then create the file daclist.txt that list all
-the file that you want to install. To install them into the
-database us
+ROC DAC settings. Then create the file daclist.txt that list all
+the files that you want to install. To install them into the
+database use
 
 \begin{verbatim}
 PixelConfigDBCmd.exe --insertDataSet dac daclist.txt
 \end{verbatim}
 
 Again a new version has been created under the path {\tt dac} and
-all the dac settings have been uploaded. The new version is then
+all the DAC settings have been uploaded. The new version is then
 printed out.
 
 Note that these interfaces are designed to not allow
@@ -953,23 +942,23 @@ From the command line you can retrieve data using
 \begin{verbatim}
 PixelConfigDBCmd.exe --getVersion nametranslation/ 0
 \end{verbatim}
-This will retrieve the data from version 0 of the nametranslation 
+This will retrieve the data from version 0 of the nametranslation
 and write it out as a file.
 
 \subsubsection{Creating new configurations}
 
 So far we have discussed how to add new data to the configuration
-database. The next step is to combine versions of several 
-data types into a configuration. This is done with a command 
+database. The next step is to combine versions of several
+data types into a configuration. This is done with a command
 like
 
 \begin{verbatim}
 PixelConfigDBCmd.exe --insertConfigAlias Physics dac 1 detconfig 0 nametranslation 0
 \end{verbatim}
 
-where the versions of the different objects on the paths are 
+where the versions of the different objects on the paths are
 listed. This will create a new configuration key. This key will
-be returned by the command. 
+be returned by the command.
 
 Very often we have an existing configuration, {\tt oldKey}, that
 we want to 'update'. Note that update actually means that we will create
@@ -977,7 +966,7 @@ a new configuration. For example you can do
 \begin{verbatim}
 PixelConfigDBCommand --updateConfigAlias 5  tbm 6
 \end{verbatim}
-{\it not yet implemented.} So in the example above a copy of 
+So in the example above a copy of
 configuration key number 5 would
 be made in which the TBM settings version 6 was added.
 
@@ -986,9 +975,9 @@ we could imagine doing something like
 \begin{verbatim}
 PixelConfigDBCommand --updateConfigAlias 5  calib -1
 \end{verbatim}
- 
+
 In both these cases the new configuration key that was created is
-returned. Again this interface guarantees that no existing 
+returned. Again this interface guarantees that no existing
 data has been changed. Only new data has been added.
 
 
@@ -996,7 +985,7 @@ data has been changed. Only new data has been added.
 
 
 The simplest use case is that we can create an alias that points
-to a specific key. This could e.g. be to point the 'Physics' 
+to a specific key. This could e.g. be to point the 'Physics'
 alias to configuration key 5
 \begin{verbatim}
 PixelConfigDBCommand --insertConfigAlias Physics 5
@@ -1005,7 +994,7 @@ PixelConfigDBCommand --insertConfigAlias Physics 5
 But we need to expand on this to make it more manageable
 to handle the configurations.
 
-In addition to have aliases for the toplevel configurations
+In addition to have aliases for the top level configurations
 we can define aliases for the configuration data versions.
 For example you can define the 'Physics' alias for the TBM settings
 version 4 using
@@ -1017,17 +1006,17 @@ can also do
 \begin{verbatim}
 PixelConfigDBCommand --insertConfigAlias Physics dac 5 detconfig 3 tbm Physics
 \end{verbatim}
-This will create a new toplevel configuration key and the 
+This will create a new top level configuration key and the
 alias 'Physics' will point to this key. Say that you then also do
 \begin{verbatim}
 PixelConfigDBCommand --insertConfigAlias PhysicsLowLumi dac 4 detconfig 3 tbm Physics
 \end{verbatim}
-We have now  created two aliases to two toplevel keys. Now, if you 
+We have now  created two aliases to two top level keys. Now, if you
 do
 \begin{verbatim}
 PixelConfigDBCommand --insertVersionAlias tbm 5 Physics
 \end{verbatim}
-this should automatically create two new toplevel configurations
+this should automatically create two new top level configurations
 for 'Physics' and 'PhysicsLowLumi'.
 
 \subsubsection{Use cases}
@@ -1066,26 +1055,26 @@ tbm Default mask Default
 \end{verbatim}
 
 This command will create the first configuration key, number 0. Now
-say that a new set of dac settings is created and loaded:
+say that a new set of DAC settings is created and loaded:
 \begin{verbatim}
-PixelConfigDBCommand --insertData dac daclist.txt 
+PixelConfigDBCommand --insertData dac daclist.txt
 \end{verbatim}
-This will be version 1 of the dac settings. Next if you make this
+This will be version 1 of the DAC settings. Next if you make this
 alias the 'Default':
 \begin{verbatim}
 PixelConfigDBCommand --insertVersionAlias dac 1 Default
 \end{verbatim}
-The code will automatically update all toplevel aliases that are
-using this the 'Default' dac settings. In this example it
-means that the top level 'Physics' alias will point to key 1.
+The code will automatically update all top level aliases that are
+using the `Default' DAC settings. In this example it
+means that the top level `Physics' alias will point to key 1.
 
 
 
 
 \subsection{Managing Configurations}
 
-We need higher level tools to manage configurations. The way we 
-currently have the configurations implemented there are about 
+We need higher level tools to manage configurations. The way we
+currently have the configurations implemented there are about
 15 different objects that are needed to build a configuration.
 Two examples of such configurations are:
 
@@ -1125,22 +1114,21 @@ tkfecconfig 0
 
 For a moment I will not discuss the 'aliases', I will focus just
 on the data organization and the tools needed to manipulate the
-data. The different data types used in the configurations are 
+data. The different data types used in the configurations are
 discussed in Sect.~\ref{sect:configobjects}
 
 
-\subsection{Configuration DB Implementation}
+% \subsection{Configuration DB Implementation}
 
-{\it to be added. Stay tuned.}
 
 
 \section{Configuration Objects}
 \label{sect:configobjects}
 
 This section describes the implementation
-of the configuration objects for the 
-pixel online system. The interface for accessing this data 
-was discussed in the previous section. 
+of the configuration objects for the
+pixel online system. The interface for accessing this data
+was discussed in the previous section.
 
 \subsection{Introduction}
 
@@ -1148,15 +1136,15 @@ Key goals for the design of the configuration
 data object include:
 \begin{itemize}
 \item The configuration has to be fast and reliable.
-      The fewer components, read pieces of software, 
+      The fewer components, read pieces of software,
       involved in the configuration step the more
       likely the system is to work reliably.
 \item The data volume should be small. I.e. the data
       has to be packed in an efficient way.
 \item Want to optimize the database access by accessing
-      relatively few, but large, objects. 
+      relatively few, but large, objects.
 \item Computers are good at manipulating data that is in
-      memory, so the actual commands that are sent to 
+      memory, so the actual commands that are sent to
       the hardware can be built on the fly -- assuming that
       all information to do this is accessible in memory.
 \item The data volume for the whole pixel system is ${\cal O}(100\ {\rm MB})$
@@ -1178,13 +1166,13 @@ applications:
 \vskip 0.5cm
 \noindent
 {\bf PixelMaskAllPixels}: This class stores the mask bits for the
-                          ROCS on one module. The masks are stored
+                          ROCs on one module. The masks are stored
                           for each pixel.
 
 \vskip 0.5cm
 \noindent
 {\bf PixelDACSettings}: This class stores the DAC settings for all
-                        ROCs on one module. 
+                        ROCs on one module.
 
 \vskip 0.5cm
 \noindent
@@ -1193,25 +1181,25 @@ applications:
 
 \vskip 0.5cm
 \noindent
-{\bf PixelNameTranslation}: This class translates from the pixel 
+{\bf PixelNameTranslation}: This class translates from the pixel
                             naming scheme documents names of ROCs to
                             the hardware addresses used by both the
                             FEC and the FED to identify a ROC.
 
 \vskip 0.5cm
 \noindent
-{\bf PixelDetectorConfig}: This class lists the modules used in a 
+{\bf PixelDetectorConfig}: This class lists the modules used in a
                            configuration. The utility of this class
                            is that it allows one to only use a small
-                           subset of the detector without having to 
+                           subset of the detector without having to
                            create a new name translation.
 
 \vskip 0.5cm
 \noindent
-{\bf PixelROCStatus}: This class keeps track of the status of 
+{\bf PixelROCStatus}: This class keeps track of the status of
                       ROCs. The default assumption is that a ROC
-                      is working and this object allows us to 
-                      list ROCs that are not working, or that we 
+                      is working and this object allows us to
+                      list ROCs that are not working, or that we
                       want to turn off.
 
 \vskip 0.5cm
@@ -1244,30 +1232,30 @@ applications:
 
 \vskip 0.5cm
 \noindent
-{\bf PixelLTCConfiguration}: This class holds the configuration for the 
+{\bf PixelLTCConfiguration}: This class holds the configuration for the
                              pixel LTC module.
 \vskip 0.5cm
 \noindent
-{\bf PixelTTCciConfiguration}: This class holds the configuration for the 
+{\bf PixelTTCciConfiguration}: This class holds the configuration for the
                                pixel TTCci module.
 
 \vskip 0.5cm
 \noindent
 {\bf PixelCalibConfiguration}: This class specifies how the calibrations
-                               are executed. 
+                               are executed.
 
 \vskip 0.5cm
 \noindent
-{\bf PixelDelay25Configuration}: This class specifies how the delay25 
+{\bf PixelDelay25Configuration}: This class specifies how the delay25
                                  calibration is executed.
 
 \vskip 0.5cm
 
 
-With the exception of {\tt PixelCalibConfiguration} and 
+With the exception of {\tt PixelCalibConfiguration} and
 {\tt PixelDelay25Configuration} the classes above are used to build the
-configuration of the hardware. The last two classes are used to 
-configure the software applications to perform a given 
+configuration of the hardware. The last two classes are used to
+configure the software applications to perform a given
 calibration.
 
 
@@ -1306,13 +1294,13 @@ class PixelConfigBase {
     std::string description_;
     std::string creator_;
     std::string date_;
-     
+
 
 };
 \end{verbatim}
 
 This class is intended to provide a common interface. Currently it simply
-holds information about when the objects were created. 
+holds information about when the objects were created.
 
 
 \subsection{Trim and mask bits}
@@ -1321,10 +1309,10 @@ The trim and mask bits need to be set for each pixel. This
 makes these the largest configuration objects. In terms
 of configuration of the ROC, the mask and trim bits are loaded
 together. However, as the mask bits are used offline we will
-store the trim and mask bits in different objects 
+store the trim and mask bits in different objects
 as this will reduce the data that needs to be downloaded
 to access the mask bits offline. Also, this saves space
-as compared to storing the trim and mask bit for each 
+as compared to storing the trim and mask bit for each
 channel as one byte. It is also likely that we would
 like to update the mask bits without changing the trim bits.
 This would happen for example when we discover a hot pixel
@@ -1335,7 +1323,7 @@ For both the mask and trim bits we allow for different implementations.
 For example, we can have one implementation that allows us
 to use different settings for each pixel, or we can have a different
 configuration that uses the same settings for all pixels. The code
-handles this transparently by using inheritance. 
+handles this transparently by using inheritance.
 
 For the mask bits the base class looks like:
 
@@ -1344,7 +1332,7 @@ class PixelMaskBase: public PixelConfigBase {
 
  public:
 
-    PixelMaskBase(std::string description, 
+    PixelMaskBase(std::string description,
 		  std::string creator,
 		  std::string date);
 
@@ -1387,8 +1375,8 @@ class PixelMaskAllPixels: public PixelMaskBase {
 
  private:
 
-    std::vector<PixelROCMaskBits> maskbits_;  
- 
+    std::vector<PixelROCMaskBits> maskbits_;
+
 };
 
 \end{verbatim}
@@ -1396,26 +1384,26 @@ class PixelMaskAllPixels: public PixelMaskBase {
 The file format that we use looks like:
 \begin{verbatim}
 ROC:     FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC1
-col00:   11110000000000000000000000000000000000000000000000000000000000000000000000000000
-col01:   00000000000000000000000000000000000000000000000000000000000000000000000000000000
-col02:   00000000000000000000000000000000000000000000000000000000000000000000000000000000
+col00:   11110000... (80 entries)... 0
+col01:   00000000... (80 entries)... 0
+col02:   00000000... (80 entries)... 0
 .
 .
 .
-col49:   00000000000000000000000000000000000000000000000000000000000000000000000000000000
-col50:   00000000000000000000000000000000000000000000000000000000000000000000000000000000
-col51:   00000000000000000000000000000000000000000000000000000000000000000000000000000000
+col49:   00000000... (80 entries)... 0
+col50:   00000000... (80 entries)... 0
+col51:   00000000... (80 entries)... 0
 ROC:     FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC2
-col00:   10000000000000000000000000000000000000000000000000000000000000000000000000000000
-col01:   20000000000000000000000000000000000000000000000000000000000000000000000000000000
-col02:   30000000000000000000000000000000000000000000000000000000000000000000000000000000
+col00:   10000000... (80 entries)... 0
+col01:   20000000... (80 entries)... 0
+col02:   30000000... (80 entries)... 0
 .
 .
 .
 \end{verbatim}
 Where the file contains the data for each of the ROCs in a module.
 Within each ROC the trim bits are listed for each column by the
-value if the trim bit as one hexadecimal character from 0 to F.
+value of the trim bit as one hexadecimal character from 0 to F.
 
 
 Similarly for the trim bits we have the base class:
@@ -1425,12 +1413,12 @@ class PixelTrimBase: public PixelConfigBase {
 
  public:
 
-    PixelTrimBase(std::string description, 
+    PixelTrimBase(std::string description,
 		  std::string creator,
 		  std::string date);
 
     virtual ~PixelTrimBase();
-    
+
     void setOverride(PixelTrimOverrideBase* trimOverride);
 
     //Build the commands needed to configure ROCs
@@ -1490,19 +1478,19 @@ trim bits:
 
 \begin{verbatim}
 ROC:    FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC1
-col00:  11111111111111111111111111111111111111111111111111111111111111111111111110000000
-col01:  11111111111111111111111111111111111111111111111111111111111111111111111111111111
-col02:  11111111111111111111111111111111111111111111111111111111111111111111111111111111
+col00:  11111111... (80 entries)... 0
+col01:  11111111... (80 entries)... 1
+col02:  11111111... (80 entries)... 1
 .
 .
 .
-col49:  11111111111111111111111111111111111111111111111111111111111111111111111111111111
-col50:  11111111111111111111111111111111111111111111111111111111111111111111111111111111
-col51:  11111111111111111111111111111111111111111111111111111111111111111111111111111111
+col49:  11111111... (80 entries)... 1
+col50:  11111111... (80 entries)... 1
+col51:  11111111... (80 entries)... 1
 ROC:    FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC2
-col00:  11111111111111111111111111111111111111111111111111111111111111111111111111111111
-col01:  11111111111111111111111111111111111111111111111111111111111111111111111111111111
-col02:  11111111111111111111111111111111111111111111111111111111111111111111111111111111
+col00:  11111111... (80 entries)... 1
+col01:  11111111... (80 entries)... 1
+col02:  11111111... (80 entries)... 1
 .
 .
 .
@@ -1524,7 +1512,7 @@ class PixelDACSettings: public PixelConfigBase {
 
     //Generate the DAC settings
     void generateConfiguration(PixelFECConfigInterface* pixelFEC,
-	                       PixelNameTranslation* trans) const; 
+	                       PixelNameTranslation* trans) const;
 
     void writeBinary(std::string filename) const;
 
@@ -1534,8 +1522,8 @@ class PixelDACSettings: public PixelConfigBase {
 
  private:
 
-    std::vector<PixelROCDACSettings> dacsettings_;   
- 
+    std::vector<PixelROCDACSettings> dacsettings_;
+
 };
 
 \end{verbatim}
@@ -1583,7 +1571,7 @@ Where the file contains the DAC settings for all the ROCs in a given module.
 \subsection{PixelDetectorConfig}
 
 Specifies which components of the detector are used in the configuration.
-The level of configurability is the module (or in FPIX language 
+The level of configurability is the module (or in FPIX language
 the panel). I.e. the
 components that are controlled by one TBM.
 
@@ -1605,16 +1593,16 @@ specify a status of the ROC. An example of the file is
 given below
 \begin{verbatim}
 Rocs:
-FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC0 
-FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC1 
+FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC0
+FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC1
 FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC2 off
-FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC3 
+FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC3
 FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC4 noAnalogSignal
-FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC5 
+FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC5
 FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC6 off noHits
-FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC7 
-FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC8 
-FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC9 
+FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC7
+FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC8
+FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC9
 \end{verbatim}
 The status words are explained in more detail in Sec.~\ref{sec:rocstatus}.
 
@@ -1627,13 +1615,9 @@ entire FED channel is marked as {\tt noAnalogSignal}, then the
 corresponding FED channel is automatically disabled. Similarly, if a
 FED channel is disabled in the FED card, but enabled in the detector
 configuration, then the FED card is dynamically modified to conform to
-the detector configuration. In this way the the detector configuration
+the detector configuration. In this way the detector configuration
 is the ``master'' flag for what parts of the detector are included in
 the configuration.
-
-{\em We should check if the detector configuration currently controls
-which portcard devices are initialized. Ideally if a portcard is not
-used, then it should not be initialized during the configuration.}
 
 
 \subsection{PixelROCStatus}
@@ -1642,7 +1626,7 @@ The {\tt PixelROCStatus} class is used to store the status
 of ROCs. The default assumption is that a ROC is working and
 is on. However, we are likely to have problems with some ROCs
 given the number of components we have. This structure should
-allow us to add new failure modes as we discover new 
+allow us to add new failure modes as we discover new
 problems. An example of the data would look like
 \begin{verbatim}
 FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC2 noHits
@@ -1660,11 +1644,11 @@ The different status flags that we can set are:
       it is ignored.
 \item {\tt off} indicates that the ROC is disabled via a control bit on the ROC.
                 It is not used in any calibration and will not generate hits.
-                However, even it a ROC is {\tt off} it will be
+                However, even if a ROC is {\tt off} it will be
                 configured. Presently the use of this flag is not implemented (it is ignored by the code).
 \item {\tt noInit} indicates that the ROCs in a module should not be included in the configuration.
 		This is implemented.
-\item {\tt noAnalogSignal}  indicates that the ROC can configured, but that something in the analog readout is broken. The ROC is included in the configuration but excluded from calibrations. This is implemented, and the corresponding FED channel is automatically disabled.
+\item {\tt noAnalogSignal}  indicates that the ROC can be configured, but that something in the analog readout is broken. The ROC is included in the configuration but excluded from calibrations. This is implemented, and the corresponding FED channel is automatically disabled.
 \end{itemize}
 With the file-based configuration, we can set more than one of these
 flags at once. (Likely one would implement this as a bitmap.) However,
@@ -1674,7 +1658,7 @@ to be set at a time.
 
 \subsection{PixelNameTranslation}
 
-This class generates the translation between the names used in the 
+This class generates the translation between the names used in the
 naming document and the hardware addresses. This includes both the
 FEC and the FED.
 
@@ -1701,11 +1685,9 @@ used in the configuration.
 
 This class specifies the location of the pixel FECs. This
 basically gives the VME base address to use. An arbitrary FEC
-number is used here. {\it is this specified in the naming
-convention document?} Also we refer to the crate number here. 
-There will be one PixelFECSupervisor per crate. How is this
-number identified? The PixelFECSupervisor is initialized
-with a crate number and will control the FEC cards that are 
+number is used here. Also we refer to the crate number here.
+There will be one PixelFECSupervisor per crate. The PixelFECSupervisor is initialized
+with a crate number and will control the FEC cards that are
 in the crate.
 
 The file format that we have to store this information looks like
@@ -1713,7 +1695,7 @@ The file format that we have to store this information looks like
 #FEC number     crate     vme base address
 1               1         0x80000000
 \end{verbatim}
-Each FEC is identified by a number. The FEC is identified by the 
+Each FEC is identified by a number. The FEC is identified by the
 crate and base address.
 
 
@@ -1722,11 +1704,9 @@ crate and base address.
 This class specifies the location of the tracker FECs in
 the system. This
 specifies the VME slot and crate used for each TKFEC board. An arbitrary TKFEC
-ID string is used here. {\it is this specified in the naming
-convention document?}
-There will be one PixelTKFECSupervisor per crate. 
+ID string is used here. There will be one PixelTKFECSupervisor per crate.
 The PixelTKFECSupervisor is initialized
-with a crate number and will control the TKFEC cards that are 
+with a crate number and will control the TKFEC cards that are
 in the crate.
 
 The file format that we have to store this information looks like
@@ -1754,11 +1734,10 @@ The file format that we have to store this information looks like
 #FED number     crate     vme base address
 1               1         0x1c000000
 \end{verbatim}
-Each FED is identified by a number, this is the same number as 
-the FED id in the raw data. The FED is identified by the 
+Each FED is identified by a number, this is the same number as
+the FED id in the raw data. The FED is identified by the
 crate and base address. For now the crate is identified by an
-arbitrary number. {\it Should this be changed to the 
-actual name of the crate?}
+arbitrary number.
 
 
 
@@ -1769,18 +1748,18 @@ This class was formerly known as PixelCalib, but was renamed after
 it was moved to the CMSSW repository in order to make it more
 consistent with offline conventions.
 This class incorporates information about how a calibration
-is executed. In particular it handles calibrations where 
+is executed. In particular it handles calibrations where
 groups of pixels have charge injects. It specifies how we loop over pixels
 and pulse the detector in a calibration. The class is also
 used in the offline in order to analyze the calibration data,
 so that we know what event had what charge injected and what
-pixel were expected to be hit. 
+pixels were expected to be hit.
 
 Below is an example of this file:
 \begin{verbatim}
 Mode: ThresholdCalDelay
 Rows:
-10 | 20 
+10 | 20
 Cols:
 10 | 20
 VcalHigh
@@ -1799,16 +1778,15 @@ FPix_BmI_D1_BLD1_PNL1_PLQ2_ROC1
 \end{verbatim}
 
 The {\tt Scan} statement allows you to specify that
-you want to scan the settings of a dac parameter in a 
+you want to scan the settings of a DAC parameter in a
 range, above starting at 0 and incrementing in steps of
 8 until it exceeds 255. In addition to this you can
 specify a non-uniform set of scan points using the
 following format
 \begin{verbatim}
-ScanValues: Vcal 10 20 30 35 40 42 44 46 48 50 
+ScanValues: Vcal 10 20 30 35 40 42 44 46 48 50
                  52 54 56 58 60 65 70 80 90 100 -1
 \end{verbatim}
-The {\tt -1} 
 
 Arbitrary parameters may be specified just before the ``Rows:" line.
 For example,
@@ -1831,29 +1809,29 @@ not defined for a particular calibration are ignored.
 
 In particular the parameter ``ScanMode'' can be defined. It can take
 the three values of ``maskAllPixel'', ``useAllPixel'', and ``default''.
-In the default mode the trim and mask bits specified in the configuration 
+In the default mode the trim and mask bits specified in the configuration
 is used during the scan. Charge is injected according to the pattern
-and the pixels that are enabled in the configuration is used during
+and the pixels that are enabled in the configuration are used during
 the calibration. In the maskAllPixels mode all pixels are
 disabled before the first event. Then the pixels are enabled
-corresponding to the pixel mask and the pattern that has charged
-injected. I.e., only pixels that have charge injection and that
+corresponding to the pixel mask and the pattern that has charge
+injected. That is, only pixels that have charge injection and that
 are not disabled in the configuration will be enabled. The pixels
-use the trim bits from the configuration. In the useAllPixels mode
-all the pixels on the current pattern is enabled independently of
-what the mask bit is in the configuration if ScanMode is not 
-defined the mode useallPixels will be used.
+use the trim bits from the configuration. In the useAllPixels mode,
+all the pixels on the current pattern are enabled independently of
+what the mask bit is in the configuration. If ScanMode is not
+defined the mode useAllPixels will be used.
 
-DACs to scan are selected with lines of the form.
+DACs to scan are selected with lines of the form:
 \begin{verbatim}
 Scan: [DAC name] [min scan value] [max scan value] [scan step size] [mix]
 \end{verbatim}
-The last parameter is optional.  If nothing is given here, then all ROCs will be set to the same DAC value at the same time.  If the word \verb|mix| is placed here (at the end of the line), then the ROCs on a particular channel will have not have the same DAC value at the same time.  Instead, the DAC values on different ROCs will be spread out to cover the entire range.  This is useful when scanning \verb|Vsf| or any other setting that affects the power drawn by the chip, as it prevents the ROCs from all drawing high power at the same time.
+The last parameter is optional.  If nothing is given here, then all ROCs will be set to the same DAC value at the same time.  If the word \verb|mix| is placed here (at the end of the line), then the ROCs on a particular channel will not have the same DAC value at the same time.  Instead, the DAC values on different ROCs will be spread out to cover the entire range.  This is useful when scanning \verb|Vsf| or any other setting that affects the power drawn by the chip, as it prevents the ROCs from all drawing high power at the same time.
 
-The list of ROCs may be specified completely, or it may be auto-generated.  
-Auto-generation requires knowing which modules are in the configuration, and 
-which ROCs are on those modules.  Currently, this information is not 
-available in offline (i.e. CMSSW) code, so offline code must have the 
+The list of ROCs may be specified completely, or it may be auto-generated.
+Auto-generation requires knowing which modules are in the configuration, and
+which ROCs are on those modules.  Currently, this information is not
+available in offline (i.e. CMSSW) code, so offline code must have the
 ROC list specified completely.  To do this, the format is:
 \begin{verbatim}
 Rocs:
@@ -1863,15 +1841,15 @@ FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC1
 .
 .
 \end{verbatim}
-In online running, where this information is available, it is preferable 
-to use auto-generation.  To auto-generate the list, the first line should 
-be ``\verb|ToCalibrate:|" instead of ``\verb|Rocs:|".  (The user may 
-specify a complete ROC list with ``\verb|ToCalibrate:|".  Compared to 
-using ``\verb|Rocs:|", this has the advantage of not adding ROCs which 
-are not found in the configuration.  So it is always recommended to 
+In online running, where this information is available, it is preferable
+to use auto-generation.  To auto-generate the list, the first line should
+be ``\verb|ToCalibrate:|" instead of ``\verb|Rocs:|".  (The user may
+specify a complete ROC list with ``\verb|ToCalibrate:|".  Compared to
+using ``\verb|Rocs:|", this has the advantage of not adding ROCs which
+are not found in the configuration.  So it is always recommended to
 use ``\verb|ToCalibrate:|" if possible.)
 
-Probably the most common thing is to just add all ROCs and modules in 
+Probably the most common thing is to just add all ROCs and modules in
 the configuration. This simply requires the word \verb|all|:
 \begin{verbatim}
 ToCalibrate:
@@ -1898,7 +1876,7 @@ FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC0
 FPix_BpI_D1_BLD1_PNL2
 \end{verbatim}
 
-You can also exclude particular ROCs and modules by adding them with a 
+You can also exclude particular ROCs and modules by adding them with a
 minus sign in front (separated by whitespace):
 \begin{verbatim}
 ToCalibrate:
@@ -1906,8 +1884,8 @@ all
 - FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC0
 - FPix_BpI_D1_BLD1_PNL2
 \end{verbatim}
-This fills the ROC list with all ROCs in the configuration, except 
-for \verb|FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC0| and for all the ROCs 
+This fills the ROC list with all ROCs in the configuration, except
+for \verb|FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC0| and for all the ROCs
 in \verb|FPix_BpI_D1_BLD1_PNL2|.
 
 For another example:
@@ -1916,11 +1894,11 @@ ToCalibrate:
 FPix_BpI_D1_BLD1_PNL1
 - FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC0
 \end{verbatim}
-This adds all ROCs on \verb|FPix_BpI_D1_BLD1_PNL1| except 
+This adds all ROCs on \verb|FPix_BpI_D1_BLD1_PNL1| except
 for \verb|FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC0|.
 
-You may optionally add a ``\verb|+|" in front of things that 
-you're adding. (If no ``\verb|+|" or ``\verb|-|" is seen, ``\verb|+|" is 
+You may optionally add a ``\verb|+|" in front of things that
+you're adding. (If no ``\verb|+|" or ``\verb|-|" is seen, ``\verb|+|" is
 assumed.)
 \begin{verbatim}
 ToCalibrate:
@@ -1928,8 +1906,8 @@ ToCalibrate:
 - FPix_BpI_D1_BLD1_PNL1
 + FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC0
 \end{verbatim}
-This adds all ROCs on all modules, except 
-for \verb|FPix_BpI_D1_BLD1_PNL1|, on which 
+This adds all ROCs on all modules, except
+for \verb|FPix_BpI_D1_BLD1_PNL1|, on which
 only \verb|FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC0| is added.
 
 Note that the order matters. The following:
@@ -1939,30 +1917,27 @@ ToCalibrate:
 + FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC0
 - FPix_BpI_D1_BLD1_PNL1
 \end{verbatim}
-would not include \verb|FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC0| in the 
-ROC list, because it is later removed by the 
+would not include \verb|FPix_BpI_D1_BLD1_PNL1_PLQ2_ROC0| in the
+ROC list, because it is later removed by the
 removal of \verb|FPix_BpI_D1_BLD1_PNL1|.
 
-(For completeness, even though it's completely useless, you 
+(For completeness, even though it's completely useless, you
 can use ``\verb|- all|" to clear the ROC list.)
 
-The auto-generated ROC list only adds ROCs on modules 
+The auto-generated ROC list only adds ROCs on modules
 given in the \verb|PixelDetectorConfig|.
 
 \subsection{PixelFedCard}
 
 The {\tt PixelFEDCard} class contains the settings for a FED board.
-The file is fairly long and I do not include an example here. 
-You can find a sample file in PixelFEDInterface/test/params\_fed.dat 
-{\it There is some information on the PixelFEDCard that is 
-redundant with the PixelFEDConfig like the VME base address. We
-should only specify this in one location.}
+The file is fairly long and I do not include an example here.
+You can find a sample file in PixelFEDInterface/test/params\_fed.dat
 
 \subsection{PixelTBMSettings}
 
 This class holds the settings used by the TBM. The file contains the
 module name and gain settings as well as if the TBM should be
-configured in 'SingleMode' or 'DualMode'. 
+configured in 'SingleMode' or 'DualMode'.
 
 The format used for this information is given by
 \begin{verbatim}
@@ -2086,13 +2061,13 @@ number in hex
 \begin{verbatim}
 0x10
 \end{verbatim}
-The delay specified here is in units of 0.499 ns. This 
+The delay specified here is in units of 0.499 ns. This
 corresponds to the steps of the delay in the delay 25 chip.
 
-\section{Usage of configuration data in xdaq applications}
+\section{Usage of configuration data in XDAQ applications}
 
-This section contains a brief description of how the configuration data 
-objects are used. 
+This section contains a brief description of how the configuration data
+objects are used.
 
 First we look at the PixelSupervisor. RCMS, via the PixelFunctionManager,
 will pass a string for a configuration alias to the PixelSupervisor
@@ -2103,10 +2078,6 @@ alias and looks up the corresponding configuration key:
   unsigned int globalKey=PixelConfigDB::getAliases_map().find(alias)->second;
   theGlobalKey_=new PixelConfigKey(globalKey);
 \end{verbatim}
-{\it This code should be fixed so that it catches if the alias does
-not exist. This can be an assert, as the choices for the alias are
-listed from the same map and not being able to find it is an internal
-error.}
 
 Having obtained the configuration key this is what is used to extract
 configuration data. For example the PixelSupervisor extracts some
@@ -2120,14 +2091,13 @@ for deleting.
 
 When the PixelSupervisor asks the other supervisors to configure it does
 this by passing the configuration key, not the alias, to them. This
-guarantees that the configuration used by the different supervisors 
+guarantees that the configuration used by the different supervisors
 is consistent. We only need to retain the configuration key as a record
 of how the detector was configured.
 
-Inside the PixelFECSupervisor in the configuration method we have code 
+Inside the PixelFECSupervisor in the configuration method we have code
 like
 
-{\it Note that this code snippet is a bit out of date, although the idea remains the same.}
 \begin{verbatim}
   PixelConfigDB::get(theNameTranslation_, "pixel/nametranslation/", *theGlobalKey_);
   assert(theNameTranslation_!=0);
@@ -2199,30 +2169,30 @@ identical data from the database on the next configuration.
 \subsection{Global delay 25 usage}
 
 The global delay 25 does not need to be included in a configuration. Then it
-is simply ignored if the PixelConfigInterface::get call returns a 
+is simply ignored if the PixelConfigInterface::get call returns a
 null pointer. However, if it exists in the configuration it has the
 following effects in the different applications:
 
 In the PixelTKFECSupervisor it is checked that we are in a physics
 run and have the global delay 25 settings. If this is the case then
 SCL and TRG are delayed by the delay setting in the global delay 25.
-{\it It is checked in the code if the calculated delay 25 setting is 
+{\it It is checked in the code if the calculated delay 25 setting is
 larger than 127. If this is the case then an error message is printed
 and the delay 25 without the global delay is applied. This is a little
-bit dangerous as it is easy to miss such a message. Should think about 
+bit dangerous as it is easy to miss such a message. Should think about
 a safer way of handling this.}
 For the SDA, if the calculated delay25 setting is to large, it allows
-the SDA to wrap around. 
+the SDA to wrap around.
 
 In the PixelFEDSupervisor the a similar logic is applied; if you
-have the global delay 25 and you are taking a physics run then 
-the TTC RX chip adds a delay. This delay is calculated using the 
+have the global delay 25 and you are taking a physics run then
+the TTC RX chip adds a delay. This delay is calculated using the
 method {\tt PixelGlobalDelay25::getTTCrxDelay}.
 
 Comments by Anders: I think that we should modify this code such that
 the global delay25 delay is applied when your run all calibrations
 except for the Delay25 scans. This will allow simpler tests to make
-sure that the delays are properly applied, e.g., by running the 
+sure that the delays are properly applied, e.g., by running the
 address level calibration with different global delay 25 settings.
 
 \clearpage
@@ -2292,13 +2262,13 @@ outside of the finite state machine structure (the PixelFECSupervisors remain in
 preConfiguration). This step saves considerable time in the configuration process (roughly 25 seconds when configuring
 from the database).
 
-In the {\tt PixelSupervisor::stateConfiguring} method, 
+In the {\tt PixelSupervisor::stateConfiguring} method,
 the PixelSupervisor loops over all
 the PixelTKFECSupervisors, checks the FSM state of each as maintained in
 {\tt statePixelTKFECSupervisors\_}, and if it finds ``Halted'', it tries to
-``Configure'' it and updates the map to read FSM state ``Configuring''. 
+``Configure'' it and updates the map to read FSM state ``Configuring''.
 If any of these PixelTKFECSupervisors are not in the ``Configured'' state,
-the ::stateConfiguring function exits. The PixelSupervisor then does nothing until it receives a 
+the ::stateConfiguring function exits. The PixelSupervisor then does nothing until it receives a
 ``FSMStateNotification'' SOAP message from PixelTKFECSupervisor with the message ``Configured''.
 This FSMStateNotification signals the
 PixelSupervisor to make a transition from ``Configuring'' to ``Configuring'',
@@ -2413,7 +2383,7 @@ We do not want to build complete events on one node; rather we want to
 make sure that the event fractions from each FED is always shipped to
 the same filter unit.
 
-To accomplish this the network fabric of the event 
+To accomplish this the network fabric of the event
 builder will need to be reconfigured for each pixel
 calibration run. Note that this is likely to be done
 between each LHC fill. (This does not mean that we
@@ -2421,24 +2391,24 @@ will determine all constants at this rate, but that
 we will want to monitor quantities such as address
 levels frequently.)
 
-Freya Blekman has developed the algorithms that analyze 
+Freya Blekman has developed the algorithms that analyze
 the pixel raw data for the purpose of doing gain calibrations,
-pixel alive, and Scurves. Initially this work is 
+pixel alive, and Scurves. Initially this work is
 done using data recorded in plain files. To progress
 towards the final goal we should first try to run this
 with a filter unit that is fed data from a source
 that reads files. This will allow us to test and develop
 the application in the form it will run in the HLT. The
-second step is to actually run this with data produced 
-from a FED. This can be either real data of playback 
-generated in a DAQ test stand. We have discussed this 
+second step is to actually run this with data produced
+from a FED. This can be either real data of playback
+generated in a DAQ test stand. We have discussed this
 with Franz Meier. Freya will follow up on this in
 August and September.
 
 One important question to settle here is if we can generate
-the triggers we need for this using our LTC. 
+the triggers we need for this using our LTC.
 
-We should also test and deploy code so that we can take 
+We should also test and deploy code so that we can take
 data using local DAQ (VME) and send it out to an event builder.
 Jim Hunt wrote some of this code. This has not been used
 recently, but we need to deploy this.
@@ -2452,7 +2422,7 @@ between 2000 and 2999 will be stored in directory
 Run$\_$2000. PixelSupervisorConfiguration,
 PixelFEDSupervisorConfiguration and PixelTKFECSupervisorConfiguration
 are derived from this class. Using TBrowser of root, the final output
-directory structure is showed in FIG.(\ref{fig:directory}). 
+directory structure is showed in FIG.(\ref{fig:directory}).
 
 \subsection{Tree structure}\label{treestructure}
 
@@ -2468,14 +2438,14 @@ condition and summary information for the above
 calibrations. The implementation of the tree structure is to declare
 the struct in the header file of each kind of calibration. In the struct there must be a {\tt char} array to
 store each ROC's name. This ensures that all the information can be
-viewed by Histoviewer. 
+viewed by Histoviewer.
 The following code example is from
 ROCUBEqualization calibration:
 \begin{verbatim}
-typedef struct branch{ 
-    float pass; 
+typedef struct branch{
+    float pass;
     char rocName[38];
-   }; 
+   };
 typedef struct branch_sum{
     float new_VIbias_DAC;
     float delta_VIbias_DAC;
@@ -2511,7 +2481,7 @@ ROC UB & The measured UB does not cross the target level &
 Vs & no hits found or no good Vsf found during scan &
  new Vsf value and the change of Vsf \\
  VHldDel &  &
- new VHldDel and its change \\ \hline 
+ new VHldDel and its change \\ \hline
 LinearityVsVsf & no hits found or no good Vsf found during scan &
  new Vsf value and its change \\ \hline
 PHRange & no hits found or no settings give PHInRange or &
@@ -2519,7 +2489,7 @@ PHRange & no hits found or no settings give PHInRange or &
  & only one Vcal produces hits & new VIon and VOffsetRo and their changes \\ \hline
 VcThrCalDel & there is not valid settings &  new VcThr, CalDel and their changes \\ \hline
 VcThr & there is not valid VcThr &  new VcThr and its change \\ \hline
-CalDel & there is not valid CalDel slope & new CalDel and its change \\ \hline 
+CalDel & there is not valid CalDel slope & new CalDel and its change \\ \hline
 Iana & new $\mathrm{Vana} \geq 249$ or maximum $\mathrm{Iana} < 25$ & new Vana, change in Vana, new Iana, \\
 & & maximum Iana (fit Iana at $\mathrm{Vana}=250$), $\chi^2$ of the fit \\
 \hline \hline
@@ -2660,12 +2630,12 @@ printScan                   &  no & Whether to print the AOH bias scan to the sc
 The FED has a delay (0 to 15) that goes in steps of 25/16 ns.
 In addition to the delay there is a phase that controls when
 the data is latched. Certain combinations of the delay and
-phase are invalid and result in garbage ADC values. 
+phase are invalid and result in garbage ADC values.
 
-In this calibration the 32 values of the phase and delay 
+In this calibration the 32 values of the phase and delay
 are scanned. For each setting of the phase and delay a
-fixed number of events (typically around 10) 
-is read out in transparent mode. 
+fixed number of events (typically around 10)
+is read out in transparent mode.
 
 A detailed description of this algorithm, is presented in
 Appendix~\ref{sect:phaseanddelay}.
@@ -2691,7 +2661,7 @@ examples of these plots.
 
 \subsubsection{Example configuration}
 
-An example of a configuration file to run the 
+An example of a configuration file to run the
 phase and delay scan is given below.
 
 \begin{verbatim}
@@ -2729,7 +2699,7 @@ Note that one of the commands to be tested is read from the file {\tt
 infeccmd.dat} in the {\tt PixelRun} directory. If necessary, one can
 customize this file.
 
-Note that this algorithm does not check that the TBM or 
+Note that this algorithm does not check that the TBM or
 ROC actually received the
 command, it just checks the return status.
 
@@ -2737,7 +2707,7 @@ command, it just checks the return status.
 
 The main output from this calibration is new delay settings
 that stored in the portcard files. The only changes made
-to the port card settings are for the send data and 
+to the port card settings are for the send data and
 return data delays.
 
 In addition to generating the new portcard files with
@@ -2775,9 +2745,9 @@ The red square indicates the point chosen by the algorithm.
 
 \subsection{Delay25 trigger setting}
 
-{\it Not implemented.} Should also scan the trigger delay to 
+{\it Not implemented.} Should also scan the trigger delay to
 make sure that the triggers are received correctly. Can we
-just scan the delay setting and look at the corresponding FED 
+just scan the delay setting and look at the corresponding FED
 channel to make sure that the trigger arrived? I.e. that we
 saw data in the FED? You would need to do this before you run
 the phase and delay scan of the FED?
@@ -2788,8 +2758,8 @@ the phase and delay scan of the FED?
 This calibration adjusts the input offset and channel
 offsets of the optical receivers in the FED such that the
 black level is adjusted to be near a given target value,
-normally 450, which is near the midpoint of the 
-dynamic range of the ADC. During this calibration the 
+normally 450, which is near the midpoint of the
+dynamic range of the ADC. During this calibration the
 baseline correction in the FED is turned off.
 
 Besides determining the input offset and the channel
@@ -3287,49 +3257,49 @@ printScan            & no                 & Whether to print TBM UB levels \\
 \subsection{Address level determination}
 
 The address level determination determines the values used
-by the FED to encode the transparent data. This include 
+by the FED to encode the transparent data. This include
 address levels for the pixel addresses, TBM header and trailer
 levels, and the black and ultrablack levels.
 
-Pixels are scanned to make sure that we probe combinations 
+Pixels are scanned to make sure that we probe combinations
 of address levels that could potentially cause problems,
 such as transitions from high to low levels and vice versa.
 
-Due to limitations in the size of the FIFO1 transparent 
+Due to limitations in the size of the FIFO1 transparent
 data size of 512 clocks, we can not even take one hit
-per ROC unless the timing is adjusted such that the 
+per ROC unless the timing is adjusted such that the
 start of the pulse train comes relatively early, i.e. in
 the first 20 or so clock cycles. Recall, each ROC, with
 one hit takes 9 clock cycles to read out. Then with 24 ROCs
-in a module we need 216 clock cycles just to read out the 
+in a module we need 216 clock cycles just to read out the
 hits. Plus about 16 clock cycles to read out the TBM
-headers  
+headers
 
 
 \subsubsection{Data volume and time estimate}
 
-The worst case scenario for an address level 
+The worst case scenario for an address level
 calibration is one BPIX crate. We have 16 FED
 cards in one crate, and we can assume that all
 of them are fully populated. This means that we
 have $16\times 36=576$ links. As we read out this
 data in transparent mode we will read 1024 words
 per event (even though the transparent data
-is only 512 bytes long). This means a total of 
+is only 512 bytes long). This means a total of
 235926 bytes. If we want to go thought all
 pixel we have to read out 4160 times this data
 volume for a total of 9,4 GB. At a speed of
-10 MB/s this will take 940 s. 
+10 MB/s this will take 940 s.
 
 Assuming that we change the transparent data
 FIFO to be 1024 bytes. Then we can easily
 fit 4 hits into each ROC. This then cuts the
 readout time by a factor of 4 as we will need
 exactly 1/4 the number of triggers. This then
-becomes 235 seconds. 
+becomes 235 seconds.
 
 We can also use different patters that used
-fewer pixel hits. But one has to take care to have all 
+fewer pixel hits. But one has to take care to have all
 relevant transitions.
 
 
@@ -3338,17 +3308,17 @@ relevant transitions.
 The pixel alive calibration loops over pixel, inject
 charge, for a fixed VCal setting. The data is analyzed
 to produce an efficiency map that displays the efficiency
-for each pixel on a plaquette. 
+for each pixel on a plaquette.
 
-The Scurve and gain calibrations are variations of the 
-pixel alive test were we in addition loop over the VCal 
+The Scurve and gain calibrations are variations of the
+pixel alive test were we in addition loop over the VCal
 setting for each pixel. For the Scurve the data is
 analyzed to produce an efficiency as a function of the
-VCal setting while for the gain calibration we 
+VCal setting while for the gain calibration we
 look at the charge (ADC value) as function of the VCal.
 
 To analyze the data, go to PixelAnalysisTools/test and do
-one of the following: 
+one of the following:
 \begin{verbatim}
 ./bin/linux/x86/PixelAnalysis.exe PixelAlive <runnum>
 ./bin/linux/x86/PixelAnalysis.exe SCurve <runnum>
@@ -3356,7 +3326,7 @@ one of the following:
 \end{verbatim}
 Writing e.g. PixelAlive will pick up the default
 configuration xml file, configurations/PixelAliveAnalysis.xml.
-You can also specify the exact configuration file you 
+You can also specify the exact configuration file you
 would like to use, e.g. configuration/PixelAliveAnalysis\_FPix.xml.
 
 You can scan over multiple WBCs when taking this data and
@@ -3376,24 +3346,24 @@ are not connected.
 
 \subsection{Iana vs. Vana Calibration}
 
-A calibration called ``Iana'' is implemented to 
+A calibration called ``Iana'' is implemented to
 scan Vana and measure the analog current, Iana.
-As the power distribution for the low voltage is 
+As the power distribution for the low voltage is
 done per portcard for the forward pixels ({\it need
 to add how this works for BPix.}) this calibration
 works in parallel on a ROC at the time on each
-of the portcards. The current changes we are 
+of the portcards. The current changes we are
 measuring is of the order 50 mA as you go from
 Vana=0 to Vana=255. The A4603 power modules has
-a resolution of about 7 mA. We perform this 
+a resolution of about 7 mA. We perform this
 measurement when all other ROCs are configured
 to their default values. Hence, we measure the
 current changes on top of a current of several amperes.
 (I performed trials were I lowered Vana on all
 other ROCs to reduce the current, but it does
 not really improve the measurements.)
-Hence, we have to take the data and fit it in order to 
-interpolate between the points. (It takes a 
+Hence, we have to take the data and fit it in order to
+interpolate between the points. (It takes a
 long time to do these measurments as one has to
 wait up to 6 seconds before the current measurement
 is stable. This should also be brought up with CAEN.)
@@ -3403,10 +3373,10 @@ is stable. This should also be brought up with CAEN.)
 \includegraphics[width=0.85\linewidth]{IanavsVana}
 \end{center}
 \caption{This figure shows the measured analog current, Iana,
-vs the Vana setting for a few ROCs. The top left plot shows 
+vs the Vana setting for a few ROCs. The top left plot shows
 the Iana measured for one ROC with the A1715 power supply that
 has a better resolution. The black lines indicate the default setting
-(Vana=140) used in the configuration when this data was taken. 
+(Vana=140) used in the configuration when this data was taken.
 The red line indicate the setting that gives a analog current of
 25 mA.}
 \label{fig:IanavsVana}
@@ -3418,12 +3388,12 @@ After some experimentation I came up with the following.
 I divide the range of Vana values into 3 ranges,
 compare Fig.~\ref{fig:IanavsVana}. In the high range Iana
 is taken to be a constant. In the low range Iana
-is taken to be a constant plus an exponential. 
+is taken to be a constant plus an exponential.
 In the middle range Iana depends linearly on Vana,
 and the function is required to be continuous. In
 addition the function is required to have a continuous
 derivative as it goes between the low and middle region.
-This function has 5 free parameters that are determined 
+This function has 5 free parameters that are determined
 in the fit.
 
 First the raw data is fit to this form. After doing this
@@ -3441,8 +3411,8 @@ set Vana to get an analog current of 25 mA.
 These settings are ROC wide and a few pixels are selected and
 a scan over the CalDelay and VcThreshold setting is performed.
 For each setting, triggers are taken and data is looked at
-using FIFO3 to see how many hits we had on each ROC. 
-In order for this algorithm to work the address levels for 
+using FIFO3 to see how many hits we had on each ROC.
+In order for this algorithm to work the address levels for
 black and ultra-black has to be set. (There is also an
 implementation that uses the FIFO1, it does not need
 address levels.)
@@ -3463,7 +3433,7 @@ values of VcThr we get in the range of CalDel values
 that corresponds to the WBC used. For larger thresholds
 this curve 'bends' to lower values of CalDel. As this
 curresponds to a higher threshold the signal reaches the
-threshold later and hence we need to use a smaller 
+threshold later and hence we need to use a smaller
 CalDel, i.e. inject the signal earlier.
 
 \subsubsection{Output}
@@ -3476,7 +3446,7 @@ In addition to the DAC settings the calibration produces
 the output file {\tt VcThrCalDelaySummary.txt} which
 lists all the ROCs that were used in the calibrations.
 For each of the ROCs there is a corresponding file,
-named like 
+named like
 {\tt ThrCalDelScan\_FPix\_BmO\_D1\_BLD8\_PNL2\_PLQ1\_ROC0.dat}.
 Also, plots and a summary tree are put into a ROOT file. An example
 of a plot is shown in Fig.~\ref{fig:thresholdCalDel}.
@@ -3487,7 +3457,7 @@ of a plot is shown in Fig.~\ref{fig:thresholdCalDel}.
 \end{center}
 \caption{The efficiency for detecting a hit is shown
 as a function of VcThr vs. CalDel. To large values
-of VcThr, corresponding to a low threshold, generates 
+of VcThr, corresponding to a low threshold, generates
 much noise that saturates the digital circuit and no
 hits are seen. The optimal point is indicated in black
 and the blue point indicates the old point from the
@@ -3503,7 +3473,7 @@ An example configuration file is shown below.
 
 Mode: ThresholdCalDelay
 Rows:
-10 | 20 
+10 | 20
 Cols:
 10 | 20
 VcalHigh
@@ -3523,24 +3493,24 @@ in that CalDel is not relevant for physics data.
 In this calibration we scan CalDel for a series
 of different WBC settings. The creates a pattern
 as indicated in Fig.~\ref{fig:caldel}. As
-a change of one unit of WBC corresponds to 
-24.95ns (40.079 MHz) we can use the change in 
+a change of one unit of WBC corresponds to
+24.95ns (40.079 MHz) we can use the change in
 CalDel for different WBC settings to calibrate
 absolutely what a change of CalDel corresponds
-to in absolute time. 
+to in absolute time.
 
 We run this calibration with an injection of a large
 signal (255 on the high Vcal range). We then pick
 a Vcal setting that is near the {\it early} start
 of the efficient range for the WBC setting. We pick
 an early time so that we retain efficiency for signals
-that are not as strong and takes time to get over 
-threshold. How close to the edge the CalDel setting 
-is taken can be specified by the parameter 
+that are not as strong and takes time to get over
+threshold. How close to the edge the CalDel setting
+is taken can be specified by the parameter
 ``Fraction''. Setting this to 0 means that
 you pick the point right at the early edge, setting
 the parameter to 1 means that you select the late
-edge. 
+edge.
 
 
 \subsubsection{Output}
@@ -3548,10 +3518,10 @@ edge.
 The CalDel calibration produces new ROC DAC settings
 that update the CalDel settings, all other settings
 should be left unchanged. The calibration also
-generates output to display the region of good 
+generates output to display the region of good
 efficiency in the WBC vs CalDel. The output can
 be processed to generate plots using the root script
-{\tt caldel.c}. An example plot is shown in 
+{\tt caldel.c}. An example plot is shown in
 Fig.~\ref{fig:caldel}
 
 \begin{figure}
@@ -3574,7 +3544,7 @@ calibration is shown below:
 \begin{verbatim}
 Mode: CalDelCalibration
 Rows:
-10 | 20 
+10 | 20
 Cols:
 10 | 20
 VcalHigh
@@ -3616,16 +3586,16 @@ increases. In the configuration for this calibration
 you can set the maximum increase in Idigi that
 you allow using the parameter IdigiMax (units are
 in mA). {\it Not yet implemented, there is a hardcoded
-number of 7 mA now.} 
+number of 7 mA now.}
 
 \subsubsection{Output}
 
-This calibration produces the object 
+This calibration produces the object
 PixelMaxVsf which is used in the calibration that
-determines Vsf to optimize the linearity. 
-In addition this calibration produces output 
+determines Vsf to optimize the linearity.
+In addition this calibration produces output
 in a file called idigi.dat. Using the root
-script idigi.c you can generate plots as 
+script idigi.c you can generate plots as
 shown in Fig.~\ref{fig:IdigivsVsf}.
 
 \begin{figure}
@@ -3893,7 +3863,7 @@ charge we will assume that the response of different
 sensors is similar. As for a large charge (the maximum
 that can be injected) the raise time is small it is
 probably a reasonable assumption that we can assume that
-we have a small variation between ROCs. However, for a 
+we have a small variation between ROCs. However, for a
 smaller charge, like 250 on the low Vcal range, this
 is not obviously true. This calibration finds the
 time (absolute) that the Vcal=250 signal is over threshold
@@ -3906,7 +3876,7 @@ over threshold.
 
 {\it This section outlines an idea for triming. The actual
 algorithms used are slightly different. The next section
-describes the analysis tools that are available. This 
+describes the analysis tools that are available. This
 section should be updated.}
 
 The algorithm described below is iterative. It uses a linerized
@@ -3944,16 +3914,16 @@ Now we want to set all of these equal to some value, {\rm ThrTrim}.
   D_i*{\rm deltaTrim}_i
 \end{equation}
 
-So we have $N$ equations and $N+2$ unknowns. Generally there are 
+So we have $N$ equations and $N+2$ unknowns. Generally there are
 many solutions. But recall that the trim bits only takes on values
 from 0 to 15. So we need more constraints. We use the following:
 
 \begin{itemize}
 \item We need to decide how many pixels we include in the triming.
-      I.e. setting Vtrim large enough so that the trim bits can 
+      I.e. setting Vtrim large enough so that the trim bits can
       adjust the threshold.
       Based on the 'initial' parameters find the rms of the threshold
-      distribution. Find $n-\sigma$ and using an average $C_i$ 
+      distribution. Find $n-\sigma$ and using an average $C_i$
       calculate deltaVtrim needed to include pixels out to $n-\sigma$.
       So this gives the first parameter. (Use $C_i$ for the smallest
       Vtrim.)
@@ -3971,7 +3941,7 @@ from 0 to 15. So we need more constraints. We use the following:
          \sum_i{A_i\over D_i}+\sum_i{B_i\over D_i}{\rm deltaVcthr}+
                      \sum_i{C_i\over D_i}{\rm deltaVtrim}+\sum_i(7.5-{\rm Trim_i})
       $$
-      as we already have determined deltaVtrim we now also get 
+      as we already have determined deltaVtrim we now also get
       deltaVcthr.
 \end{itemize}
 
@@ -3994,7 +3964,7 @@ for trim bit determination.
 
 The inputs to the threshold determination is Scurve runs with
 different parameters. After taking one of these Scurve runs
-it has to be analyzed to produce a file that contains the 
+it has to be analyzed to produce a file that contains the
 thresholds for each pixel.
 
 After taking an SCurve (trim) run (TrimDefaultShort,
@@ -4002,7 +3972,7 @@ TrimVcThrShort, TrimVtrimShort, TrimOnShort, TrimOffShort,
 TrimDefault, TrimVcThr, TrimVtrim, TrimOn, TrimOff)
 analyze the run using
 
-./bin/linux/x86/PixelAnalysis.exe SCurve <runnum> 
+./bin/linux/x86/PixelAnalysis.exe SCurve <runnum>
 
 The configuration/SCurveAnalysis.xml file needs to contain:
 \begin{verbatim}
@@ -4064,8 +4034,8 @@ as a ROC with a threshold below 50 or with less than
 
 If you just want to adjust VcThr to a fixed threshold you can
 run the following. First, take one 'TrimDefault(Short)' and one
-'TrimVcThr(Short)'. In this example these are 
-runs 65624 and 65626 respectively. The 'TrimVcThr' run 
+'TrimVcThr(Short)'. In this example these are
+runs 65624 and 65626 respectively. The 'TrimVcThr' run
 adjusts VcThr (down) by a fixed amount for each ROC, e.g.
 5 DAC settings. {\it Currently you have to manually
 make sure when you run the analysis below that this change of
@@ -4074,14 +4044,14 @@ configuration file. A relatively simple update in the
 future would be to automatically determine this change
 from the calib.dat files.}
 
-To run the analysis code 
+To run the analysis code
 \begin{verbatim}
 ./bin/linux/x86/PixelTrimVcThr.exe 10630 65624 65626 > log_TrimVcThr_65624
 \end{verbatim}
 
 10630 is the configuration key for run 65624. {\it Again
 this has to be manually supplied.}
-The output is a new set of dac settings in the current
+The output is a new set of DAC settings in the current
 directory with new VcThr values. The target Vcal
 is set in {\tt src/common/PixelTrimVcThr.cc} on the line
 \begin{verbatim}
@@ -4103,7 +4073,7 @@ To make simple plots of the thresholds do:
 \begin{verbatim}
 [pixelpro@vmepcS2B18-17 test]$ root -l
 root [0] .L read.c
-root [1] .x plot.c  
+root [1] .x plot.c
 \end{verbatim}
 
 plot.c specifies the input file.
@@ -4123,8 +4093,8 @@ First you need to take five runs:
   TrimOffShort
 \end{verbatim}
 Normally, we use the 'short' configuration files that only use
-about 50 to 100 pixels on each ROC. This is enough pixels to find the 
-values need for VcThr and Vtrim on a given ROC. In a later step we 
+about 50 to 100 pixels on each ROC. This is enough pixels to find the
+values need for VcThr and Vtrim on a given ROC. In a later step we
 adjust just the trim bits for the remaining pixels.
 The TrimDefaultShort run is a run with the 'default' or current
 settings. The procedure is iterative and the parameters produced in
@@ -4134,15 +4104,15 @@ parameter by a default amount (typically -5 and +10 for VcThr and
 Vtrim respectively). The last two runs, TrimOnShort and TrimOffShort,
 turns the trim bits on and off respectively for each of the pixels.
 
-After taking these runs, they are analyzed as described in 
+After taking these runs, they are analyzed as described in
 Sect.~\ref{sect:analyzetrimrun}.
-Having done this the new dac and trim bits are determined 
+Having done this the new DAC and trim bits are determined
 using
 \begin{verbatim}
 ./bin/linux/x86/PixelTrim.exe <key> <runTrimDefault> <runTrimVcThr> \
 <runTrimVtrim> <runTrimOn> <runTrimOff>
 \end{verbatim}
-Running this command produces new dac settings and trimbits.
+Running this command produces new DAC settings and trimbits.
 In addition if produces a file called 'rocder.dat'. The
 use of this file is described in the next section.
 
@@ -4156,7 +4126,7 @@ respect to the VcThr setting. The second is the derivative of the
 threshold with respect to Vtrim {\it This needs to be defined
 more precisely.} The last is the change in the threshold
 with respect to changing trim bits, averaged over the pixels
-on the ROC. The change in threshold with respect to the 
+on the ROC. The change in threshold with respect to the
 trimbits is used in the adjustment of the trim bits.
 
 A run is taken using the 'TrimDefault' configuration. This
@@ -4190,16 +4160,16 @@ but similar calibration procedures.
 
 \section{Calibration Procedure}
 \label{sec:calibproc}
-In this section, we describe a way to do a full calibration the detector ``from scratch''. 
+In this section, we describe a way to do a full calibration the detector ``from scratch''.
 Detailed descriptions of each algorithm are in the previous section.
 The procedure must be followed {\it in order}, because of the various
-dependencies between settings.  
+dependencies between settings.
 
 This section is based on our experience calibrating
-the FPix in 2008-2009 before beam and then again at a colder temperature in 2012 
+the FPix in 2008-2009 before beam and then again at a colder temperature in 2012
 (7.4 C changed to 0 C). Large portions of the procedure were also used for the BPix.
 
-We will try to include tips for common problems.  
+We will try to include tips for common problems.
 
 
 \subsection{Useful Tools, Background Knowledge}
@@ -4208,29 +4178,29 @@ This section assumes some background knowledge:
 \begin{enumerate}
   \item {\bf POS:} You will obviously need to know how to run the Pixel Online Software.
     The results of the calibration are usually summarized in
-    a log file (which one depends on the calibration, unfortunately).  
+    a log file (which one depends on the calibration, unfortunately).
     Most calibrations produce a root file in the Run directory which you can view in root
-    or with the very useful HistoViewer tool.  
-    
+    or with the very useful HistoViewer tool.
+
   \item {\bf Configuration Base:}  It is important that you are familiar with the structure
-    of the configuration base and the ways to make new configurations.  You should know how 
+    of the configuration base and the ways to make new configurations.  You should know how
     to change the aliases using the PixelConfigDBCmd.exe tool.
-    
+
   \item {\bf Scripts to change DACs: } changeSome.pl can be used to shift the value
     of a particular DAC on a subset of ROCs by a specified value.  The script needs
     a list of all DAC files and a list of ROCs to change.  Run it by doing
     ``perl changeSome.pl''.  There is a similar script, called changeAll.pl, to change
     all ROCs.  Both scripts are in TriDAS/pixel/PixelAnalysisTools/test/additionalTools.
-    
+
   \item {\bf Analyze SCurve/PixelAlive/Gain: } Know how to analyse these calibrations
     as described in Sec. \ref{sec:PATanalysis}.
-    
+
   \item {\bf Loop scripts:} In TriDAS/pixel/PixelAnalysisTools/test/additionalTools, there
     are root macros that look at the output of the analysis mentioned in the previous point.
     These are run by doing e.g. ``root -l SCurveLoop\_FPix.C''.
-    
-    
-    
+
+
+
 \end{enumerate}
 
 
@@ -4239,14 +4209,14 @@ The calibrations we run only affect a subset of the detector's many
 configurable settings.  Many settings are fixed to initial recommendations found in
 specifications or early studies and will never have to change.  Other settings have stayed fixed
 so far but may have to change as the detector suffers from radiation damage (as of January 2012,
-we haven't changed any of these). To obtain good values for the settings that are not calibrated 
-in this procedure, one should start with an old configuration, perhaps one in the P5 configuration database. 
+we haven't changed any of these). To obtain good values for the settings that are not calibrated
+in this procedure, one should start with an old configuration, perhaps one in the P5 configuration database.
 There are also recommendations in the ROC specifications.
 
 
-\subsection{AOH and FED Channel Mapping} 
+\subsection{AOH and FED Channel Mapping}
 If the fibers have been moved, the AOH and FED Channel Mapping calibration can be run
-to confirm that the mapping is correct.  
+to confirm that the mapping is correct.
 
 Here is the \verb|calib.dat| file we have used at P5:
 \begin{verbatim}
@@ -4268,7 +4238,7 @@ all
 
 
 \subsection{Achieving Successful Programming}
-Run the Delay25 calibration. 
+Run the Delay25 calibration.
 
 
 Here is the \verb|delay25.dat| (effectively the \verb|calib.dat|) file we have used at P5:
@@ -4294,7 +4264,7 @@ Commands:
 \end{verbatim}
 
     {\bf Tip:} If your efficient band is very thin, it might be because the
-bias settings of the DOH (DOH\_Ch0Bias\_CLK and DOH\_Ch1Bias\_Data), which read 
+bias settings of the DOH (DOH\_Ch0Bias\_CLK and DOH\_Ch1Bias\_Data), which read
 back the result of the programming test, are
 too low.  The plot can also look bad if the fibers are dirty.
 
@@ -4303,19 +4273,19 @@ too low.  The plot can also look bad if the fibers are dirty.
 Before you can optimize the performance of the ROC, you have to
 adjust the very basic properties of the signal so that the FED
 can interpret the data.
-There is a little bit of a bootstrapping problem here because 
+There is a little bit of a bootstrapping problem here because
 even these calibrations need to start with a somewhat recognizable signal.
-Sometimes, you will have to do a preliminary calibration of setting ``A'' so 
-that you can calibrate ``B'' before you do the final calibration of ``A''.  
+Sometimes, you will have to do a preliminary calibration of setting ``A'' so
+that you can calibrate ``B'' before you do the final calibration of ``A''.
 You may even have to manually tune a setting at the beginning,
 depending on your starting point.
 
 \subsubsection{FEDBaseline}
 We run this calibration all the time.  It has to be run any time there is a significant change
-in the temperature of the AOH.  
+in the temperature of the AOH.
 At P5 in 2010-2011, we determined that the automatic baseline correction
 could cope with changes of 1-2 degrees C.  We monitored the size of the automatic baseline
-correction with the PixelMonitor tool and reran the FEDBaseline calibration whenever the size 
+correction with the PixelMonitor tool and reran the FEDBaseline calibration whenever the size
 of the correction surpassed 100 units.
 
 The calibration is also useful as a debugging tool.  The calibration is fast and can often
@@ -4367,25 +4337,25 @@ all
 \end{verbatim}
 
 {\bf Tip:} Multiple channels share some settings, and sometimes it's impossible for the algorithm
-to converge on a setting it considers satisfactory for all of the channels at once.  
-When this happens, you will see certain channels' baselines jumping up and down from iteration to iteration 
+to converge on a setting it considers satisfactory for all of the channels at once.
+When this happens, you will see certain channels' baselines jumping up and down from iteration to iteration
 while everything else looks like it has converged.
-If it doesn't converge within the maximum number of iterations allowed by the calibration 
+If it doesn't converge within the maximum number of iterations allowed by the calibration
 but ends on something close to your target (say less than 75 ADC units away, maybe more),
-you can just keep the settings it produces because the automatic baseline 
+you can just keep the settings it produces because the automatic baseline
 correction will make up the difference.
-If you see the baselines jumping up and down and end on the less favorable of the two, 
+If you see the baselines jumping up and down and end on the less favorable of the two,
 you can run the calibration a second time.
 If none of this works,  you'll have to do an AOHBias calibration and then retry the FEDBaseline calibration.
 
 \subsubsection{AOH Settings}
-We perform the AOH Bias calibration and then the AOH gain calibration.  
+We perform the AOH Bias calibration and then the AOH gain calibration.
 Both of these calibrations require that the TBM UB can be located in the
-signal.  This means that you must have decent FEDBaseline and ClockPhase settings 
+signal.  This means that you must have decent FEDBaseline and ClockPhase settings
 (this is an example of the bootstrapping problem mentioned above).
-Both the bias and the gain have the ability to change the temperature of the AOH.  
-Therefore, you should run a FEDBaseline calibration after each of them (after waiting a 
-few minutes so that the temperature is stable). To summarize, to calibrate the AOHs, 
+Both the bias and the gain have the ability to change the temperature of the AOH.
+Therefore, you should run a FEDBaseline calibration after each of them (after waiting a
+few minutes so that the temperature is stable). To summarize, to calibrate the AOHs,
 you should do: AOHBias, FEDBaseline, AOHGain, FEDBaseline.
 
 Here is the AOHBias \verb|calib.dat| file we used at P5:
@@ -4429,10 +4399,10 @@ Note that the vast majority of the AOHGain settings at P5 are 0, with a few at 1
 This may change with time.
 
 \subsubsection{Ultrablacks}
-It's now time to set the UB level of the TBM and ROC.  First run the TBMUB12and3 
-calibration (this is more robust than the single-variable version), and then the ROCUB 
+It's now time to set the UB level of the TBM and ROC.  First run the TBMUB12and3
+calibration (this is more robust than the single-variable version), and then the ROCUB
 calibration.  These calibrations rarely fail.  As with the AOH calibrations, it's important to have a decent Clock Phase
-calibration before running these.   
+calibration before running these.
 
 As you will see in the \verb|calib.dat| files below, we target a UB of 150 ADC for both
 the TBM and the ROC. In the FPix, there a few channels that are noisy because of a dirty fiber.
@@ -4531,8 +4501,8 @@ all
 
 \subsection{Getting Hits}
 The rest of the calibrations require the use of the charge injection feature of the ROC.
-For the injected charge to be readout as a hit, it has to cross threshold (which involves amount of 
-charge and the threshold) and be validated be the trigger (which involves the timing of the injection).  
+For the injected charge to be readout as a hit, it has to cross threshold (which involves amount of
+charge and the threshold) and be validated be the trigger (which involves the timing of the injection).
 You can get hits by doing the VcThrCalDelFIFO3 calibration, which chooses compatible values
 for VcThr and CalDel.  This calibration will not choose the optimal settings; rather it
 produces initial settings that will allow you to collect the data you need to find the final ones.
@@ -4558,8 +4528,8 @@ Now that you have hits, you can take an address level calibration.  This will al
 FEDs to decode the hit related data.  We run on a subset of pixels of pixels to save time.
 The subset is chosen to exercise the various address level transitions.
 
-{\bf Always run a FEDBaseline calibration afterwards} to reset some levels 
-related to the UB-B discrimination.  
+{\bf Always run a FEDBaseline calibration afterwards} to reset some levels
+related to the UB-B discrimination.
 
   Here is the \verb|calib.dat| file we use at P5:
 \begin{verbatim}
@@ -4570,14 +4540,14 @@ Rows:
 51 |
 72 |
 41 |
-12 
+12
 Cols:
 10 |
 21 |
 31 |
 10 |
 20 |
-31 
+31
 VcalHigh:
 100 100 5
 Repeat:
@@ -4587,31 +4557,31 @@ all
 \end{verbatim}
 
 \subsection{Initial Trimming}
-The Vana calibration described in the next subsection assumes that your ROCs 
+The Vana calibration described in the next subsection assumes that your ROCs
 are decently trimmed (RMS).  The trimming that you should do in this step
-is the same as the trimming you should do following the Vana calibration, so please refer to that 
+is the same as the trimming you should do following the Vana calibration, so please refer to that
 subsection.
 
 \subsection{Vana Calibration}
-The Vana calibration procedure described here was developed for the FPix as a way 
+The Vana calibration procedure described here was developed for the FPix as a way
 to calibrate Vana without a measurement of the analog current drawn by an individual ROC.
-The only measurement of analog current available now that the detector is fully assembled 
-is the total current drawn from a single power supply, which services more than one-hundred ROCs.  
+The only measurement of analog current available now that the detector is fully assembled
+is the total current drawn from a single power supply, which services more than one-hundred ROCs.
 
-We calibrate Vana to give a certain timewalk, which we quantify for each ROC with a variable we call 
-``the difference in thresholds'', or DT.  The DT of a ROC is defined as the average in-time 
-threshold minus the average absolute threshold.  
-It quantifies the speed of the amplifiers and therefore the current drawn by the ROC. 
+We calibrate Vana to give a certain timewalk, which we quantify for each ROC with a variable we call
+``the difference in thresholds'', or DT.  The DT of a ROC is defined as the average in-time
+threshold minus the average absolute threshold.
+It quantifies the speed of the amplifiers and therefore the current drawn by the ROC.
 
-The target value of DT is chosen such that the average analog current per ROC in  
+The target value of DT is chosen such that the average analog current per ROC in
 each power group is near specification ($\sim$25mA).  The correct target for DT depends on
 radiation damage (and temperature?), so we cannot give you a number to target.
 Instead, you should tune
-the target based on the analog current reading you have.  
-For reference, we targeted 12 VCal for the FPix in 2009 
+the target based on the analog current reading you have.
+For reference, we targeted 12 VCal for the FPix in 2009
 (at 7.4C and before beam).  In 2012, we targeted 8 VCal for the FPix and 13-14 VCal for the BPix,
-depending on the power group (and settled on value $\sim$1 VCal higher due to rounding).  
- 
+depending on the power group (and settled on value $\sim$1 VCal higher due to rounding).
+
 The Vana calibration is an iterative procedure.  Several of the calibrations described in the
 previous section and a standalone analysis tool are used in each iteration.
 
@@ -4628,22 +4598,22 @@ Next, you do iterations of the following list
     the DT is a comparable quantity from iteration to iteration.
   \item {\bf SCurve99By3 (two WBCs).}  Take an SCurve run on $\sim$100 pixels/ROC (81 is our
     usual number) scanning over two WBCs (the in-time one and the one after it, which is
-    smaller by 1 DAC unit).  Run the SCurve analysis on the in-time WBC data 
-    and rename the TrimOutput file 
+    smaller by 1 DAC unit).  Run the SCurve analysis on the in-time WBC data
+    and rename the TrimOutput file
     as \verb|TrimDefault.dat|.  Also run the SCurve analysis on the data from both WBCs and
-    rename the TrimOutput file as \verb|TrimDefault_abs.dat|.  
-  \item {\bf Run PixelInTimeVana to produce new dac settings.}  First make sure that 
-    \verb|PixelAnalysisTools/test/src/common/PixelInTimeVana.cc| has \verb|assumeGlobal=false| and the 
+    rename the TrimOutput file as \verb|TrimDefault_abs.dat|.
+  \item {\bf Run PixelInTimeVana to produce new DAC settings.}  First make sure that
+    \verb|PixelAnalysisTools/test/src/common/PixelInTimeVana.cc| has \verb|assumeGlobal=false| and the
     correct DT targets (with \verb|assumeGlobal=false|, the only thing that matters is the difference between
-    globalThr and the targetInTimeThr variable(s)).  The relationship between a change in Vana 
+    globalThr and the targetInTimeThr variable(s)).  The relationship between a change in Vana
     and a change in DT is assumed
     to be the same for each ROC and is hardcoded in this file.  We found it best to do a few iterations with
     $\Delta DT / \Delta Vana = 1$ and then change to it to $2$ to avoid overshooting.
-    The code must be compiled by doing `make' in \verb|PixelAnalysisTools/test|.  
-    Run it by doing \verb|./bin/linux/x86/PixelInTimeVana.exe <key> <run number> > mylog.dat|. 
-    Keeping the 
+    The code must be compiled by doing `make' in \verb|PixelAnalysisTools/test|.
+    Run it by doing \verb|./bin/linux/x86/PixelInTimeVana.exe <key> <run number> > mylog.dat|.
+    Keeping the
     log file is worthwhile because it allows you to watch the size of the corrections in each
-    iteration to see if you are converging.  The program will produce new dac files for the ROCs you ran on.
+    iteration to see if you are converging.  The program will produce new DAC files for the ROCs you ran on.
     Copy the Default dacs to a new version, copy these files in, and make this new version the new Default.
 \end{enumerate}
 We have done as many as $\sim$ 20 iterations to get final values.  The final distribution of \verb|deltaVana|
@@ -4653,17 +4623,17 @@ Some scripts we have used to plot the $\Delta Vana$ distribution, currents, and 
 TriDAS/pixel/PixelAnalysisTools/test/additionalTools/VanaTools.
 
 {\bf Note:} The first incarnation of the iterative part of the Vana calibration was slightly different.
-We found that it worked well for the vast majority of ROCs, but prevented some ROCs from 
-converging (at least in 2012).  The first incarnation was used in 2009 and the beginning of the 2012 
+We found that it worked well for the vast majority of ROCs, but prevented some ROCs from
+converging (at least in 2012).  The first incarnation was used in 2009 and the beginning of the 2012
 recalibration.  We include a description of it here just in case it is useful.
 We have never done a Vana calibration using
-only the second incarnation described above, simply because it was invented during 
-the most recent calibration of the detector. 
+only the second incarnation described above, simply because it was invented during
+the most recent calibration of the detector.
 
 In this first incarnation, we assumed that the absolute threshold of each ROC was equal
 to the target of the VcThrCalibration rather than using a measurement of the mean absolute threshold
-provided by an SCurve calibration.  The ROCs that had problems converging were ROCs for which this assumption 
-was not very good (this can happen since the VcThrCalibration uses only a few pixels and is therefore 
+provided by an SCurve calibration.  The ROCs that had problems converging were ROCs for which this assumption
+was not very good (this can happen since the VcThrCalibration uses only a few pixels and is therefore
 more sensitive to the trimming).
 
 Here is the first incarnation of the iterative part:
@@ -4671,7 +4641,7 @@ Here is the first incarnation of the iterative part:
   \item VcThrCalibration to 70 Vcal to reset the absolute thresholds (since not measured!)
   \item CalDelCalibration to 20\%
   \item SCurve99By3 to measure in time threshold only
-  \item Run PixelInTimeVana with \verb|assumeGlobal=true| to produce new dac settings
+  \item Run PixelInTimeVana with \verb|assumeGlobal=true| to produce new DAC settings
 \end{enumerate}
 
 
@@ -4682,8 +4652,8 @@ measurements of Vtrim vs temperature to maintain a well-trimmed detector.  There
 such measurements for the FPix ROCs, so we redo the full FPix trimming when recalibrating the detector.
 We have developed a relatively fast trimming procedure.
 
-The main purpose of the trimming is to make all of the thresholds within one ROC the same.  
-This is important for the Vana calibration because we assume that the average threshold 
+The main purpose of the trimming is to make all of the thresholds within one ROC the same.
+This is important for the Vana calibration because we assume that the average threshold
 is a meaningful quantity.  It is also important in the ROC-based threshold minimization.
 Our trimming algorithm makes all of the thresholds across the detector the same, and as a consequence,
  achieves the desired goal of making the thresholds within each ROC the same.
@@ -4701,7 +4671,7 @@ full trimbit determination as described in Sec. \ref{sec:trimbits}.  The long Tr
 takes about 8 hours on the FPix.
 
 Note that the SCurves in the section are only taken with the in-time WBC, so we are trimming
-the in-time threshold.  BPix trimmed the absolute threshold.  Either way is fine.  
+the in-time threshold.  BPix trimmed the absolute threshold.  Either way is fine.
 
 
 
@@ -4709,9 +4679,9 @@ the in-time threshold.  BPix trimmed the absolute threshold.  Either way is fine
 
 The goal of the threshold minimization is to lower the thresholds on each ROC
 to just above the point it starts failing. Failure is identified using SCurve
-and PixelAlive runs. 
+and PixelAlive runs.
 To change the threshold in this procedure
-we only use VcThr, which shifts all of the thresholds on the ROC coherently.  
+we only use VcThr, which shifts all of the thresholds on the ROC coherently.
 Raising VcThr lowers the thresholds.
 
 If you are calibrating a test stand and are not concerned with optimizing
@@ -4726,13 +4696,13 @@ The few ROCs that fail at this setting will have to have their threshold manuall
 Next, take SCurve runs with VcThr shifted for all ROCs by -20, 0, +2, +4, +6, +8,
 +10, +12, +14, and +16.  This can be done very easily using the \verb|SetRelative| option
 of the \verb|calib.dat| file, as shown in the example file below.  When the thresholds
-are lowered, the digital current will increase significantly, 
+are lowered, the digital current will increase significantly,
 causing the temperature to increase.  When we ran at VcThr+16, the temperaturse
-increased so much that the automatic baseline correction went outside 
+increased so much that the automatic baseline correction went outside
 of the acceptable range (150).
-We therefore prepared a special dac file for this run where ROCs that had already
+We therefore prepared a special DAC file for this run where ROCs that had already
 failed were kept at their nominal threshold (aka VcThr+0) while the rest were changed
-to VcThr+16. 
+to VcThr+16.
 
 \verb|calib.dat| file for SCurve with shifted VcThr:
 \begin{verbatim}
@@ -4762,21 +4732,21 @@ Proceed by analyzing the data using the usual PixelAnalysisTools to get the abso
 for each.  The root files are used in the following steps.
 
 Now, go to the TriDAS/pixel/PixelAnalysisTools/test/additionalTools/
- directory.  You will make use of several ROOT macros and perl 
-scripts in this directory.  
+ directory.  You will make use of several ROOT macros and perl
+scripts in this directory.
 
 First, look at the VcThr-20 run.  This run was taken at a high threshold where
 there should really be no problems due to thresholds being too low, so you can use it
 to determine how many pixels on each ROC out of the 81 you injected with charge are working.
-To do this, run SCurveLoop\_BPix.C and SCurveLoop\_FPix.C 
-on the VcThr-20 ROOT files with some special options set: 
-\verb|PRINT=0|, \verb|print=1|, \verb|plot=0|, \verb|hold=0|, \verb|useBase=0|. 
-Also, make sure to change \verb|fFile| 
-to the correct root file and \verb|out_name| to something that indicates 
+To do this, run SCurveLoop\_BPix.C and SCurveLoop\_FPix.C
+on the VcThr-20 ROOT files with some special options set:
+\verb|PRINT=0|, \verb|print=1|, \verb|plot=0|, \verb|hold=0|, \verb|useBase=0|.
+Also, make sure to change \verb|fFile|
+to the correct root file and \verb|out_name| to something that indicates
 which run it is (e.g. ``minus20'').  Run by doing \verb|root -l -b -q SCurveLoop\_FPix.C|.
 
-You should now have two ``...\_print.dat'' files (one for FPix and one for BPix) 
-that contain the number pixels to expect from each ROC.  
+You should now have two ``...\_print.dat'' files (one for FPix and one for BPix)
+that contain the number pixels to expect from each ROC.
 Change \verb|printedFile| in SCurveLoop\_BPix(FPix).C to open the BPix(FPix) file
 and set the following options:
 \verb|PRINT=0|, \verb|print=0|, \verb|plot=0|, \verb|hold=0|, \verb|useBase=1|.
@@ -4785,48 +4755,48 @@ taken from the VcThr-20 run.
 
 Now run SCurveLoop\_BPix(FPix).C on the remaining SCurve runs (VcThr+0,2,4,6,8,10,12,14,16).
 Remember to change \verb|out_name| and \verb|fFile| for each run.
-Combine the FPix and BPix ``...\_fail.dat'' files for each run by doing e.g. 
+Combine the FPix and BPix ``...\_fail.dat'' files for each run by doing e.g.
 \verb|cat plus6_BPIX_fail.dat plus6_FPIX_fail.dat > plus6_fail.dat|.
 
 
 Create a copy of the Default dacs.  Use the changeSome.pl script to shift
 the VcThr of every ROC included in the configuration (so, not noInit or noAnalogSignal ROCs)
-by +14 (two units less than the farthest you went, as a safety margin).  
+by +14 (two units less than the farthest you went, as a safety margin).
 iterate.pl will tell you how much the thresholds of each ROC must be raised
 away from these settings in order for them to be above their failure point.  First change
 the input files in iterate.pl to the ``...\_fail.dat'' files you just created.  Then
-run it by doing ``perl iterate.pl'' (sorry the code is so ugly -- this was Ben's first perl script). 
+run it by doing ``perl iterate.pl'' (sorry the code is so ugly -- this was Ben's first perl script).
 This will create lists of ROCs grouped by the
-required VcThr shift.  The lists are put into text files with names the indicate 
+required VcThr shift.  The lists are put into text files with names the indicate
 the required VcThr shift.  For example, \verb|sub6.dat| contains the list of ROCs that
 must have 6 subtracted from their VcThr value.  Use changeSome.pl with all of these ``subX.dat''
 files to apply all of the necessary shifts.
 
 You now have a the first guess at the minimized thresholds.  You should now rerun
 an SCurve with the new VcThr values (and no shift).  Some ROCs will fail even though
-according to the runs you took earlier they should pass (I guess this is because the 
+according to the runs you took earlier they should pass (I guess this is because the
 ROCs are not fully independent from one another... or they are unstable near the failing point).
-Analyze the SCurve using SCurveLoop\_BPix(FPix).C and correct any ROCs that fail (i.e. that 
+Analyze the SCurve using SCurveLoop\_BPix(FPix).C and correct any ROCs that fail (i.e. that
 are listed in the ``...\_fail.dat'' files).  To correct them, I recommend shifting their
-VcThr value by -4.  Repeat this until everything passes. 
+VcThr value by -4.  Repeat this until everything passes.
 
 Next, you can try running on a different subset of pixels (it's best to
 shift at least the double columns used) to make sure all the ROCs
 still pass.  You'll have to run at VcThr-20 again to make a new ``useBase'' file.
 You may find a few ROCs fail because just one or two pixels within the ROC barely
-fail the min pixel threshold cut.  This is just because they are in the tail of the 
-distribution and is not an indication of the threshold being too low.  You can 
+fail the min pixel threshold cut.  This is just because they are in the tail of the
+distribution and is not an indication of the threshold being too low.  You can
 correct their VcThr by -4, but I wouldn't recommend doing this for more and more
 subsets if this is the only kind of failure you see.  Obviously you should correct
 any ROC that fails in a more serious way.
 
-Now do a second round of tests using the PixelAlive calibration.  Take 
-PixelAlive runs using the \verb|calib.dat| file below and look for 
-any signs of thresholds being too low.  Correct the VcThr of any 
+Now do a second round of tests using the PixelAlive calibration.  Take
+PixelAlive runs using the \verb|calib.dat| file below and look for
+any signs of thresholds being too low.  Correct the VcThr of any
 ROC that shows these signs and repeat.  Some examples of signs
-of thresholds being too low are shown HERE. You can compare the 
-efficiency map to that from a run taken at VcThr-20 using the 
-\verb|SetRelative| option if you are not sure if 
+of thresholds being too low are shown HERE. You can compare the
+efficiency map to that from a run taken at VcThr-20 using the
+\verb|SetRelative| option if you are not sure if
 an inefficiency is due to the threshold being too low or
 e.g. a broken double column that will appear with any VcThr.
 
@@ -4836,7 +4806,7 @@ runs with manual corrections being made after each one, you should
 finally reach a point where every ROC reliably passes.  If you
 find that many ROCs are not acting reliably (passing in one run
 and then failing in the next even though the settings are the same),
-consider shifting every ROC's VcThr by an additional -2 to save yourself 
+consider shifting every ROC's VcThr by an additional -2 to save yourself
 some time.  We did this to the BPix in 2012.
 
 
@@ -4868,7 +4838,7 @@ Cols:
 27 |
 40 |
 ...
-51 
+51
 VcalLow
 Set: Vcal 150
 Repeat:
@@ -4877,9 +4847,9 @@ ToCalibrate:
 +
  all
 \end{verbatim}
-{\bf Note:} The ``...'' are just to save paper -- you should use every pixel.  
+{\bf Note:} The ``...'' are just to save paper -- you should use every pixel.
 You should use the Default masks with this one
-(to have whatever is in Physics in and have 
+(to have whatever is in Physics in and have
 noisy pixels masked)!  VCal 150 was carefully chosen to be
 above the threshold of all pixels without being so large
 that it adds unnecessary cross-talk in the charge injection.
@@ -4948,7 +4918,7 @@ ToCalibrate:
 all
 \end{verbatim}
 
-{\bf Tip:} If a ROC fails this calibration, it may be because the range of the scan is not wide enough. 
+{\bf Tip:} If a ROC fails this calibration, it may be because the range of the scan is not wide enough.
  We try to keep the scan narrow and with only a few points because this calibration uses a lot of memory for some reason.
 
 
@@ -4958,11 +4928,11 @@ The last step is to take a gain calibration.  We usually take a short one on a s
 that everything is okay before doing the final one on all pixels that takes more than six hours.
 
 The main purpose of taking the short version is to verify that the PH range calibration did its job.
-To do this, open up the resulting root file and look at the histogram called ADCOfAllPixelsSummary.  
+To do this, open up the resulting root file and look at the histogram called ADCOfAllPixelsSummary.
 This is a histogram
 of all of the ADC values obtained from all hits on all ROCs in the calibration.  Make the y-axis
 log-scale and confirm that there are no entries at zero or the maximum.  If there are, it means that
-one or more ROCs is outside the range of the FED's ADC. You can run GainLoop.C in 
+one or more ROCs is outside the range of the FED's ADC. You can run GainLoop.C in
 TriDAS/pixel/PixelAnalysisTools/test/additionalTools
 to find out which ROCs are responsible.  You will have to redo the PHRange calibration of those ROCs.
 
@@ -5003,13 +4973,13 @@ Rows:
 60 | 61 | 62 | 63 | 64 | 65 | 66 | 67 | 68 | 69 |
 70 | 71 | 72 | 73 | 74 | 75 | 76 | 77 | 78 | 79
 Cols:
-0  13 26 | 39 1  14 | 
+0  13 26 | 39 1  14 |
 27 40 2  | 15 28 41 |
-3  16 29 | 42 4  17 | 
+3  16 29 | 42 4  17 |
 30 43 5  | 18 31 44 |
-6  19 32 | 45 7  20 | 
+6  19 32 | 45 7  20 |
 33 46 8  | 21 34 47 |
-9  22 35 | 48 10 23 | 
+9  22 35 | 48 10 23 |
 36 49 11 | 24 37 50 |
 12 25 38 | 51
 VcalHigh
@@ -5032,21 +5002,21 @@ From the DAQ side, the startup procedure is embedded
 within the ``Initializing'' and ``Configuring'' FSM transitions
 prescribed by Run Control. In working through these states, the DAQ
 system must use information from the DCS system about the voltages being
-applied across various detector and front-end elements. 
+applied across various detector and front-end elements.
 
 The XDAQ Supervisor applications mainly involved with this are:
 
 \begin{itemize}
 \item PixelFECSupervisor: Controls a crate of Pixel FEC boards
 \item PixelTKFECSupervisor: Controls a crate of Tracker FEC boards
-\item PixelDCSFSMInterface: Reports the voltages applied by the DCS 
+\item PixelDCSFSMInterface: Reports the voltages applied by the DCS
       system (simplified to LV\_OFF/ LV\_ON\_REDUCED/ LV\_ON for low voltage
 and HV\_OFF / HV\_ON for high voltage).
 \end{itemize}
 
 \subsection{PSX Server}
-The gateway between DCS and our xdaq applications is the PSX
-server. This server is a xdaq application that runs on the machine
+The gateway between DCS and our XDAQ applications is the PSX
+server. This server is a XDAQ application that runs on the machine
 {\tt cmspsx} at P5. This machine runs independent PSX server applications
 for all of the different subdetectors. Both the machine and the
 software running on it are administered by the central DAQ experts.
@@ -5063,7 +5033,7 @@ power supply status.
 
 \subsection{PixelDCSFSMInterface}
 
-The PixelDCSFSMInterface provides an interface between the PSX server and our other pixel xdaq applications. Changes in the states of each power supply modules are sent in real time from the PSX server to the PixelDCSFSMInterface application. The PixelDCSFSMInterface summarizes this information into one state per half cylinder/shell (thus there are 8 summarized states, 4 in the FPix and 4 in the BPix). The logic for making the summary is as follows:
+The PixelDCSFSMInterface provides an interface between the PSX server and our other pixel XDAQ applications. Changes in the states of each power supply modules are sent in real time from the PSX server to the PixelDCSFSMInterface application. The PixelDCSFSMInterface summarizes this information into one state per half cylinder/shell (thus there are 8 summarized states, 4 in the FPix and 4 in the BPix). The logic for making the summary is as follows:
 
 \begin{itemize}
 \item If all A4603 power supplies in the summary group are ON (HV and LV is ON), then the summarized state reflects this
@@ -5101,7 +5071,7 @@ voltage provided by the A4602 power supplies. There are two possbile
 states: LV\_OFF and LV\_ON.
 
 \subsection{Configuration}
-The progress through the DAQ's FSM states and transitions for initialization 
+The progress through the DAQ's FSM states and transitions for initialization
 and configuration is envisioned as follows:
 
 \begin{center}
@@ -5112,11 +5082,11 @@ and configuration is envisioned as follows:
 \end{center}
 
 \begin{enumerate}
-\item PixelFECSupervisor(s) and PixelTKFECSupervisor are initially 
+\item PixelFECSupervisor(s) and PixelTKFECSupervisor are initially
       in their "Initial" state and await the "Initialize" command.
 
-\item On receiving the "Initialize" command, PixelFECSupervisor(s) and 
-      PixelTKFECSupervisor independently query PixelDCSFSMInterface.% with 
+\item On receiving the "Initialize" command, PixelFECSupervisor(s) and
+      PixelTKFECSupervisor independently query PixelDCSFSMInterface.% with
 %%%%i think this is too much detail
 %      the SOAP messages:
 %      \begin{verbatim}
@@ -5129,7 +5099,7 @@ and configuration is envisioned as follows:
 %
 %respectively.
 
-\item The PixelDCSFSMInterface responds with information regarding 
+\item The PixelDCSFSMInterface responds with information regarding
       the voltage states.% with a SOAP message of the form:
 %      \begin{verbatim}
 %<fsmStateResponse>
@@ -5149,16 +5119,16 @@ the correct power state is sent via the standard asynchronous
 mechanism.
 
 
-\item The PixelFECSupervisor(s) and PixelTKFECSupervisor update 
+\item The PixelFECSupervisor(s) and PixelTKFECSupervisor update
       their tri- and bi-state member data (for LV and HV as appropriate)
-      according to the response from PixelDCSFSMInterface. This 
+      according to the response from PixelDCSFSMInterface. This
       concludes the "Initializing" transition
-      and both the PixelFECSupervisor(s) and PixelTKFECSupervisors 
+      and both the PixelFECSupervisor(s) and PixelTKFECSupervisors
       land in their "Halted" states.
 
-\item On receiving the "Configure" command, PixelFECSupervisor(s) 
+\item On receiving the "Configure" command, PixelFECSupervisor(s)
       and PixelTKFECSupervisor
-      check the status of their member data. If the appropriate 
+      check the status of their member data. If the appropriate
       voltages are set then they go ahead
       with step \ref{item:FECconfig}. If the LV\_OFF state is found, configuration does not proceed.
 
@@ -5175,7 +5145,7 @@ of the FPix), this step is skipped.
 \item PixelFECSupervisor sends a SOAP message to PixelDCSFSMInterface to notify it that the FPix DAC settings have been loaded. The PixelDCSFSMInterface forwards this message to DCS via the PSX server.
 %      The PixelDCSFSMInterface responds back with the raised values of the Digital Voltages.
 %      PixelFECSupervisor resets its
-%      tristate member data if this went fine or else 
+%      tristate member data if this went fine or else
 %      transitions to its "Error" state.
 
 %\begin{verbatim}
@@ -5192,7 +5162,7 @@ programming the DACs, we check the state of the data member containing
 the HV status.  The PixelTKFECSupervisors load the slow I2C
 settings for CCU boards, Port Cards etc.
 
-\item The PixelFECSupervisor(s) and PixelTKFECSupervisor(s) land in 
+\item The PixelFECSupervisor(s) and PixelTKFECSupervisor(s) land in
       their "Configured" state.
 
 \end{enumerate}
@@ -5225,7 +5195,7 @@ the calling function in PixelFECSupervisor to indicate the status of
 the HV. To enable the ROCs, the nominal VcThr and CCR settings are programmed.
 
 %comment from Anders:
-%For the PixelFECSupervisor to read out the current I suggest that 
+%For the PixelFECSupervisor to read out the current I suggest that
 %this is done by calling the PixelSupervisor. The PixelSupervisor
 %will have all the configuration information needed to read the
 %currents.
@@ -5258,7 +5228,7 @@ As currently implemented, the following is the expected sequence of events when 
 
 \subsection{Notes on hardcoding of information} \label{sec:dcshardcode}
 
-Because the xdaq software (POS) and DCS use different naming schemes
+Because the XDAQ software (POS) and DCS use different naming schemes
 and different granularity, several translations must be made in order
 for POS to communicate with DCS. Some of these translations are
 encoded in the {\tt interface.xml} file, while others are hard-coded
@@ -5296,8 +5266,8 @@ With a table such as this, we could eliminate both the xml file and the hardcodi
 \section{Procedures to follow when hardware components are replaced}
 
 This section documents the procedures that are to be followed
-when off detector hardware components are replaced that 
-affects the online software and calibrations. {\it This 
+when off detector hardware components are replaced that
+affects the online software and calibrations. {\it This
 section is not complete!}
 
 \subsection{FED board}
@@ -5322,12 +5292,12 @@ The following calibrations should be run
 \subsection{Pixel FEC including mFECs}
 
  No calibrations should be affected by replacing a FEC board
-or a mFEC --- in principle. However, we have seen that the 
+or a mFEC --- in principle. However, we have seen that the
 size of the window for good communication changes a little
-between different mFECs. This seems mostly to affect the 
+between different mFECs. This seems mostly to affect the
 return data and this check is now disabled for both FPix
 and BPix. It is probably prudent to rerun a Delay25 calibration
-to check that after reconnecting the fibers we have the expected 
+to check that after reconnecting the fibers we have the expected
 performance.
 
 Need to verify that the right firmware is installed. I assume
@@ -5375,14 +5345,14 @@ The PIA resets are hard resets using hardware lines. In the FPix they go from th
 \section{FED phase and delay calibration}
 \label{sect:phaseanddelay}
 
-This section will describe some aspects of determining the 
-so called 'phase' and 'delay' of the FED. The sample 
-plots shown in this section are taken from runs on the 
+This section will describe some aspects of determining the
+so called 'phase' and 'delay' of the FED. The sample
+plots shown in this section are taken from runs on the
 FPIX pilot run detector. this was done using a version 4 FED
 with the Aug. 22, 2007 firmware version.
 
 In order to get the transparent data to 'look' OK I had
-to send an LRES before each trigger. Will Johns and I had 
+to send an LRES before each trigger. Will Johns and I had
 long email exchanges trying to understand this. I think
 that the final conclusion was that the FED state machine
 gets confused when the input data is non standard. In the
@@ -5392,7 +5362,7 @@ data is available. At the end of this section I will discuss
 two issues that I noticed in looking at the transparent data.
 
 For the above reason we also turn off the automatic baseline
-correction to avoid it getting confused if you seend non valid 
+correction to avoid it getting confused if you seend non valid
 data or if you don't have correct address levels.
 
 In these tests we take 10 triggers for each delay and phase
@@ -5404,12 +5374,12 @@ The third plots just shows the two plots on top of each other.
 \begin{center}
 \includegraphics[width=\linewidth]{phaseAndDelayPlotRaw_channe_1_1}
 \end{center}
-\caption{This figure shows on top the adc value as a function of 
-clock+delay/16 for phase=0 and the same plot for phase=1 in the 
+\caption{This figure shows on top the adc value as a function of
+clock+delay/16 for phase=0 and the same plot for phase=1 in the
 middle. The two plots are overlaid at the bottom.}
 \label{fig:phasedelayraw}
 \end{figure}
-We see that 
+We see that
 there are certain values of the delays that produce garbage
 as you try to read out the ADC before the data is available.
 To identify the invalid combinations of phase and delay I
@@ -5427,8 +5397,8 @@ have a signal that looks as what is shown in Fig.~\ref{fig:phasedelayvalid}.
 \begin{center}
 \includegraphics[width=\linewidth]{phaseAndDelayPlotPurged_channe_1_1}
 \end{center}
-\caption{This figure shows on top the adc value as a function of 
-clock+delay/16 for phase=0 and the same plot for phase=1 in the 
+\caption{This figure shows on top the adc value as a function of
+clock+delay/16 for phase=0 and the same plot for phase=1 in the
 middle. The two plots are overlaid at the bottom. Here I have set the
 adc value to 0 for the combinations of clock and phase that are not
 valid.}
@@ -5444,8 +5414,8 @@ signal continuous as shown in Fig.~\ref{fig:phasedelayshifted}.
 \begin{center}
 \includegraphics[width=\linewidth]{phaseAndDelayPlotShifted_channe_1_1}
 \end{center}
-\caption{This figure shows on top the adc value as a function of 
-clock+delay/16 for phase=0 and the same plot for phase=1 in the 
+\caption{This figure shows on top the adc value as a function of
+clock+delay/16 for phase=0 and the same plot for phase=1 in the
 middle. The two plots are overlaid at the bottom. Here the
 data within a clock has been ordered to give a continuous data
 signal.}
@@ -5453,19 +5423,19 @@ signal.}
 \end{figure}
 
 
-The last step is to align the data so that the phase=0 and phase=1 
+The last step is to align the data so that the phase=0 and phase=1
 data overlaps. I do this by shifting the data for the events with phase=1
-by 10 delay steps. The final result is shown in 
+by 10 delay steps. The final result is shown in
 Fig.~\ref{fig:phasedelayfinal}. For the bins in the plot where there
 is data from both phase=0 and phase=1 we see that there is excellent
-agreement. We also not that the signal undershoots in a transition 
+agreement. We also not that the signal undershoots in a transition
 from black to ultrablack and that it overshoots on the reverse transition.
 \begin{figure}
 \begin{center}
 \includegraphics[width=\linewidth]{phaseAndDelayPlot_channe_1_1}
 \end{center}
-\caption{This figure shows on top the adc value as a function of 
-clock+delay/16 for phase=0 and the same plot for phase=1 in the 
+\caption{This figure shows on top the adc value as a function of
+clock+delay/16 for phase=0 and the same plot for phase=1 in the
 middle. The two plots are overlaid at the bottom. Here the phase=1
 data has been shifted so that it overlaps with the phase=0 data.}
 \label{fig:phasedelayfinal}
@@ -5474,7 +5444,7 @@ data has been shifted so that it overlaps with the phase=0 data.}
 
 To determine a best delay I look at the combined data - where I average
 the bins that has both phase=0 and phase=1 contributions - and calculate
-a difference for bin $i$ by taking the difference between bin $i-1$ 
+a difference for bin $i$ by taking the difference between bin $i-1$
 and $i+1$.
 I calculate this difference for the 25 MHz clock cycles from clock 27 to 100.
 I add the magnitude of these differences for all bins that corresponds
@@ -5496,14 +5466,14 @@ to 2 or 3 for phase=1.
 Open questions: Is the same set of phases and delays illegal on all
 FEDs and channels? Also, are the shifts that are needed to time-order
 the data the same on all FEDs and channels? Looking at more data will
-resolve this. It is easy to test that the data in the two phases are 
+resolve this. It is easy to test that the data in the two phases are
 compatible by forming a $\chi^2$.
 
 The code was written as a root macro. I will 'transplant' this code
-into xdaq so we can run it automatically to produce the phase and delay
+into XDAQ so we can run it automatically to produce the phase and delay
 settings needed.
 
-However, looking at this I observed an odd feature. 
+However, looking at this I observed an odd feature.
 This is illustrated in Fig.~\ref{fig:phasedelaylatedata}.
 \begin{figure}
 \begin{center}
@@ -5514,7 +5484,7 @@ there is a feature in that some delays are oscillating. This 'excitation'
 seems to decay of after $O(20)$ clocks. }
 \label{fig:phasedelaylatedata}
 \end{figure}
-In Fig.~\ref{fig:phasedelaylatedatazoom} is a close up of the 
+In Fig.~\ref{fig:phasedelaylatedatazoom} is a close up of the
 region with the noise.
 \begin{figure}
 \begin{center}
@@ -5529,8 +5499,8 @@ to the rms, as indicated by the error. This wiggle seems to persist
 for many clock cycles after the TBM trailer. However, it was not present
 in the black data before the data train. It seems to first start
 in the TBM trailer when the UB signal is generated. With the
-pilot run detector we are using 8 channels 
-(1, 2, 3, 4, 7, 8, 9, and 10). I see the same feature on 
+pilot run detector we are using 8 channels
+(1, 2, 3, 4, 7, 8, 9, and 10). I see the same feature on
 almost all channels, though they are not as strong on channel 1, 7,
 and 9.
 
@@ -5547,8 +5517,8 @@ and 9.
 \caption{This figure shows the results of scans for delay25 settings on
 the Cornell test stand. The upper left plots shows (large black dots) the
 region for which the return data was valid when sending a ROC command (CalPix).
-The upper right plot shows the valid region when sending a TBM command 
-(tbm speed). The lower left shows the region of success when sending a 
+The upper right plot shows the valid region when sending a TBM command
+(tbm speed). The lower left shows the region of success when sending a
 roc init and the lower right shows the region of success with a roc trim
 load command. As is seen, the working region is smaller for the long
 commands. The red and blue points indicates the algorithm used to select
@@ -5569,11 +5539,11 @@ The calibrations all share a similar format.
       saved.
 \end{itemize}
 This section will describe a {\it proposal} for how to formalize this process.
-A first step in this this direction was taken when the calibration classes
+A first step in this direction was taken when the calibration classes
 were broken out from the the PixelSupervisor and the PixelFEDSupervisor.
 This first step was almost trivial as it just copied the code out to
 separate classes. There are a few more changes we should make that will
-allow us to run these jobs in workloops. Among other things, this will 
+allow us to run these jobs in workloops. Among other things, this will
 allow us to look
 at the progress of the calibrations from the web browser.
 
@@ -5582,7 +5552,7 @@ at the progress of the calibrations from the web browser.
 We change the {\tt PixelCalibrationBase} class to have
 the interface below.
 \begin{verbatim}
-class PixelCalibrationBase : public PixelSupervisorConfiguration, 
+class PixelCalibrationBase : public PixelSupervisorConfiguration,
 	    public SOAPCommander {
  public:
 
@@ -5598,16 +5568,16 @@ class PixelCalibrationBase : public PixelSupervisorConfiguration,
   virtual void endCalibration();
 
  protected:
-  
+
   private:
-  
+
   // PixelCalibrationBase Constructor
   PixelCalibrationBase(const SOAPCommander& soapCommander);
 
 };
 \end{verbatim}
 
-The method {\tt begin()} should do any initialization that 
+The method {\tt begin()} should do any initialization that
 is needed before processing any triggers. The method {\tt event()}
 is called repeatedly until it returns true, this indicates that
 the calibration has come to an end.
@@ -5621,11 +5591,11 @@ discussed below.
 
 \subsection{PixelFEDSupervisor calibration code}
 
-Similarly, I suggest a more general structure for the calibration 
+Similarly, I suggest a more general structure for the calibration
 code that runs in the PixelFEDSupervisor.
 
 \begin{verbatim}
-class PixelFEDCalibrationBase : public PixelFEDSupervisorConfiguration, 
+class PixelFEDCalibrationBase : public PixelFEDSupervisorConfiguration,
 	    public SOAPCommander {
  public:
 
@@ -5656,7 +5626,7 @@ class PixelFEDCalibrationBase : public PixelFEDSupervisorConfiguration,
 };
 \end{verbatim}
 
-Again the three methods {\tt beginCalibration()}, 
+Again the three methods {\tt beginCalibration()},
 {\tt calibrationEvent()}, and {\tt endCalibration()}
 corresponds to the pre calibration data taking, processing of trigger
 and the post data taking analysis respectively. I suggest that
@@ -5677,11 +5647,11 @@ During the configuration step the {\tt PixelSupervisor} and
 instantiates the Calibration class for the calibration objects.
 When we go to Run the PixelSupervisor invokes the {\tt beginCalibration()}
 method. This method is responsible for sending the {\tt beginCalibration()}
-message to the PixelFEDSupervisors. 
+message to the PixelFEDSupervisors.
 
 After this the PixelSupervisor should execute the {\tt calibrationEvent()}
 in a workloop until it has completed. Again, the code executed in the
-PixelFEDSupervisor is responsible for calling the appropriate 
+PixelFEDSupervisor is responsible for calling the appropriate
 supervisors. This gives the maximal flexibility in the calibration
 algorithm.
 
@@ -5691,7 +5661,7 @@ the results.
 
 In addition it would be nice to take out the code from the PixelSupervisor
 and the PixelFEDSupervisor that select the calibration type. One
-way of doing this is to create a 'factory' for calibrations in the 
+way of doing this is to create a 'factory' for calibrations in the
 PixelCalibrations package. This factory would accept a string from
 the calibration mode and create the calibration object and return
 it to the PixelSupervisor and the PixelFEDSupervisor. Besides
@@ -5715,7 +5685,7 @@ is 'operations', the third is code improvements.
 \item Linearity adjustment. Steve started to look at Vsf and Vhlddel.
 \item Adjust the ROC analog signal offset and gain. Want to keep the
       lowest level well above UB, and the maximum near 255 (or 1024).
-\item In the address level determination if the highest level hit 1023 it 
+\item In the address level determination if the highest level hit 1023 it
       will not be detected. Should allow this.
 \end{itemize}
 
@@ -5726,22 +5696,22 @@ is 'operations', the third is code improvements.
       histograms. This will allow us to write out root files
       with the calibration results as well as monitoring
       the progress of calibrations.
-\item Tools to view the calibration results should be 
+\item Tools to view the calibration results should be
       migrated to look at root files.
-\item Deploy database. 
-\item Use filebased interface and aliases to nor write over 
+\item Deploy database.
+\item Use filebased interface and aliases to nor write over
       old files. This is basically done. But should modify the
       writing of files so that all files in the configuration
       is written out again. Otherwise it will be to hard to used.
-      This is not very complicated, but not sure what is the 
+      This is not very complicated, but not sure what is the
       best strategy.
 \item Deploy the error logger to make sure that we send relevant
       and not to verbose messages.
 \item Have to run with the FEDSpySupervisor.
 \item Run with the power-on sequence. This is work in progress
-      now and a first try will take place during the week of 
+      now and a first try will take place during the week of
       Jan. 28, 2008.
-\item We should properly initialize the CCU. 
+\item We should properly initialize the CCU.
 \item We should try out the schemes for reconfiguring a CCU ring
       to drop a CCU.
 \item Is it possible that we can program ROCs on one panel, or blade,
@@ -5757,9 +5727,9 @@ is 'operations', the third is code improvements.
 \begin{itemize}
 \item Move DCU readout workloop to configure transition.
 \item Calibration algorithms should run on separate threads.
-      This is mostly implemented now. Some calibrations 
+      This is mostly implemented now. Some calibrations
       still need to migrate to executing the calibration
-      in 'steps', and not just as on call. 
+      in 'steps', and not just as on call.
 \item should use dynamic cast instead of static cast.
 \item Further cleanup in calibrations. A number of the
       calibrations contains a large amount of duplication.
@@ -5793,6 +5763,3 @@ is 'operations', the third is code improvements.
 
 
 \end{document}
-
-
-
