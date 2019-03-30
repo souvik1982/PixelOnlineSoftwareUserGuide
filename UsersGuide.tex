@@ -41,8 +41,9 @@ Ben Kreis ({\it benjaminkreis@gmail.com})\\
 \end{center}
 
 \begin{abstract}
-Pixel Online Software (POS) orchestrates the operation, calibration and monitoring of the
-CMS pixel detector. This Note describes the structure and installation of this software.
+Pixel Online Software (POS) is the online data acquisition software for the
+CMS Pixel Detector that orchestrates its operation, calibration and monitoring.
+This Note describes the structure and installation of this software.
 It also documents the algorithms used to calibrate the detector. This document currently
 serves both as a Reference Manual for and a User's Guide to POS.
 
@@ -131,15 +132,13 @@ CCU. The CCU is again controlled from a Tracker FEC (TkFEC).
 \label{fig:daqcomponents}
 \end{figure}
 
-\clearpage
-
 \subsubsection{The Read Out Chip}
 
 Each Read Out Chip (ROC)~\cite{ROC}, illustrated in Fig.~\ref{fig:ROC}, collates data from 52 $\times$ 80 = 4,160 pixels
 and contains about 1.3 million transistors.
 It amplifies and zero suppresses data using 4 trim bits
 that specify a threshold for every pixel. The chip buffers hit data
-until the trigger decision arrives. It is developed at PSI and manufactured by IBM.
+until the trigger decision arrives. It is developed at PSI and manufactured by IBM~\cite{Barbero:2004}.
 
 \begin{figure}[h]
 \begin{center}
@@ -149,7 +148,34 @@ until the trigger decision arrives. It is developed at PSI and manufactured by I
 \label{fig:ROC}
 \end{figure}
 
-\clearpage
+For pixel hits to be read out, the following consecutive actions must take place.
+
+\begin{itemize}
+
+\item The accumulated charge in any of the pixels of the double column must exceed
+a (programmable) threshold (trim-input to comparator). Then the corresponding time-stamp
+(bunch crossing number) is written into the time-stamp buffer presently pointed at, and
+the analog signals and the pixel addresses of all hit pixels are written into the next
+free data buffers. This hit-recording into the time stamp and data buffers runs autonomously
+and asynchronously in each double column of the chip, independently of the bunch crossing
+clock. The recorded hit information must be kept in the buffers during the
+latency time of the L1-trigger.
+
+\item Hits in the column are validated by an external L1-trigger, by comparing their
+corresponding time stamp with a counter running behind the bunch crossing counter by the trigger
+delay, else the hits are cleared. If the hits in the column are validated, the value of a 4-bit
+trigger counter is latched into the column periphery. The column is frozen and cannot record further
+until reset after the readout of the triggered hits. Other (untriggered) columns remain active.
+
+\item All frozen columns with the latched value of the trigger counter equal to the present value
+of the token counter are set to the readout mode. Directly afterwards, the trigger counter is
+incremented. The readout process starts when the token bit enters the chip. After a three bit chip
+header is sent, each consecutive double column which is in the readout mode is read out and reset.
+Just before the token leaves the chip, the token counter is incremented. A new token is sent
+for each trigger and only data belonging to that trigger will be sent onto the readout bus,
+even if more triggers arrive between a trigger and the corresponding token.
+
+\end{itemize}
 
 \subsubsection{The Token Bit Manager}
 
@@ -166,8 +192,6 @@ The TBM is developed at Rutgers.
 \caption{A schematic of how the Token Bit Manager reads out data from the ROCs.}
 \label{fig:TBM}
 \end{figure}
-
-\clearpage
 
 \subsubsection{The Pixel FED}
 
@@ -188,8 +212,6 @@ is dispatched, in a binary format readable to the entire CMS experiment, via an 
 \label{fig:pFED}
 \end{figure}
 
-\clearpage
-
 \subsubsection{The Pixel FEC}
 
 The Pixel Front End Controller (FEC) sends triggers, clocks
@@ -206,8 +228,6 @@ and this calls for timing calibrations in order to enable downloads.
 \caption{A schematic of the pixel FEC.}
 \label{fig:pFEC}
 \end{figure}
-
-\clearpage
 
 \subsection{Installation at P5}
 
