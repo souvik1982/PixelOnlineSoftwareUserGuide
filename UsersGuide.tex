@@ -193,6 +193,33 @@ The TBM is developed at Rutgers.
 \label{fig:TBM}
 \end{figure}
 
+The principal functions of the TBM are the following.
+
+\begin{itemize}
+
+\item It controls the readout of the ROCs by initiating a token pass for each incoming
+L1-trigger.
+
+\item On each token pass, it writes a header and a trailer work to the data stream.
+
+\item The header contains an 8-bit event number. The trailer contains an 8-bit error status.
+These are transmitted in 2-bit analog encoded digital signals.
+
+\item It distributes the L1-trigger and LHC Clock to the ROCs.
+
+\item Each arriving L1-trigger is placed on a 32-deep stack awaiting its associated token pass.
+Normally the stack is empty but is needed to accommodate high burst rates due to either noise,
+high track density or trigger bursts. Only the first 16 triggers placed on the stack are passed
+to the ROCs, and have an associated token pass. All others are marked in the trailer as a ``No
+Token Pass" event. This is done to keep the DAQ synchronized, while speeding up the clearing of
+the stack.
+
+\end{itemize}
+
+The TBM received 4 control signals: A 40 MHz clock synchronized to the CMS beam crossing, an active
+low reset signal (which resets all control registers to an initial state), a serial line for
+configuration settings, and a serial encoded trigger signal.
+
 \subsubsection{The Pixel FED}
 
 The Pixel Front End Driver (FED) is a VME module
