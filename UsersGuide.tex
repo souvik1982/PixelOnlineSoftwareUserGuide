@@ -1204,9 +1204,9 @@ for 'Physics' and 'PhysicsLowLumi'.
 
 \subsubsection{Use cases}
 
-Below I will give some examples for how we could be using the
+Below we will give some examples for how we could be using the
 capabilities discussed in the previous two sections. To simplify
-this a little bit I will work with a configuration that only
+this a little bit we will work with a configuration that only
 has 4 different types of objects (detconfig, tbm, dac, and masks).
 
 The first thing we need to do is to load the configuration data.
@@ -1222,7 +1222,7 @@ PixelConfigDBCmd.exe --insertDataSet portcard portcardlist.txt
 PixelConfigDBCmd.exe --insertDataSet tbm tbmlist.txt
 PixelConfigDBCmd.exe --insertDataSet dac daclist.txt
 \end{verbatim}
-So now we have version 0 for each of these objects. Now I can
+So now we have version 0 for each of these objects. Now we can
 create aliases for the different objects.
 
 \begin{verbatim}
@@ -1295,7 +1295,7 @@ ttcciconfig 0
 tkfecconfig 0
 \end{verbatim}
 
-For a moment I will not discuss the 'aliases', I will focus just
+For a moment we will not discuss the 'aliases', we will focus just
 on the data organization and the tools needed to manipulate the
 data. The different data types used in the configurations are
 discussed in Sect.~\ref{sect:configobjects}
@@ -1322,7 +1322,7 @@ data object include:
       The fewer components, read pieces of software,
       involved in the configuration step the more
       likely the system is to work reliably.
-\item The data volume should be small. I.e. the data
+\item The data volume should be small. we.e. the data
       has to be packed in an efficient way.
 \item Want to optimize the database access by accessing
       relatively few, but large, objects.
@@ -1458,7 +1458,7 @@ class PixelConfigBase {
     //description : purpose of this object
     //creator : who created this configuration object
     //date : time/date of creation (should probably not be
-    //       a string, but I have no idea what CMS uses.
+    //       a string, but we have no idea what CMS uses.
     PixelConfigBase(std::string description,
 		    std::string creator,
                     std::string date);
@@ -1755,7 +1755,7 @@ Where the file contains the DAC settings for all the ROCs in a given module.
 
 Specifies which components of the detector are used in the configuration.
 The level of configurability is the module (or in FPIX language
-the panel). I.e. the
+the panel). we.e. the
 components that are controlled by one TBM.
 
 The file format that we use to specify this format looks like:
@@ -2113,7 +2113,7 @@ given in the \verb|PixelDetectorConfig|.
 \subsection{PixelFedCard}
 
 The {\tt PixelFEDCard} class contains the settings for a FED board.
-The file is fairly long and I do not include an example here.
+The file is fairly long and we do not include an example here.
 You can find a sample file in PixelFEDInterface/test/params\_fed.dat
 
 \subsection{PixelTBMSettings}
@@ -3513,7 +3513,7 @@ a resolution of about 7 mA. We perform this
 measurement when all other ROCs are configured
 to their default values. Hence, we measure the
 current changes on top of a current of several amperes.
-(I performed trials were I lowered Vana on all
+(we performed trials were we lowered Vana on all
 other ROCs to reduce the current, but it does
 not really improve the measurements.)
 Hence, we have to take the data and fit it in order to
@@ -3538,8 +3538,8 @@ The red line indicate the setting that gives a analog current of
 
 
 To analyze the data we fit it to a functional form.
-After some experimentation I came up with the following.
-I divide the range of Vana values into 3 ranges,
+After some experimentation we came up with the following.
+we divide the range of Vana values into 3 ranges,
 compare Fig.~\ref{fig:IanavsVana}. In the high range Iana
 is taken to be a constant. In the low range Iana
 is taken to be a constant plus an exponential.
@@ -4062,7 +4062,7 @@ from 0 to 15. So we need more constraints. We use the following:
 
 \begin{itemize}
 \item We need to decide how many pixels we include in the triming.
-      I.e. setting Vtrim large enough so that the trim bits can
+      we.e. setting Vtrim large enough so that the trim bits can
       adjust the threshold.
       Based on the 'initial' parameters find the rms of the threshold
       distribution. Find $n-\sigma$ and using an average $C_i$
@@ -4791,7 +4791,7 @@ Our trimming algorithm makes all of the thresholds across the detector the same,
  achieves the desired goal of making the thresholds within each ROC the same.
 
 Begin by taking a VcThrCalibration with a target of 80 Vcal.  We choose 80 Vcal because it is high
-enough to avoid problems associated with thresholds being too low.  70 Vcal would also work, I think.
+enough to avoid problems associated with thresholds being too low.  70 Vcal would also work, we think.
 Take an SCurve99By3 run to measure the in-time threshold and set the target threshold in PixelTrim.cc and
 PixelTrimBits.cc to the mean in-time threshold (this way you don't waste time shifting your distribution and
 just spend time narrowing it).
@@ -4906,10 +4906,10 @@ files to apply all of the necessary shifts.
 
 You now have a preliminary guess of the minimized thresholds.  You should now rerun
 an SCurve with the new VcThr values (and no shift).  Some ROCs will fail even though
-according to the runs you took earlier they should pass (I guess this is because the
+according to the runs you took earlier they should pass (We guess this is because the
 ROCs are not fully independent from one another... or they are unstable near the failing point).
 Analyze the SCurve using SCurveLoop\_BPix(FPix).C and correct any ROCs that fail (i.e. that
-are listed in the ``...\_fail.dat'' files).  To correct them, I recommend shifting their
+are listed in the ``...\_fail.dat'' files).  To correct them, we recommend shifting their
 VcThr value by -4.  Repeat this until everything passes.
 
 Next, you can try running on a different subset of pixels (it's best to
@@ -4918,7 +4918,7 @@ still pass.  You'll have to run at VcThr-20 again to make a new ``useBase'' file
 You may find a few ROCs fail because just one or two pixels within the ROC barely
 fail the min pixel threshold cut.  This is just because they are in the tail of the
 distribution and is not an indication of the threshold being too low.  You can
-correct their VcThr by -4, but I wouldn't recommend doing this for more and more
+correct their VcThr by -4, but we wouldn't recommend doing this for more and more
 subsets if this is the only kind of failure you see.  Obviously you should correct
 any ROC that fails in a more serious way.
 
@@ -5327,7 +5327,7 @@ the calling function in PixelFECSupervisor to indicate the status of
 the HV. To enable the ROCs, the nominal VcThr and CCR settings are programmed.
 
 %comment from Anders:
-%For the PixelFECSupervisor to read out the current I suggest that
+%For the PixelFECSupervisor to read out the current we suggest that
 %this is done by calling the PixelSupervisor. The PixelSupervisor
 %will have all the configuration information needed to read the
 %currents.
@@ -5431,14 +5431,14 @@ and BPix. It is probably prudent to rerun a Delay25 calibration
 to check that after reconnecting the fibers we have the expected
 performance.
 
-Need to verify that the right firmware is installed. I assume
+Need to verify that the right firmware is installed. We assume
 that we manage to connect the fibers in the right slot.
 
 \subsection{TKFEC}
 
  No calibrations should be affected by replacing a TKFEC board.
 
-Need to verify that the right firmware is installed. I assume
+Need to verify that the right firmware is installed. We assume
 that we manage to connect the fibers in the right slot.
 
 \section{Low-level commands}
@@ -5482,21 +5482,21 @@ plots shown in this section are taken from runs on the
 FPIX pilot run detector. This was done using a version 4 FED
 with the Aug. 22, 2007 firmware version.
 
-In order to get the transparent data to 'look' OK I had
-to send an LRES before each trigger. I think
+In order to get the transparent data to 'look' OK we had
+to send an LRES before each trigger. We think
 that the final conclusion was that the FED state machine
 gets confused when the input data is non standard. In the
 scans over phases and delays there are certain settings that
 are invalid, i.e., that you try to read out the ADC before the
-data is available. At the end of this section I will discuss
-two issues that I noticed in looking at the transparent data.
+data is available. At the end of this section we will discuss
+two issues that we noticed in looking at the transparent data.
 
 For the above reason we also turn off the automatic baseline
 correction to avoid it getting confused if you send non valid
 data or if you don't have correct address levels.
 
 In these tests we take 10 triggers for each delay and phase
-setting. I'll show plots, as in Fig.~\ref{fig:phasedelayraw},
+setting. We will show plots, as in Fig.~\ref{fig:phasedelayraw},
 where for each of the two possible phases the profile
 histogram shows the adc value as a function of clock+delay/16.
 The third plots just show the two plots on top of each other.
@@ -5512,13 +5512,13 @@ middle. The two plots are overlaid at the bottom.}
 We see that
 there are certain values of the delays that produce garbage
 as you try to read out the ADC before the data is available.
-To identify the invalid combinations of phase and delay I
+To identify the invalid combinations of phase and delay we
 calculate the rms for the different phase and delay settings
 in the first 20 clock cycles, i.e. before the TBM header arrives.
 Based on the rms distribution it is seen that for phase=0
 we got invalid data with delays of 1, 2, and 3, while for
 phase=1 the delays of 10, 11, and 12 generate invalid data.
-From now on I will reject these combinations. (In the plots I set the
+From now on we will reject these combinations. (In the plots we set the
 adc value to 0.)
 
 After rejecting the invalid phase and delay combinations we now
@@ -5529,7 +5529,7 @@ have a signal that looks as what is shown in Fig.~\ref{fig:phasedelayvalid}.
 \end{center}
 \caption{This figure shows on top the adc value as a function of
 clock+delay/16 for phase=0 and the same plot for phase=1 in the
-middle. The two plots are overlaid at the bottom. Here I have set the
+middle. The two plots are overlaid at the bottom. Here we have set the
 adc value to 0 for the combinations of clock and phase that are not
 valid.}
 \label{fig:phasedelayvalid}
@@ -5537,7 +5537,7 @@ valid.}
 The remaining signal still has artifacts due to when the
 adc latches on to the signal such that it looks like the signal
 is not read out in order. This is corrected by 'reordering' the data
-within a clock. I shifted the phase=0 events backward by 3 delay steps
+within a clock. We shifted the phase=0 events backward by 3 delay steps
 and the phase 1 events forward by 3 delay steps. This makes the
 signal continuous as shown in Fig.~\ref{fig:phasedelayshifted}.
 \begin{figure}
@@ -5554,7 +5554,7 @@ signal.}
 
 
 The last step is to align the data so that the phase=0 and phase=1
-data overlaps. I do this by shifting the data for the events with phase=1
+data overlaps. We do this by shifting the data for the events with phase=1
 by 10 delay steps. The final result is shown in
 Fig.~\ref{fig:phasedelayfinal}. For the bins in the plot where there
 is data from both phase=0 and phase=1 we see that there is excellent
@@ -5572,15 +5572,15 @@ data has been shifted so that it overlaps with the phase=0 data.}
 \end{figure}
 
 
-To determine a best delay I look at the combined data - where I average
+To determine a best delay we look at the combined data - where we average
 the bins that has both phase=0 and phase=1 contributions - and calculate
 a difference for bin $i$ by taking the difference between bin $i-1$
 and $i+1$.
-I calculate this difference for the 25 MHz clock cycles from clock 27 to 100.
-I add the magnitude of these differences for all bins that corresponds
-to the same delay. I pick the smallest such sum of differences for the
+We calculate this difference for the 25 MHz clock cycles from clock 27 to 100.
+We add the magnitude of these differences for all bins that corresponds
+to the same delay. We pick the smallest such sum of differences for the
 different delay as the optimal choice. If more than one phase is allowed
-I pick the choice that is farthest from the invalid delay for that phase.
+We pick the choice that is farthest from the invalid delay for that phase.
 
 A new alogorithm has been implmented that determines the phase
 to be right at the edge of the transition from black to ultrablack
@@ -5589,7 +5589,7 @@ the parameter 'oldMode' to 'Yes'.
 
 
 Looking at the 8 channels that were connected to the pilot run detector
-I find that the results are very consistent. The phase is either 0 or
+We find that the results are very consistent. The phase is either 0 or
 15 in the (aligned delay) for the raw delay setting this corresponds
 to 2 or 3 for phase=1.
 
@@ -5599,11 +5599,11 @@ to 2 or 3 for phase=1.
 %resolve this. It is easy to test that the data in the two phases are
 %compatible by forming a $\chi^2$.
 
-The code was written as a root macro. I will 'transplant' this code
+The code was written as a root macro. We will 'transplant' this code
 into XDAQ so we can run it automatically to produce the phase and delay
 settings needed.
 
-However, looking at this I observed an odd feature.
+However, looking at this we observed an odd feature.
 This is illustrated in Fig.~\ref{fig:phasedelaylatedata}.
 \begin{figure}
 \begin{center}
@@ -5630,7 +5630,7 @@ for many clock cycles after the TBM trailer. However, it was not present
 in the black data before the data train. It seems to first start
 in the TBM trailer when the UB signal is generated. With the
 pilot run detector we are using 8 channels
-(1, 2, 3, 4, 7, 8, 9, and 10). I see the same feature on
+(1, 2, 3, 4, 7, 8, 9, and 10). We see the same feature on
 almost all channels, though they are not as strong on channel 1, 7,
 and 9.
 
@@ -5700,7 +5700,7 @@ discussed below.
 
 \subsection{PixelFEDSupervisor calibration code}
 
-Similarly, I suggest a more general structure for the calibration
+Similarly, we suggest a more general structure for the calibration
 code that runs in the PixelFEDSupervisor.
 
 \begin{verbatim}
@@ -5738,7 +5738,7 @@ class PixelFEDCalibrationBase : public PixelFEDSupervisorConfiguration,
 Again the three methods {\tt beginCalibration()},
 {\tt calibrationEvent()}, and {\tt endCalibration()}
 corresponds to the pre calibration data taking, processing of trigger
-and the post data taking analysis respectively. I suggest that
+and the post data taking analysis respectively. We suggest that
 these methods are bound to soap messages that invokes
 the implemented methods.
 
@@ -5780,7 +5780,7 @@ all the calibrations header files) it will also separate out dependencies.
 
 \section{Outstanding tasks and improvements}
 
-I will divide these task into three different categories.
+We will divide these task into three different categories.
 The first is algorithm/calibration development. The second
 is 'operations', the third is code improvements.
 
