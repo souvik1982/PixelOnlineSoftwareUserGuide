@@ -591,17 +591,153 @@ run JobControl at P5, so this feature is not available elsewhere.)
 
 \subsection{PixelFECSupervisor}
 
-The FEC Supervisor controls the pixel FECs. This means it is
-responsible for loading the configuration parameters for the ROCs from
-the configuration database and programming those parameters into the
-detector.
+The PixelFECSupervisor supervises one crate of pixel-FEC boards.
+PixelFECSupervisor may be run by PixelSupervisor via SOAP messages,
+or independently through its own web interface called PixelFECSupervisorGUI.
+The PixelFECSupervisor is used to load configuration parameters for the ROCs
+from the configuration database and program them into the ROCs. Its web interface
+offers two levels of interactivity: A finite state machine
+based GUI that issues commands to all pixel-FECs in its crate as the user
+steps through the states of the FSM, and a low level GUI that gives
+the user control down to individual pixels.
+
+The PixelFECSupervisor has a state machine identical to that of the PixelSupervisor
+and follows that of the PixelSupervisor. If its state machine is triggered using its
+web interface, care must be taken to return it to the state of the PixelSupervisor
+before PixelSupervisor is allowed to regain control of it.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.49\textwidth]{PixelFECSupervisor_Halted.pdf}
+\includegraphics[width=0.49\textwidth]{PixelFECSupervisor_Configured.pdf}
+\includegraphics[width=0.49\textwidth]{PixelFECSupervisor_Running.pdf}
+\includegraphics[width=0.49\textwidth]{PixelFECSupervisor_Paused.pdf}
+\end{center}
+\caption{The operational states of the PixelFECSupervisor: Halted, Configured, Running and Paused.}
+\label{fig:PixelFECSupervisorStates}
+\end{figure}
+
+\subsubsection{Halted State}
+This is the initial state of the PixelFECSupervisor. As shown in Fig.~\ref{fig:PixelFECSupervisorStates},
+the user is allowed to enter a Global Key and press the ``Configure" button. The Global Key is then used
+to retrieve configuration data and download them to the FEC hardware while transitioning the state machine
+to the Configured state. The Low Level GUI is not accessible yet as the PixelFECSupervisor has not retrieved
+the hardware addresses of the FECs it controls.
+
+\subsubsection{Configured State}
+``Halt" and ``Start" are the two state machine input keys that are enabled in this state, as shown in
+Fig.~\ref{fig:PixelFECSupervisorStates}. The Low LeveL GUI displays a list of FECs with their VME
+base addresses. Clicking on any opens a new browser window with the Low Level GUI corresponding to that
+FEC board.
+
+\subsubsection{Running State}
+On pressing the ``Start" button, the PixelFECSupervisor transitions to its Running state. It is
+shown in Fig.~\ref{fig:PixelFECSupervisorStates}. ``Pause" and ``Halt" buttons are active. The
+Low Level GUI is accessible.
+
+\subsubsection{Paused State}
+On pressing the ``Pause" button in the Running state, the PixelFECSupervisor transitions to its
+Paused state. It is shown in Fig.~\ref{fig:PixelFECSupervisorStates}. ``Resume" and ``Halt"
+state input buttons are active. ``Resume" returns the state machine to its Running state,
+and hence executes the FEC's part of the last calibration it was last configured for. ``Halt"
+takes the state machine back to its ``Halted State".
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{PixelFECSupervisorLowLevelGUI.pdf}
+\end{center}
+\caption{Low Level GUI for the FEC board at VME base address 0x30000000 in the crate controlled
+by the PixelFECSupervisor}
+\label{fig:PixelFECSupervisorLowLevelGUI}
+\end{figure}
+
+Clicking any hyperlink for the FEC boards under the title ``Low Level Commands" opens a new
+browser window for the FEC's Low Level GUI. An example of such a GUI is shown in
+Fig.~\ref{fig:PixelFECSupervisorLowLevelGUI}. It allows the user to send TBM commands to
+individual TBMs, program-DAC and clear-calibration commands to each Readout Chip, and
+program-pixel and calibrate-pixel commands to any pixel of any Readout Chip within its control.
+
 
 \subsection{PixelFEDSupervisor}
 
-The FED Supervisor controls and monitors the pixel FEDs.
+A PixelFEDSupervisor supervises one crate of Front End Driver (FED) boards.
+PixelFEDSupervisor may be run by PixelSupervisor via SOAP messages, or independently
+through its own web interface. Its web interface offers two levels of interactivity:
+A state machine GUI that issues commands to all FEDs in its crate while the user steps
+through its state machine states, and a Low Level GUI that allows the user to adjust
+various settings on any FED board in the crate.
+
+The PixelFEDSupervisor has a state machine identical to that of the PixelSupervisor and
+follows that of the PixelSupervisor. If its state machine is triggered using its web interface,
+care must be taken to return it to the state of PixelSupervisor before PixelSupervisor
+is allowed to regain control of it.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.49\textwidth]{PixelFEDSupervisor_Halted.pdf}
+\includegraphics[width=0.49\textwidth]{PixelFEDSupervisor_Configured.pdf}
+\includegraphics[width=0.49\textwidth]{PixelFEDSupervisor_Running.pdf}
+\includegraphics[width=0.49\textwidth]{PixelFEDSupervisor_Paused.pdf}
+\end{center}
+\caption{The operational states of the PixelFEDSupervisor: Halted, Configured, Running and Paused.}
+\label{fig:PixelFEDSupervisorStates}
+\end{figure}
+
+\subsubsection{Halted State}
+This is the initial state of the PixelFEDSupervisor. As shown in Fig.~\ref{fig:PixelFEDSupervisorStates},
+the user is allowed to enter a Global Key, a value for the FED Control
+Register, and a value for the FED Mode Register and press the ``Configure" button.
+The Global Key is then used to retrieve configuration data and download
+them to the FED hardware along with the FED Control and Mode Register
+settings while transitioning the state machine
+to the Configured state. The Low Level GUI is not accessible yet as the PixelFEDSupervisor has not retrieved the hardware addresses of the FEDs it controls.
+
+\subsubsection{Configured State}
+``Halt" and ``Start" are the two state machine input keys that are enabled in this state, as shown in
+Fig.~\ref{fig:PixelFEDSupervisorStates}. The Low LeveL GUI displays a list of FEDs with their VME
+base addresses. Clicking on any opens a new browser window with the Low Level GUI corresponding to that
+FED board.
+
+\subsubsection{Running State}
+On pressing the ``Start" button, the PixelFEDSupervisor transitions to its Running state. It is
+shown in Fig.~\ref{fig:PixelFEDSupervisorStates}. ``Pause" and ``Halt" buttons are active. The
+Low Level GUI is accessible.
+
+\subsubsection{Paused State}
+On pressing the ``Pause" button in the Running state, the PixelFEDSupervisor transitions to its
+Paused state. It is shown in Fig.~\ref{fig:PixelFEDSupervisorStates}. ``Resume" and ``Halt"
+state input buttons are active. ``Resume" returns the state machine to its Running state,
+and hence executes the FEC's part of the last calibration it was last configured for. ``Halt"
+takes the state machine back to its ``Halted State".
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{PixelFEDSupervisorLowLevelGUI.pdf}
+\end{center}
+\caption{Low Level GUI for the FEC board at VME base address 0x1c000000 in the crate controlled
+by the PixelFEDSupervisor}
+\label{fig:PixelFECSupervisorLowLevelGUI}
+\end{figure}
+
+Clicking any hyperlink for the FEC boards under the title ``Low Level Commands" opens a new
+browser window for the FEC's Low Level GUI. An example of such a GUI is shown in
+Fig.~\ref{fig:PixelFECSupervisorLowLevelGUI}. A brief description of the buttons follows.
+
+The ``Reload Firmware" button reloads the firmware on all four
+FPGAs of the FED and resets the FED. The ``Reset" button resets the FED.
+The user can modify the Capacitor Adjustment, Optical Receiver Input and Output Offsets,
+and the Channel Offset DACs for each FED channel. One can also read data from Spy FIFO 1,
+2 or 3. If FIFO 1 is chosen, a channel must be specified along with a mode -- Transparent
+or Normal. One can also choose to ship the data to screen, in which case it will be decoded,
+or shipped to a file, in which case a binary dump of the Spy FIFO data will be placed in the
+file. It may also be shipped to the RU Builder. However, since we cannot ensure the
+stability of the RU Builder in the current version of POS, we do not recommend this option.
+
+The user can modify the phase and delay settings for any channel on the FED using the
+``SetPhasesAndDelays" button.
+
 
 %\subsection{PixelTTCSupervisor}
-
 
 
 \section{Coding practices}
