@@ -1,5 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage{epsfig}
+\usepackage{comment}
 \setlength{\textwidth}{6.75in}
 \setlength{\textheight}{7.5in}
 \newsavebox{\savepar}
@@ -42,12 +43,11 @@ Ben Kreis ({\it benjaminkreis@gmail.com})\\
 
 \begin{abstract}
 Pixel Online Software (POS) is the online data acquisition software for the
-CMS Pixel Detector that orchestrates its operation, calibration and monitoring.
+CMS Pixel Detector installed in 2008. The POS orchestrates its operation,
+calibration and monitoring.
 This Note describes the structure and installation of this software.
 It also documents the algorithms used to calibrate the detector. This document currently
 serves both as a Reference Manual for and a User's Guide to POS.
-
-%We might want to separate out the different components later.
 \end{abstract}
 
 \newpage
@@ -61,7 +61,7 @@ serves both as a Reference Manual for and a User's Guide to POS.
 
 This note describes the design and implementation of
 Pixel Online Software (POS). POS is used for controlling and calibrating the CMS pixel
-detector. In particular, it performs the following functions:
+detector that was installed in 2008. In particular, it performs the following functions:
 \begin{itemize}
 \item Configuring the detector
 \item Performing online calibrations
@@ -69,11 +69,7 @@ detector. In particular, it performs the following functions:
 \item Monitoring the detector during data taking
 \end{itemize}
 
-In Section~\ref{sect:overview} the main software components
-are introduced. Next the software organization is discussed.
-In Section~\ref{sect:swcomponets} the different software components
-are discussed in more detail. In Section~\ref{sect:calib} the
-different calibrations are described. Other information about
+Other information about
 Pixel Online Software is available at the pixel online
 software wiki pages~\cite{poswiki}.
 
@@ -200,7 +196,7 @@ The principal functions of the TBM are the following.
 \item It controls the readout of the ROCs by initiating a token pass for each incoming
 L1-trigger.
 
-\item On each token pass, it writes a header and a trailer work to the data stream.
+\item On each token pass, it writes a header and a trailer word to the data stream.
 
 \item The header contains an 8-bit event number. The trailer contains an 8-bit error status.
 These are transmitted in 2-bit analog encoded digital signals.
@@ -216,7 +212,7 @@ the stack.
 
 \end{itemize}
 
-The TBM received 4 control signals: A 40 MHz clock synchronized to the CMS beam crossing, an active
+The TBM receives 4 control signals: A 40 MHz clock synchronized to the CMS beam crossing, an active
 low reset signal (which resets all control registers to an initial state), a serial line for
 configuration settings, and a serial encoded trigger signal.
 
@@ -263,7 +259,7 @@ for Pixel Online Software. Table~\ref{tab:FpixFED} lists the FED boards
 and their locations in the VME crate within the CMS Counting Room. The slots
 and the VME addresses are also provided. Similarly, we list the FEC boards
 and their locations in Table~\ref{tab:FpixFEC}. The CCU connections in the Counting
-Room is shown in Table~\ref{tab:FpixCCU}.
+Room are shown in Table~\ref{tab:FpixCCU}.
 
 \begin{table}
 \centering
@@ -522,7 +518,7 @@ transitions of the FSM can then be driven via the L1FM GUI. In
 general, we drive the ``Initialize'' state transition via the GUI,
 then drive subsequent state transitions directly from the
 PixelSupervisor. However, in principle all transitions can be
-initiated from the L1FM GUI.\footnote{In practice, this is only useful for simple tests of the L1FM to PixelSupervisor communication.}
+initiated from the L1FM GUI\footnote{In practice, this is only useful for simple tests of the L1FM to PixelSupervisor communication.}.
 
 \subsubsection{Outline of L1FM implementation}
 
@@ -626,7 +622,7 @@ the hardware addresses of the FECs it controls.
 
 \subsubsection{Configured State}
 ``Halt" and ``Start" are the two state machine input keys that are enabled in this state, as shown in
-Fig.~\ref{fig:PixelFECSupervisorStates}. The Low LeveL GUI displays a list of FECs with their VME
+Fig.~\ref{fig:PixelFECSupervisorStates}. The Low Level GUI displays a list of FECs with their VME
 base addresses. Clicking on any opens a new browser window with the Low Level GUI corresponding to that
 FEC board.
 
@@ -694,7 +690,7 @@ to the Configured state. The Low Level GUI is not accessible yet as the PixelFED
 
 \subsubsection{Configured State}
 ``Halt" and ``Start" are the two state machine input keys that are enabled in this state, as shown in
-Fig.~\ref{fig:PixelFEDSupervisorStates}. The Low LeveL GUI displays a list of FEDs with their VME
+Fig.~\ref{fig:PixelFEDSupervisorStates}. The Low Level GUI displays a list of FEDs with their VME
 base addresses. Clicking on any opens a new browser window with the Low Level GUI corresponding to that
 FED board.
 
@@ -707,20 +703,20 @@ Low Level GUI is accessible.
 On pressing the ``Pause" button in the Running state, the PixelFEDSupervisor transitions to its
 Paused state. It is shown in Fig.~\ref{fig:PixelFEDSupervisorStates}. ``Resume" and ``Halt"
 state input buttons are active. ``Resume" returns the state machine to its Running state,
-and hence executes the FEC's part of the last calibration it was last configured for. ``Halt"
+and hence executes the FED's part of the last calibration it was last configured for. ``Halt"
 takes the state machine back to its ``Halted State".
 
 \begin{figure}
 \begin{center}
 \includegraphics[width=0.6\textwidth]{PixelFEDSupervisorLowLevelGUI.pdf}
 \end{center}
-\caption{Low Level GUI for the FEC board at VME base address 0x1c000000 in the crate controlled
+\caption{Low Level GUI for the FED board at VME base address 0x1c000000 in the crate controlled
 by the PixelFEDSupervisor}
-\label{fig:PixelFECSupervisorLowLevelGUI}
+\label{fig:PixelFEDSupervisorLowLevelGUI}
 \end{figure}
 
-Clicking any hyperlink for the FEC boards under the title ``Low Level Commands" opens a new
-browser window for the FEC's Low Level GUI. An example of such a GUI is shown in
+Clicking any hyperlink for the FED boards under the title ``Low Level Commands" opens a new
+browser window for the FED's Low Level GUI. An example of such a GUI is shown in
 Fig.~\ref{fig:PixelFECSupervisorLowLevelGUI}. A brief description of the buttons follows.
 
 The ``Reload Firmware" button reloads the firmware on all four
@@ -1103,7 +1099,7 @@ DAC settings for the ROCs. As we insist that no data can be
 changed in the configuration database after it has been loaded
 this implies that the DAC settings for all ROCs needs to be
 loaded at once. To insert that prepare the files that contains the
-ROC DAC settings. Then create the file daclist.txt that list all
+ROC DAC settings. Then create the file daclist.txt that lists all
 the files that you want to install. To install them into the
 database use
 
@@ -1298,12 +1294,7 @@ tkfecconfig 0
 For a moment we will not discuss the 'aliases', we will focus just
 on the data organization and the tools needed to manipulate the
 data. The different data types used in the configurations are
-discussed in Sect.~\ref{sect:configobjects}
-
-
-% \subsection{Configuration DB Implementation}
-
-
+discussed in Sect.~\ref{sect:configobjects}.
 
 \section{Configuration Objects}
 \label{sect:configobjects}
@@ -1322,7 +1313,7 @@ data object include:
       The fewer components, read pieces of software,
       involved in the configuration step the more
       likely the system is to work reliably.
-\item The data volume should be small. we.e. the data
+\item The data volume should be small. I.e., the data
       has to be packed in an efficient way.
 \item Want to optimize the database access by accessing
       relatively few, but large, objects.
@@ -1755,7 +1746,7 @@ Where the file contains the DAC settings for all the ROCs in a given module.
 
 Specifies which components of the detector are used in the configuration.
 The level of configurability is the module (or in FPIX language
-the panel). we.e. the
+the panel). I.e., the
 components that are controlled by one TBM.
 
 The file format that we use to specify this format looks like:
@@ -2428,7 +2419,7 @@ These are initialized in {\tt PixelSupervisor::Initialize} by actively
 asking each supervisor with a SOAP command ``FSMStateRequest''.
 
 Note that the first step in the configuration after loading the global key is to send it to the FECSupervisors.
-Allow the FECSupervisors cannot begin programming the hardware until later in the configuration sequence, they can
+Although the FECSupervisors cannot begin programming the hardware until later in the configuration sequence, they can
 then begin to immediately fetch configuration data from the database. This step, called preConfiguration, is done
 outside of the finite state machine structure (the PixelFECSupervisors remain in the Halted state even as they do the
 preConfiguration). This step saves considerable time in the configuration process (roughly 25 seconds when configuring
@@ -2498,13 +2489,12 @@ database, it applies a crude sorting algorithm to put PLL settings
 first, Delay25 settings second, and AOH settings last. Any other
 settings come between the Delay25 and AOH settings.
 
-\subsubsection{PixelFEDSupervisor}
+%\subsubsection{PixelFEDSupervisor}
 %a lot of things happen here...ttcrx resets, etc
-%it would be good to desribe this
+%it would be good to describe this
 
-\subsubsection{PixelFECSupervisor}
+%\subsubsection{PixelFECSupervisor}
 %should note the order of roc programming, tbm resets, etc
-
 %could add TTCciControl, LTC
 
 \subsection{Quick reconfiguration for the fine delay scan}
@@ -2561,7 +2551,7 @@ will determine all constants at this rate, but that
 we will want to monitor quantities such as address
 levels frequently.)
 
-Freya Blekman has developed the algorithms that analyze
+We have developed algorithms that analyze
 the pixel raw data for the purpose of doing gain calibrations,
 pixel alive, and Scurves. Initially this work is
 done using data recorded in plain files. To progress
@@ -2570,19 +2560,11 @@ with a filter unit that is fed data from a source
 that reads files. This will allow us to test and develop
 the application in the form it will run in the HLT. The
 second step is to actually run this with data produced
-from a FED. This can be either real data of playback
-generated in a DAQ test stand. We have discussed this
-with Franz Meier. Freya will follow up on this in
-August and September.
-
-One important question to settle here is if we can generate
-the triggers we need for this using our LTC.
+from a FED. This can be either real data or emulated playback
+generated in a DAQ test stand.
 
 We should also test and deploy code so that we can take
 data using local DAQ (VME) and send it out to an event builder.
-Jim Hunt wrote some of this code. This has not been used
-recently, but we need to deploy this.
-
 
 \section{Directory Structure}\label{directorystructure}
 
@@ -2591,12 +2573,11 @@ directory, for example$:$ the output directories with runNumber
 between 2000 and 2999 will be stored in directory
 Run$\_$2000. PixelSupervisorConfiguration,
 PixelFEDSupervisorConfiguration and PixelTKFECSupervisorConfiguration
-are derived from this class. Using TBrowser of root, the final output
-directory structure is showed in FIG.(\ref{fig:directory}).
+are derived from this class.
 
 \subsection{Tree structure}\label{treestructure}
 
-Tree structure is added in AddrssLevel, ROCUBEqualization,
+Tree structure is added in AddressLevel, ROCUBEqualization,
 VsfAndVHldDel, LinearityVsVsf, PHRange, VcThrCalDel, VcThr and CalDel
 calibrations (among others). It helps to view some important information directly
 through Histoviewer.
@@ -2622,13 +2603,6 @@ typedef struct branch_sum{
     char rocName[38];
    };
 \end{verbatim}
-
-When using Histoviewer, the root output directory is as shown in
-Fig.~\ref{rootdirectory}. The Detector Navigator view of HistoViewer
-provides a graphical view of the detector, as illustrated in
-Figures~\ref{passinfo} and \ref{summaryinfo}. These examples (from the
-ROCUBEqualization calibration) show the values of pass state and the
-new VIBias value selected by the calibration.
 
 
 
@@ -2887,7 +2861,7 @@ The red square indicates the point chosen by the algorithm.
 \includegraphics[width=0.48\linewidth]{graph_FPix_BpI_D1_PRT1_FPix_BpI_D1_BLD1_PNL1_3}
 \end{center}
 \caption{This figure shows the results of scans for delay25 settings on
-the Cornell test stand. The upper left plots shows (large black dots) the
+the Cornell test stand. The upper left plot shows (large black dots) the
 region for which the return data was valid when sending a ROC command (CalPix).
 The upper right plot shows the valid region when sending a TBM command
 (tbm speed). The lower left shows the region of success when sending a
@@ -3440,7 +3414,7 @@ have $16\times 36=576$ links. As we read out this
 data in transparent mode we will read 1024 words
 per event (even though the transparent data
 is only 512 bytes long). This means a total of
-235926 bytes. If we want to go thought all
+235926 bytes. If we want to go through all
 pixel we have to read out 4160 times this data
 volume for a total of 9,4 GB. At a speed of
 10 MB/s this will take 940 s.
@@ -3466,7 +3440,7 @@ to produce an efficiency map that displays the efficiency
 for each pixel on a plaquette.
 
 The Scurve and gain calibrations are variations of the
-pixel alive test were we in addition loop over the VCal
+pixel alive test where we in addition loop over the VCal
 setting for each pixel. For the Scurve the data is
 analyzed to produce an efficiency as a function of the
 VCal setting while for the gain calibration we
@@ -3513,25 +3487,25 @@ a resolution of about 7 mA. We perform this
 measurement when all other ROCs are configured
 to their default values. Hence, we measure the
 current changes on top of a current of several amperes.
-(we performed trials were we lowered Vana on all
+(We performed trials where we lowered Vana on all
 other ROCs to reduce the current, but it does
 not really improve the measurements.)
 Hence, we have to take the data and fit it in order to
 interpolate between the points. (It takes a
-long time to do these measurments as one has to
+long time to do these measurements as one has to
 wait up to 6 seconds before the current measurement
 is stable.)
 
 \begin{figure}
 \begin{center}
-\includegraphics[width=0.85\linewidth]{IanavsVana}
+\includegraphics[width=0.75\linewidth]{IanavsVana}
 \end{center}
 \caption{This figure shows the measured analog current, Iana,
 vs the Vana setting for a few ROCs. The top left plot shows
 the Iana measured for one ROC with the A1715 power supply that
 has a better resolution. The black lines indicate the default setting
 (Vana=140) used in the configuration when this data was taken.
-The red line indicate the setting that gives a analog current of
+The red lines indicate the setting that gives a analog current of
 25 mA.}
 \label{fig:IanavsVana}
 \end{figure}
@@ -3539,7 +3513,7 @@ The red line indicate the setting that gives a analog current of
 
 To analyze the data we fit it to a functional form.
 After some experimentation we came up with the following.
-we divide the range of Vana values into 3 ranges,
+We divide the range of Vana values into 3 ranges,
 compare Fig.~\ref{fig:IanavsVana}. In the high range Iana
 is taken to be a constant. In the low range Iana
 is taken to be a constant plus an exponential.
@@ -4008,7 +3982,7 @@ This calibration has not been completely implemented.
 The idea is to run a scan of Vana vs CalDel. For a large
 charge we will assume that the response of different
 sensors is similar. As for a large charge (the maximum
-that can be injected) the raise time is small it is
+that can be injected) the rise time is small it is
 probably a reasonable assumption that we can assume that
 we have a small variation between ROCs. However, for a
 smaller charge, like 250 on the low Vcal range, this
@@ -4062,7 +4036,7 @@ from 0 to 15. So we need more constraints. We use the following:
 
 \begin{itemize}
 \item We need to decide how many pixels we include in the triming.
-      we.e. setting Vtrim large enough so that the trim bits can
+      I.e., setting Vtrim large enough so that the trim bits can
       adjust the threshold.
       Based on the 'initial' parameters find the rms of the threshold
       distribution. Find $n-\sigma$ and using an average $C_i$
@@ -4073,7 +4047,7 @@ from 0 to 15. So we need more constraints. We use the following:
 
 \item Require that the average trim is 7.5, that is
       $$ \sum_i {\rm deltaTrim}_i=\sum_i(7.5-{\rm Trim_i})$$
-      This yields a simple constaint:
+      This yields a simple constraint:
       $$
       {{\rm ThrTrim}\over D_i}={A_i \over D_i}+{B_i\over D_i}{\rm deltaVcthr}
       +{C_i\over D_i}{\rm deltaVtrim}+{\rm deltaTrim}_i
@@ -4924,9 +4898,8 @@ any ROC that fails in a more serious way.
 
 Now do a second round of tests using the PixelAlive calibration.  Take
 PixelAlive runs using the \verb|calib.dat| file below and look for
-any signs of thresholds being too low.  Correct the VcThr of any
-ROC that shows these signs and repeat.  Some examples of signs
-of thresholds being too low are shown HERE. You can compare the
+any signs of thresholds being too low. Correct the VcThr of any
+ROC that shows these signs and repeat.  You can compare the
 efficiency map to that from a run taken at VcThr-20 using the
 \verb|SetRelative| option if you are not sure if
 an inefficiency is due to the threshold being too low or
@@ -5165,7 +5138,7 @@ power supply status.
 
 \subsection{PixelDCSFSMInterface}
 
-The PixelDCSFSMInterface provides an interface between the PSX server and our other pixel XDAQ applications. Changes in the states of each power supply modules are sent in real time from the PSX server to the PixelDCSFSMInterface application. The PixelDCSFSMInterface summarizes this information into one state per half cylinder/shell (thus there are 8 summarized states, 4 in the FPix and 4 in the BPix). The logic for making the summary is as follows:
+The PixelDCSFSMInterface provides an interface between the PSX server and our other pixel XDAQ applications. Changes in the states of each power supply module are sent in real time from the PSX server to the PixelDCSFSMInterface application. The PixelDCSFSMInterface summarizes this information into one state per half cylinder/shell (thus there are 8 summarized states, 4 in the FPix and 4 in the BPix). The logic for making the summary is as follows:
 
 \begin{itemize}
 \item If all A4603 power supplies in the summary group are ON (HV and LV is ON), then the summarized state reflects this
@@ -5313,7 +5286,7 @@ we check the data members that track whether the ROCs were most
 recently enabled or disabled. If we find that the HV is on and the
 ROCs were previously disabled, we enable the ROCs. If we find that the
 HV is off and the ROCs were previously enabled, then we disable the
-ROCs. If we HV is on but the ROCs are already enabled, then we do
+ROCs. If we find that the HV is on but the ROCs are already enabled, then we do
 nothing; similarly if the HV is off but the ROCs are already disabled.
 
 To disable the ROCs, we overwrite the VcThr DAC setting with 0
@@ -5413,7 +5386,7 @@ The following calibrations should be run
 \item AOH gain
 \item AOH bias
 \item FED baseline (it is possible that the previous three steps
-          has to be repeated.)
+          have to be repeated.)
 \item FEC clock and phase
 \item TBM UB
 \item ROC UB
@@ -5580,7 +5553,7 @@ We calculate this difference for the 25 MHz clock cycles from clock 27 to 100.
 We add the magnitude of these differences for all bins that corresponds
 to the same delay. We pick the smallest such sum of differences for the
 different delay as the optimal choice. If more than one phase is allowed
-We pick the choice that is farthest from the invalid delay for that phase.
+we pick the choice that is farthest from the invalid delay for that phase.
 
 A new alogorithm has been implmented that determines the phase
 to be right at the edge of the transition from black to ultrablack
@@ -5745,9 +5718,7 @@ the implemented methods.
 In particular we should move the code that sets the mode
 and control registers to the {\tt beginCalibration()} method.
 This will allow us to move out code from the PixelFEDSupervisor
-that is specific to different calibrations. {\it Or we split
-out the mode and control register settings to a new configuration
-object.}
+that is specific to different calibrations.
 
 \subsection{Implementation of algorithms}
 
@@ -5777,7 +5748,7 @@ it to the PixelSupervisor and the PixelFEDSupervisor. Besides
 simplifying the code in these supervisors (they will not need to \#include
 all the calibrations header files) it will also separate out dependencies.
 
-
+\begin{comment}
 \section{Outstanding tasks and improvements}
 
 We will divide these task into three different categories.
@@ -5861,7 +5832,7 @@ is 'operations', the third is code improvements.
       displays the page that indicates that the calibration is done
       while the FED is still doing the endCalibration processing.
 \end{itemize}
-
+\end{comment}
 
 
 \clearpage
