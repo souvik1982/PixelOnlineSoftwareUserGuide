@@ -5739,15 +5739,6 @@ Last, the {\tt endCalibration} method in the {\tt PixelSupervisor} is
 invoked to complete the analysis of the collected data and report
 the results.
 
-In addition it would be nice to take out the code from the PixelSupervisor
-and the PixelFEDSupervisor that select the calibration type. One
-way of doing this is to create a 'factory' for calibrations in the
-PixelCalibrations package. This factory would accept a string from
-the calibration mode and create the calibration object and return
-it to the PixelSupervisor and the PixelFEDSupervisor. Besides
-simplifying the code in these supervisors (they will not need to \#include
-all the calibrations header files) it will also separate out dependencies.
-
 \begin{comment}
 \section{Outstanding tasks and improvements}
 
